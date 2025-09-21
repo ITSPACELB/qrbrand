@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="QRBrand Ltd - Professional software and app development services. Contact us for custom business solutions across Qatar, Lebanon, France, and Iraq.">
+  <meta name="keywords" content="software development, app development, business solutions, QRBrand, custom software">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#111111">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="QRBrand Ltd - Software & App Development">
+  <meta property="og:description" content="Professional software and app development services for your business needs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrbrand.net">
+  
+  <title>QRBrand Ltd - Software & App Development Services</title>
+  
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="preconnect" href="https://flagcdn.com" crossorigin>
+  
+  <!-- Load fonts with font-display: swap for better performance -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Color system */
+      --primary-text: #ffffff;
+      --secondary-text: rgba(255, 255, 255, 0.85);
+      --tertiary-text: rgba(255, 255, 255, 0.65);
+      --accent-orange: #ff6b35;
+      --accent-blue: #4a9eff;
+      --accent-success: #00d4aa;
+      
+      /* Background system */
+      --bg-primary: #0a0a0a;
+      --bg-overlay: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.05) 100%);
+      --bg-glass: rgba(0, 0, 0, 0.4);
+      --bg-glass-light: rgba(255, 255, 255, 0.95);
+      --bg-card: rgba(0, 0, 0, 0.8);
+      --bg-transparent: rgba(0, 0, 0, 0.1);
+      
+      /* Spacing system */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-2xl: 48px;
+      --spacing-3xl: 64px;
+      
+      /* Typography system */
+      --font-size-xs: 12px;
+      --font-size-sm: 14px;
+      --font-size-base: 16px;
+      --font-size-lg: 18px;
+      --font-size-xl: 24px;
+      --font-size-2xl: 32px;
+      --font-size-3xl: 48px;
+      --font-size-4xl: 64px;
+      
+      /* Border radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.25);
+      --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.3);
+      
+      /* Transitions */
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--primary-text);
+      background: var(--bg-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Skip link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: var(--bg-card);
+      color: var(--primary-text);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      z-index: 1000;
+      transition: top var(--transition-fast);
+    }
+
+    .skip-link:focus {
+      top: 6px;
+    }
+
+    /* Background and overlay system */
+    .background-container {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: var(--bg-primary);
+    }
+
+    .background-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+      filter: brightness(1.1) contrast(1.05) saturate(1.1);
+    }
+
+    .background-image.loaded {
+      opacity: 1;
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: var(--bg-overlay);
+      backdrop-filter: blur(0.5px);
+    }
+
+    /* Layout containers */
+    .main-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Statistics section */
+    .stats-section {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: var(--spacing-3xl);
+      padding: var(--spacing-2xl) var(--spacing-3xl) 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .stat-number {
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+      font-feature-settings: 'tnum' 1;
+    }
+
+    .stat-number.visitors {
+      font-size: var(--font-size-3xl);
+      color: var(--accent-orange);
+    }
+
+    .stat-number.date {
+      font-size: 40px;
+      color: var(--accent-blue);
+      white-space: nowrap;
+    }
+
+    .stat-number.visits {
+      font-size: 40px;
+      color: var(--accent-success);
+    }
+
+    .stat-label {
+      font-size: var(--font-size-sm);
+      color: var(--secondary-text);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Main content section */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg);
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .main-title {
+      font-size: var(--font-size-4xl);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--spacing-lg);
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .subtitle {
+      display: inline-block;
+      background: var(--bg-card);
+      color: var(--primary-text);
+      padding: var(--spacing-md) var(--spacing-xl);
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-base);
+      margin-bottom: var(--spacing-xl);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: min(760px, 86vw);
+      line-height: 1.5;
+    }
+
+    /* Search section */
+    .search-container {
+      width: 100%;
+      max-width: 760px;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .search-form {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-input-container {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      background: var(--bg-glass-light);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      box-shadow: var(--shadow-lg);
+      transition: all var(--transition-fast);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .search-input-container:focus-within {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-1px);
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: var(--font-size-base);
+      background: transparent;
+      color: #2d3748;
+      font-family: inherit;
+    }
+
+    .search-input::placeholder {
+      color: #718096;
+    }
+
+    .search-button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: var(--font-size-lg);
+      color: #4a5568;
+      padding: var(--spacing-xs);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      min-height: 32px;
+    }
+
+    .search-button:hover,
+    .search-button:focus {
+      background: rgba(0, 0, 0, 0.1);
+      transform: scale(1.05);
+    }
+
+    /* Search suggestions */
+    .suggestions-container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      margin-top: var(--spacing-sm);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all var(--transition-fast);
+      z-index: 10;
+    }
+
+    .suggestions-container.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .suggestion-item {
+      padding: var(--spacing-md) var(--spacing-lg);
+      cursor: pointer;
+      transition: background-color var(--transition-fast);
+      font-size: var(--font-size-sm);
+      color: var(--secondary-text);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggestion-item:hover,
+    .suggestion-item:focus {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--primary-text);
+    }
+
+    /* Company address - خلفية شفافة */
+    .company-address {
+      display: inline-block;
+      max-width: min(760px, 86vw);
+      background: var(--bg-transparent);
+      color: var(--primary-text);
+      padding: var(--spacing-md) var(--spacing-xl);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--spacing-xl);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Contact information - محسنة للموبايل */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--spacing-sm);
+      width: 100%;
+      max-width: 720px;
+      margin-top: var(--spacing-xl);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: var(--font-size-xs);
+      color: var(--primary-text);
+      transition: all var(--transition-fast);
+      min-height: 38px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--primary-text);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .contact-item:hover::before {
+      opacity: 1;
+    }
+
+    .flag-icon {
+      width: 16px;
+      height: 12px;
+      margin-right: var(--spacing-xs);
+      border-radius: 2px;
+      object-fit: cover;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      position: fixed;
+      left: var(--spacing-3xl);
+      bottom: var(--spacing-lg);
+      z-index: 5;
+      background: var(--bg-glass);
+      color: var(--tertiary-text);
+      font-size: var(--font-size-xs);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Responsive design - محسن للموبايل */
+    @media (max-width: 768px) {
+      :root {
+        --font-size-3xl: 36px;
+        --font-size-4xl: 42px;
+      }
+
+      .stats-section {
+        justify-content: center;
+        text-align: center;
+        gap: var(--spacing-xl);
+        padding: var(--spacing-xl) var(--spacing-md) 0;
+      }
+
+      .stat-card {
+        min-width: 120px;
+      }
+
+      .stat-number.visitors {
+        font-size: var(--font-size-2xl);
+      }
+
+      .stat-number.date,
+      .stat-number.visits {
+        font-size: var(--font-size-xl);
+      }
+
+      .main-content {
+        padding: var(--spacing-md);
+      }
+
+      .main-title {
+        font-size: var(--font-size-3xl);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .subtitle {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+        max-width: 94vw;
+      }
+
+      .company-address {
+        font-size: var(--font-size-sm);
+        max-width: 94vw;
+        padding: var(--spacing-md) var(--spacing-lg);
+      }
+
+      .search-input-container {
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: var(--radius-lg);
+      }
+
+      .search-input {
+        font-size: var(--font-size-sm);
+      }
+
+      /* تحسين عرض أرقام التواصل على الموبايل */
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+        max-width: 92vw;
+      }
+
+      .contact-item {
+        font-size: 11px;
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-height: 34px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+
+      .contact-item:last-child {
+        grid-column: 1;
+      }
+
+      .flag-icon {
+        width: 14px;
+        height: 10px;
+        margin-right: var(--spacing-xs);
+      }
+
+      .footer {
+        position: fixed;
+        right: var(--spacing-md);
+        left: auto;
+        bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom, 0px));
+        font-size: 11px;
+        padding: var(--spacing-xs) var(--spacing-sm);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-section {
+        gap: var(--spacing-md);
+      }
+
+      .main-title {
+        font-size: var(--font-size-2xl);
+      }
+
+      .search-input-container {
+        padding: var(--spacing-md);
+      }
+
+      .contact-item {
+        padding: var(--spacing-sm);
+        min-height: 32px;
+        font-size: 10px;
+        background: rgba(0, 0, 0, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      :root {
+        --bg-glass: rgba(0, 0, 0, 0.9);
+        --bg-card: rgba(0, 0, 0, 0.95);
+        --bg-transparent: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Focus styles for keyboard navigation */
+    *:focus {
+      outline: 2px solid var(--accent-blue);
+      outline-offset: 2px;
+    }
+
+    /* Loading state */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.3s ease-out;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid var(--accent-blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip link for screen readers -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner" aria-label="Loading"></div>
+  </div>
+
+  <!-- Background system -->
+  <div class="background-container">
+    <div class="background-image" id="backgroundImage" role="img" aria-label="Scenic landscape background"></div>
+  </div>
+  <div class="background-overlay"></div>
+
+  <div class="main-container">
+    <!-- Statistics section -->
+    <header class="stats-section" role="banner">
+      <div class="stat-card">
+        <div class="stat-number visitors" id="visitorsCount" aria-label="Total visitors">0</div>
+        <div class="stat-label">Visitors</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number date" id="currentDate" aria-label="Today's date">--</div>
+        <div class="stat-label">Today's Date</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number visits" id="userVisits" aria-label="Your visits">0</div>
+        <div class="stat-label">Your Visits</div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main-content" id="main-content">
+      <h1 class="main-title">Welcome to QRBrand Ltd</h1>
+
+      <p class="subtitle">
+        Do you need software or an app to develop your business?
+      </p>
+
+      <!-- Search section -->
+      <section class="search-container" role="search" aria-label="Web search">
+        <form class="search-form" id="searchForm" role="search">
+          <div class="search-input-container">
+            <input 
+              type="search" 
+              class="search-input" 
+              id="searchInput" 
+              placeholder="Search the web with Bing" 
+              aria-label="Search query"
+              autocomplete="off"
+            >
+            <button 
+              type="submit" 
+              class="search-button" 
+              id="searchButton" 
+              aria-label="Search"
+            >
+              🔍
+            </button>
+          </div>
+
+          <div class="suggestions-container" id="suggestionsContainer" role="listbox" aria-label="Search suggestions">
+            <!-- Suggestions will be populated dynamically -->
+          </div>
+        </form>
+      </section>
+
+      <!-- Company address -->
+      <address class="company-address">
+        Our company address and P.O. Box in the UK: 71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ
+      </address>
+
+      <!-- Contact information -->
+      <section class="contact-grid" aria-label="Contact information">
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/qa.png" alt="Qatar flag" class="flag-icon" loading="lazy">
+          <span>Qatar: <a href="tel:+97455257048" style="color: inherit; text-decoration: none;">+974 5525 7048</a></span>
+        </div>
+
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/lb.png" alt="Lebanon flag" class="flag-icon" loading="lazy">
+          <span>Beirut: <a href="tel:+9613338603" style="color: inherit; text-decoration: none;">+961 333 8603</a></span>
+        </div>
+
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/fr.png" alt="France flag" class="flag-icon" loading="lazy">
+          <span>France: <a href="tel:+33761522776" style="color: inherit; text-decoration: none;">+33 761 522 776</a></span>
+        </div>
+
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/iq.png" alt="Iraq flag" class="flag-icon" loading="lazy">
+          <span>Iraq: <a href="tel:+9647800530333" style="color: inherit; text-decoration: none;">+964 780 053 0333</a></span>
+        </div>
+
+        <div class="contact-item">
+          <span>Email: <a href="mailto:info@qrbrand.net" style="color: inherit; text-decoration: none;">info@qrbrand.net</a></span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="photoCredit">Photo from Unsplash</footer>
+
+  <script>
+    // Performance monitoring
+    const performance = {
+      start: Date.now(),
+      marks: {},
+      mark(name) {
+        this.marks[name] = Date.now() - this.start;
+      },
+      measure(name, startMark, endMark) {
+        const start = this.marks[startMark] || 0;
+        const end = this.marks[endMark] || Date.now() - this.start;
+        console.log(`${name}: ${end - start}ms`);
+      }
+    };
+
+    // High-quality nature photos optimized for web - beautiful, free, and fast loading
+    const backgroundImages = [
+      "photo-1506905925346-21bda4d32df4", // Beautiful mountain landscape
+      "photo-1441974231531-c6227db76b6e", // Serene mountain valley  
+      "photo-1506744038136-46273834c3fb", // Misty mountain peaks
+      "photo-1500530855697-b586d89ba3ee", // Dense green forest
+      "photo-1441829266145-b79dee0e57f5", // Dramatic canyon landscape
+      "photo-1470770903676-69b98201ea1c", // Peaceful coastal nature
+      "photo-1506748686214-e9df14d4d9d0", // Flowing river valley
+      "photo-1502082553048-f009c37129b9", // Golden desert dunes
+      "photo-1437622368342-7a3d73a34c8f", // Crystal clear lake
+      "photo-1518837695005-2083093ee35b", // Pristine waterfall
+      "photo-1448375240586-882707db888b", // Alpine meadow flowers
+      "photo-1519904981063-b0cf448d479e", // Tropical rainforest
+      "photo-1506197603052-3cc9c3a201bd", // Sunrise over hills
+      "photo-1542273917363-3b1817f69a2d", // Autumn forest colors
+      "photo-1439066615861-d1af74d74000", // Ocean waves landscape
+      "photo-1464822759440-22ad32d26129", // Rocky mountain vista
+      "photo-1506905925346-21bda4d32df4", // Snow-capped peaks
+      "photo-1476842634003-7dcca8f832de", // Sunset prairie grass
+      "photo-1501594907352-04cda38ebc29", // Bamboo forest path
+      "photo-1447752875215-b2761acb3c5d", // Rolling green hills
+      "photo-1501436513145-30f24e19fcc4", // Dense jungle canopy
+      "photo-1506905925346-21bda4d32df4", // Majestic mountain range
+      "photo-1518837695005-2083093ee35b", // Cascading waterfalls
+      "photo-1485871981521-5b1fd3805b6d", // Peaceful lake reflection
+      "photo-1501594907352-04cda38ebc29"  // Tranquil forest scene
+    ];
+
+    // Optimized background image loading with enhanced performance
+    class BackgroundManager {
+      constructor() {
+        this.currentImageIndex = 0;
+        this.loadedImages = new Map();
+        this.isLoading = false;
+        this.backgroundElement = document.getElementById('backgroundImage');
+        this.preloadQueue = [];
+        this.init();
+      }
+
+      init() {
+        performance.mark('backgroundInit');
+        this.loadRandomBackground();
+        
+        // Preload next few images for smooth transitions
+        setTimeout(() => this.preloadImages(), 500);
+      }
+
+      async loadRandomBackground() {
+        if (this.isLoading) return;
+        this.isLoading = true;
+
+        try {
+          const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+          const imageId = backgroundImages[randomIndex];
+          const imageUrl = await this.getOptimizedImageUrl(imageId);
+          
+          await this.loadImage(imageUrl);
+          this.setBackground(imageUrl);
+          performance.mark('backgroundLoaded');
+        } catch (error) {
+          console.warn('Failed to load background image:', error);
+          this.setFallbackBackground();
+        } finally {
+          this.isLoading = false;
+        }
+      }
+
+      async getOptimizedImageUrl(imageId) {
+        const baseUrl = 'https://images.unsplash.com';
+        const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        const params = new URLSearchParams({
+          auto: 'format,compress',
+          fit: 'crop',
+          w: Math.min(window.innerWidth * devicePixelRatio, 2560),
+          h: Math.min(window.innerHeight * devicePixelRatio, 1440),
+          q: 90, // Higher quality
+          fm: 'webp', // Modern format
+          crop: 'entropy', // Smart cropping
+          sharp: '10' // Enhanced sharpening
+        });
+        
+        return `${baseUrl}/${imageId}?${params}`;
+      }
+
+      loadImage(url) {
+        return new Promise((resolve, reject) => {
+          if (this.loadedImages.has(url)) {
+            resolve(this.loadedImages.get(url));
+            return;
+          }
+
+          const img = new Image();
+          const timeout = setTimeout(() => {
+            reject(new Error('Image load timeout'));
+          }, 8000);
+
+          img.onload = () => {
+            clearTimeout(timeout);
+            this.loadedImages.set(url, img);
+            resolve(img);
+          };
+
+          img.onerror = () => {
+            clearTimeout(timeout);
+            reject(new Error('Image load failed'));
+          };
+
+          img.src = url;
+        });
+      }
+
+      setBackground(url) {
+        this.backgroundElement.style.backgroundImage = `url('${url}')`;
+        this.backgroundElement.classList.add('loaded');
+      }
+
+      setFallbackBackground() {
+        this.backgroundElement.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)';
+        this.backgroundElement.classList.add('loaded');
+      }
+
+      async preloadImages() {
+        const preloadCount = 5;
+        const promises = [];
+        
+        for (let i = 0; i < preloadCount; i++) {
+          const index = (this.currentImageIndex + i + 1) % backgroundImages.length;
+          const imageId = backgroundImages[index];
+          try {
+            const url = await this.getOptimizedImageUrl(imageId);
+            promises.push(this.loadImage(url).catch(() => null));
+          } catch (error) {
+            console.warn('Preload failed for image:', imageId);
+          }
+        }
+
+        await Promise.allSettled(promises);
+      }
+    }
+
+    // Statistics manager
+    class StatisticsManager {
+      constructor() {
+        this.init();
+      }
+
+      init() {
+        this.updateVisitorCount();
+        this.updateUserVisits();
+        this.updateCurrentDate();
+      }
+
+      updateVisitorCount() {
+        let globalVisitors = this.getStoredValue('global_visitors_base');
+        if (!globalVisitors) {
+          globalVisitors = 50000 + Math.floor(Math.random() * 5000);
+        }
+        globalVisitors = Number(globalVisitors) + 1;
+        
+        this.setStoredValue('global_visitors_base', globalVisitors);
+        this.animateNumber('visitorsCount', globalVisitors);
+      }
+
+      updateUserVisits() {
+        let userVisits = Number(this.getStoredValue('user_visits') || 0) + 1;
+        this.setStoredValue('user_visits', userVisits);
+        this.animateNumber('userVisits', userVisits);
+      }
+
+      updateCurrentDate() {
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        });
+        
+        document.getElementById('currentDate').textContent = formattedDate;
+      }
+
+      animateNumber(elementId, targetValue) {
+        const element = document.getElementById(elementId);
+        const duration = 1200;
+        const startTime = Date.now();
+        const startValue = 0;
+        
+        const animate = () => {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing function for smooth animation
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOut);
+          
+          element.textContent = this.formatNumber(currentValue);
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        };
+        
+        requestAnimationFrame(animate);
+      }
+
+      formatNumber(num) {
+        return num.toLocaleString();
+      }
+
+      getStoredValue(key) {
+        try {
+          return localStorage.getItem(key);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      setStoredValue(key, value) {
+        try {
+          localStorage.setItem(key, value.toString());
+        } catch (e) {
+          // Handle localStorage quota exceeded or disabled
+        }
+      }
+    }
+
+    // Search functionality
+    class SearchManager {
+      constructor() {
+        this.suggestions = [
+          { 
+            text: "Do you want to contact the company?", 
+            action: () => this.showContactInfo()
+          },
+          { 
+            text: "Do you want to contact our branches worldwide?", 
+            action: () => this.showBranchInfo()
+          },
+          { 
+            text: "Do you want to send an email?", 
+            action: () => this.openEmail()
+          },
+          { 
+            text: "Do you want a website?", 
+            action: () => this.requestWebsite()
+          },
+          { 
+            text: "Do you want an app?", 
+            action: () => this.requestApp()
+          },
+          { 
+            text: "Do you want a system?", 
+            action: () => this.requestSystem()
+          }
+        ];
+        
+        this.init();
+      }
+
+      init() {
+        const searchInput = document.getElementById('searchInput');
+        const searchForm = document.getElementById('searchForm');
+        const suggestionsContainer = document.getElementById('suggestionsContainer');
+
+        // Input event for suggestions
+        searchInput.addEventListener('input', (e) => {
+          this.handleInput(e.target.value);
+        });
+
+        // Form submission for web search
+        searchForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.performWebSearch(searchInput.value.trim());
+        });
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!searchForm.contains(e.target)) {
+            this.hideSuggestions();
+          }
+        });
+
+        // Keyboard navigation for suggestions
+        searchInput.addEventListener('keydown', (e) => {
+          this.handleKeyNavigation(e);
+        });
+      }
+
+      handleInput(value) {
+        const query = value.trim().toLowerCase();
+        const suggestionsContainer = document.getElementById('suggestionsContainer');
+        
+        if (!query) {
+          this.hideSuggestions();
+          return;
+        }
+
+        const matchingSuggestions = this.suggestions.filter(suggestion =>
+          suggestion.text.toLowerCase().includes(query)
+        );
+
+        if (matchingSuggestions.length > 0) {
+          this.showSuggestions(matchingSuggestions);
+        } else {
+          this.hideSuggestions();
+        }
+      }
+
+      showSuggestions(suggestions) {
+        const container = document.getElementById('suggestionsContainer');
+        
+        container.innerHTML = suggestions.map((suggestion, index) => 
+          `<div class="suggestion-item" data-index="${index}" role="option">${suggestion.text}</div>`
+        ).join('');
+
+        // Add click handlers
+        container.querySelectorAll('.suggestion-item').forEach((item, index) => {
+          item.addEventListener('click', () => {
+            suggestions[index].action();
+            this.hideSuggestions();
+          });
+        });
+
+        container.classList.add('visible');
+      }
+
+      hideSuggestions() {
+        const container = document.getElementById('suggestionsContainer');
+        container.classList.remove('visible');
+      }
+
+      handleKeyNavigation(e) {
+        const suggestions = document.querySelectorAll('.suggestion-item');
+        const activeSuggestion = document.querySelector('.suggestion-item:focus');
+        
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (suggestions.length > 0) {
+            const nextIndex = activeSuggestion ? 
+              Math.min(Array.from(suggestions).indexOf(activeSuggestion) + 1, suggestions.length - 1) : 0;
+            suggestions[nextIndex].focus();
+          }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (suggestions.length > 0) {
+            const prevIndex = activeSuggestion ? 
+              Math.max(Array.from(suggestions).indexOf(activeSuggestion) - 1, 0) : suggestions.length - 1;
+            suggestions[prevIndex].focus();
+          }
+        } else if (e.key === 'Escape') {
+          this.hideSuggestions();
+          document.getElementById('searchInput').focus();
+        }
+      }
+
+      performWebSearch(query) {
+        if (!query) return;
+        
+        const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+        window.open(searchUrl, '_blank', 'noopener,noreferrer');
+      }
+
+      // Suggestion actions
+      showContactInfo() {
+        this.showModal('Contact Information', `
+          <p>📧 Email: <a href="mailto:info@qrbrand.net">info@qrbrand.net</a></p>
+          <p>🏢 Address: 71-75 Shelton Street, Covent Garden, London, UK, WC2H 9JQ</p>
+        `);
+      }
+
+      showBranchInfo() {
+        this.showModal('Our Worldwide Branches', `
+          <p>🇶🇦 Qatar: +974 5525 7048</p>
+          <p>🇱🇧 Beirut: +961 333 8603</p>
+          <p>🇫🇷 France: +33 761 522 776</p>
+          <p>🇮🇶 Iraq: +964 780 053 0333</p>
+        `);
+      }
+
+      openEmail() {
+        window.location.href = 'mailto:info@qrbrand.net?subject=Business Inquiry';
+      }
+
+      requestWebsite() {
+        window.location.href = 'mailto:info@qrbrand.net?subject=Website Development Request&body=Hello, I would like to request a website for my business. Please contact me to discuss the details.';
+      }
+
+      requestApp() {
+        window.location.href = 'mailto:info@qrbrand.net?subject=App Development Request&body=Hello, I would like to request an app for my business. Please contact me to discuss the details.';
+      }
+
+      requestSystem() {
+        window.location.href = 'mailto:info@qrbrand.net?subject=System Development Request&body=Hello, I would like to request a custom system for my business. Please contact me to discuss the details.';
+      }
+
+      showModal(title, content) {
+        // Simple modal implementation
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          padding: 20px;
+        `;
+        
+        modal.innerHTML = `
+          <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            color: #333;
+          ">
+            <h3 style="margin: 0 0 15px 0; color: #333;">${title}</h3>
+            <div style="line-height: 1.6;">${content}</div>
+            <button onclick="this.closest('div').parentElement.remove()" style="
+              margin-top: 20px;
+              padding: 10px 20px;
+              background: var(--accent-blue);
+              color: white;
+              border: none;
+              border-radius: 6px;
+              cursor: pointer;
+            ">Close</button>
+          </div>
+        `;
+        
+        // Close on backdrop click
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.remove();
+          }
+        });
+        
+        document.body.appendChild(modal);
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+          if (modal.parentElement) {
+            modal.remove();
+          }
+        }, 10000);
+      }
+    }
+
+    // Application initialization
+    class App {
+      constructor() {
+        this.backgroundManager = null;
+        this.statisticsManager = null;
+        this.searchManager = null;
+        this.init();
+      }
+
+      async init() {
+        performance.mark('appInit');
+        
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+          await new Promise(resolve => {
+            document.addEventListener('DOMContentLoaded', resolve);
+          });
+        }
+
+        try {
+          // Initialize managers
+          this.backgroundManager = new BackgroundManager();
+          this.statisticsManager = new StatisticsManager();
+          this.searchManager = new SearchManager();
+
+          // Hide loading overlay
+          setTimeout(() => {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+              loadingOverlay.classList.add('hidden');
+              setTimeout(() => loadingOverlay.remove(), 300);
+            }
+          }, 600);
+
+          performance.mark('appReady');
+          console.log('QRBrand application initialized successfully');
+          
+        } catch (error) {
+          console.error('Failed to initialize application:', error);
+          this.handleInitError();
+        }
+      }
+
+      handleInitError() {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+          loadingOverlay.innerHTML = `
+            <div style="text-align: center; color: white;">
+              <p>Loading failed. Please refresh the page.</p>
+              <button onclick="location.reload()" style="
+                margin-top: 10px;
+                padding: 10px 20px;
+                background: var(--accent-blue);
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+              ">Refresh</button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    // Error handling
+    window.addEventListener('error', (e) => {
+      console.error('Runtime error:', e.error);
+    });
+
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('Unhandled promise rejection:', e.reason);
+    });
+
+    // Initialize application
+    const app = new App();
+  </script>
+</body>
+</html>
