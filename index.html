@@ -257,113 +257,35 @@
       line-height: 1.5;
     }
 
-    /* Search section */
-    .search-container {
+    /* Motivational quotes section */
+    .motivational-container {
       width: 100%;
       max-width: 760px;
       margin-bottom: var(--spacing-lg);
-    }
-
-    .search-form {
-      position: relative;
-      width: 100%;
-    }
-
-    .search-input-container {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-      background: var(--bg-glass-light);
-      border-radius: var(--radius-xl);
-      padding: var(--spacing-lg) var(--spacing-xl);
-      box-shadow: var(--shadow-lg);
-      transition: all var(--transition-fast);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .search-input-container:focus-within {
-      box-shadow: var(--shadow-xl);
-      transform: translateY(-1px);
-    }
-
-    .search-input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: var(--font-size-base);
-      background: transparent;
-      color: #2d3748;
-      font-family: inherit;
-    }
-
-    .search-input::placeholder {
-      color: #718096;
-    }
-
-    .search-button {
-      border: none;
-      background: transparent;
       cursor: pointer;
-      font-size: var(--font-size-lg);
-      color: #4a5568;
-      padding: var(--spacing-xs);
-      border-radius: var(--radius-sm);
-      transition: all var(--transition-fast);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 32px;
-      min-height: 32px;
     }
 
-    .search-button:hover,
-    .search-button:focus {
-      background: rgba(0, 0, 0, 0.1);
-      transform: scale(1.05);
-    }
-
-    /* Search suggestions */
-    .suggestions-container {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
+    .motivational-quote {
+      display: inline-block;
       background: var(--bg-card);
+      color: var(--primary-text);
+      padding: var(--spacing-md) var(--spacing-xl);
       border-radius: var(--radius-lg);
-      margin-top: var(--spacing-sm);
-      box-shadow: var(--shadow-lg);
+      font-size: var(--font-size-base);
+      box-shadow: var(--shadow-md);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition: all var(--transition-fast);
-      z-index: 10;
-    }
-
-    .suggestions-container.visible {
+      max-width: min(760px, 86vw);
+      line-height: 1.5;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
-    .suggestion-item {
-      padding: var(--spacing-md) var(--spacing-lg);
-      cursor: pointer;
-      transition: background-color var(--transition-fast);
-      font-size: var(--font-size-sm);
-      color: var(--secondary-text);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .suggestion-item:last-child {
-      border-bottom: none;
-    }
-
-    .suggestion-item:hover,
-    .suggestion-item:focus {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--primary-text);
+    .motivational-quote.changing {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
     }
 
     /* Company address - smaller on mobile */
@@ -379,14 +301,21 @@
       line-height: 1.6;
       backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 1;
+      transform: translateY(0);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .company-address.visible {
-      opacity: 1;
-      transform: translateY(0);
+    @media (max-width: 768px) {
+      .company-address {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .company-address.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Contact information - enhanced mobile interactions */
@@ -398,14 +327,21 @@
       width: 100%;
       max-width: 720px;
       margin-top: var(--spacing-xl);
-      opacity: 0;
-      transform: translateY(30px);
+      opacity: 1;
+      transform: translateY(0);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .contact-grid.visible {
-      opacity: 1;
-      transform: translateY(0);
+    @media (max-width: 768px) {
+      .contact-grid {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .contact-grid.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .contact-item {
@@ -473,58 +409,73 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Physics Moon Ball - Enhanced for Mobile with Haptic Feedback */
+    /* Physics Ultra-Realistic Golden Ball - Enhanced for Mobile */
     .physics-moon {
       position: fixed;
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 25%, #ffffff, #f0f0f0, #d8d8d8, #a8a8a8);
+      background: 
+        radial-gradient(ellipse at 25% 15%, #fff9e6 0%, transparent 30%),
+        radial-gradient(ellipse at 30% 20%, #ffed4e 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 80%, #b8860b 0%, transparent 50%),
+        linear-gradient(145deg, #ffd700 0%, #ffed4e 25%, #ffcc02 50%, #e6ac00 75%, #b8860b 100%);
       box-shadow: 
-        inset -8px -8px 15px rgba(0, 0, 0, 0.4),
-        inset 4px 4px 8px rgba(255, 255, 255, 0.6),
-        0 0 25px rgba(255, 255, 255, 0.4),
-        0 0 50px rgba(255, 255, 255, 0.2),
-        0 4px 15px rgba(0, 0, 0, 0.3);
+        inset -12px -12px 25px rgba(184, 134, 11, 0.9),
+        inset 8px 8px 15px rgba(255, 255, 255, 0.9),
+        inset -3px -3px 8px rgba(184, 134, 11, 0.7),
+        inset 2px 2px 5px rgba(255, 255, 255, 0.8),
+        0 0 35px rgba(255, 215, 0, 0.7),
+        0 0 70px rgba(255, 215, 0, 0.4),
+        0 8px 25px rgba(0, 0, 0, 0.5),
+        0 2px 8px rgba(0, 0, 0, 0.3);
       z-index: 50;
       pointer-events: none;
       display: none;
       transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform;
+      filter: contrast(1.1) brightness(1.05);
     }
 
     .physics-moon::before {
       content: '';
       position: absolute;
-      top: 12px;
-      left: 16px;
-      width: 7px;
-      height: 7px;
-      background: radial-gradient(circle, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+      top: 6px;
+      left: 10px;
+      width: 16px;
+      height: 16px;
+      background: 
+        radial-gradient(ellipse at 40% 30%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 40%, transparent 70%);
       border-radius: 50%;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      filter: blur(1.5px);
+      transform: rotate(-15deg);
     }
 
     .physics-moon::after {
       content: '';
       position: absolute;
-      top: 20px;
-      right: 12px;
-      width: 5px;
-      height: 5px;
-      background: radial-gradient(circle, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1));
+      top: 28px;
+      right: 6px;
+      width: 12px;
+      height: 12px;
+      background: 
+        radial-gradient(circle at 30% 30%, rgba(184, 134, 11, 0.6) 0%, rgba(184, 134, 11, 0.3) 50%, transparent 80%);
       border-radius: 50%;
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+      filter: blur(1px);
     }
 
     .physics-moon.bouncing {
       transform: scale(1.15);
+      filter: contrast(1.2) brightness(1.1);
       box-shadow: 
-        inset -8px -8px 15px rgba(0, 0, 0, 0.4),
-        inset 4px 4px 8px rgba(255, 255, 255, 0.6),
-        0 0 35px rgba(255, 255, 255, 0.6),
-        0 0 70px rgba(255, 255, 255, 0.3),
-        0 6px 20px rgba(0, 0, 0, 0.4);
+        inset -12px -12px 25px rgba(184, 134, 11, 0.9),
+        inset 8px 8px 15px rgba(255, 255, 255, 0.9),
+        inset -3px -3px 8px rgba(184, 134, 11, 0.7),
+        inset 2px 2px 5px rgba(255, 255, 255, 0.8),
+        0 0 45px rgba(255, 215, 0, 0.9),
+        0 0 90px rgba(255, 215, 0, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.6),
+        0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
     @media (max-width: 768px) {
@@ -562,13 +513,10 @@
         line-height: 1.4;
       }
 
-      .search-input-container {
-        padding: var(--spacing-md) var(--spacing-lg);
-        border-radius: var(--radius-lg);
-      }
-
-      .search-input {
+      .motivational-quote {
         font-size: var(--font-size-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+        max-width: 94vw;
       }
 
       /* Enhanced touch interactions for contact information */
@@ -709,7 +657,7 @@
   </div>
   <div class="background-overlay"></div>
 
-  <!-- Physics Moon Ball for Mobile -->
+  <!-- Physics Golden Ball for Mobile -->
   <div class="physics-moon" id="physicsMoon"></div>
 
   <div class="main-container">
@@ -739,32 +687,11 @@
 
       <h1 class="main-title">Welcome to QRBrand Ltd</h1>
 
-      <!-- Search section -->
-      <section class="search-container" role="search" aria-label="Web search">
-        <form class="search-form" id="searchForm" role="search">
-          <div class="search-input-container">
-            <input 
-              type="search" 
-              class="search-input" 
-              id="searchInput" 
-              placeholder="Search the web with Bing" 
-              aria-label="Search query"
-              autocomplete="off"
-            >
-            <button 
-              type="submit" 
-              class="search-button" 
-              id="searchButton" 
-              aria-label="Search"
-            >
-              🔍
-            </button>
-          </div>
-
-          <div class="suggestions-container" id="suggestionsContainer" role="listbox" aria-label="Search suggestions">
-            <!-- Suggestions will be populated dynamically -->
-          </div>
-        </form>
+      <!-- Motivational quotes section -->
+      <section class="motivational-container" role="region" aria-label="Motivational quotes">
+        <div class="motivational-quote" id="motivationalQuote">
+          Success starts with one step in the right direction
+        </div>
       </section>
 
       <!-- Contact information -->
@@ -800,9 +727,6 @@
       </address>
     </main>
   </div>
-
-  <!-- Footer -->
-  <footer class="footer" id="photoCredit">Photo from Unsplash</footer>
 
   <script>
     // Performance monitoring
@@ -982,7 +906,7 @@
       }
     }
 
-    // Advanced Physics Moon Ball with Haptic Feedback
+    // Advanced Physics Golden Ball with Haptic Feedback
     class PhysicsMoon {
       constructor() {
         this.moon = document.getElementById('physicsMoon');
@@ -1328,227 +1252,99 @@
       }
     }
 
-    // Search functionality
-    class SearchManager {
+    // Motivational Quotes Manager
+    class MotivationalQuotes {
       constructor() {
-        this.suggestions = [
-          { 
-            text: "Do you want to contact the company?", 
-            action: () => this.showContactInfo()
-          },
-          { 
-            text: "Do you want to contact our branches worldwide?", 
-            action: () => this.showBranchInfo()
-          },
-          { 
-            text: "Do you want to send an email?", 
-            action: () => this.openEmail()
-          },
-          { 
-            text: "Do you want a website?", 
-            action: () => this.requestWebsite()
-          },
-          { 
-            text: "Do you want an app?", 
-            action: () => this.requestApp()
-          },
-          { 
-            text: "Do you want a system?", 
-            action: () => this.requestSystem()
-          }
+        this.quotes = [
+          "Success starts with one step in the right direction",
+          "Every day is a new opportunity to achieve dreams",
+          "Believing in yourself is the first step to success",
+          "Optimism is the key to solving all problems",
+          "Never give up, success is closer than you think",
+          "Ambition is the beginning of success and will is its path",
+          "Be stronger than your excuses and bigger than your fears",
+          "Self-confidence creates miracles in life",
+          "Your dream is possible, just start now",
+          "Challenges create the strong and the great",
+          "Failure is a lesson, not the end of the story",
+          "Remember, you are stronger than you think",
+          "Patience and persistence are the path to every success",
+          "Change your thinking, change your life for the better",
+          "A new beginning needs only one moment of courage",
+          "Hope is the light that illuminates the path to success",
+          "Turn today's obstacle into tomorrow's achievement",
+          "Success is not coincidence but the result of hard work",
+          "Positive energy attracts positive results",
+          "Every attempt brings you one step closer to the goal",
+          "Work in silence and let them see the success",
+          "Excellence is a habit, not a random act",
+          "Creativity begins when you step out of the ordinary",
+          "Big dreams need small steps to achieve",
+          "Invest in yourself, it's the best investment ever",
+          "Positive thinking creates positive reality",
+          "True strength lies in never giving up",
+          "A smile is the key to hearts and minds",
+          "Today is an opportunity to be better than yesterday",
+          "Success is a journey, not just a destination"
         ];
         
+        this.currentIndex = 0;
+        this.quoteElement = document.getElementById('motivationalQuote');
         this.init();
       }
 
       init() {
-        const searchInput = document.getElementById('searchInput');
-        const searchForm = document.getElementById('searchForm');
-        const suggestionsContainer = document.getElementById('suggestionsContainer');
-
-        // Input event for suggestions
-        searchInput.addEventListener('input', (e) => {
-          this.handleInput(e.target.value);
-        });
-
-        // Form submission for web search
-        searchForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          this.performWebSearch(searchInput.value.trim());
-        });
-
-        // Close suggestions when clicking outside
-        document.addEventListener('click', (e) => {
-          if (!searchForm.contains(e.target)) {
-            this.hideSuggestions();
-          }
-        });
-
-        // Keyboard navigation for suggestions
-        searchInput.addEventListener('keydown', (e) => {
-          this.handleKeyNavigation(e);
-        });
-      }
-
-      handleInput(value) {
-        const query = value.trim().toLowerCase();
-        const suggestionsContainer = document.getElementById('suggestionsContainer');
-        
-        if (!query) {
-          this.hideSuggestions();
-          return;
-        }
-
-        const matchingSuggestions = this.suggestions.filter(suggestion =>
-          suggestion.text.toLowerCase().includes(query)
-        );
-
-        if (matchingSuggestions.length > 0) {
-          this.showSuggestions(matchingSuggestions);
-        } else {
-          this.hideSuggestions();
+        if (this.quoteElement) {
+          this.setupClickHandler();
+          this.showRandomQuote();
         }
       }
 
-      showSuggestions(suggestions) {
-        const container = document.getElementById('suggestionsContainer');
-        
-        container.innerHTML = suggestions.map((suggestion, index) => 
-          `<div class="suggestion-item" data-index="${index}" role="option">${suggestion.text}</div>`
-        ).join('');
-
-        // Add click handlers
-        container.querySelectorAll('.suggestion-item').forEach((item, index) => {
-          item.addEventListener('click', () => {
-            suggestions[index].action();
-            this.hideSuggestions();
-          });
+      setupClickHandler() {
+        // Handle both touch and click events
+        this.quoteElement.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          this.changeQuote();
         });
 
-        container.classList.add('visible');
-      }
-
-      hideSuggestions() {
-        const container = document.getElementById('suggestionsContainer');
-        container.classList.remove('visible');
-      }
-
-      handleKeyNavigation(e) {
-        const suggestions = document.querySelectorAll('.suggestion-item');
-        const activeSuggestion = document.querySelector('.suggestion-item:focus');
-        
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (suggestions.length > 0) {
-            const nextIndex = activeSuggestion ? 
-              Math.min(Array.from(suggestions).indexOf(activeSuggestion) + 1, suggestions.length - 1) : 0;
-            suggestions[nextIndex].focus();
-          }
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          if (suggestions.length > 0) {
-            const prevIndex = activeSuggestion ? 
-              Math.max(Array.from(suggestions).indexOf(activeSuggestion) - 1, 0) : suggestions.length - 1;
-            suggestions[prevIndex].focus();
-          }
-        } else if (e.key === 'Escape') {
-          this.hideSuggestions();
-          document.getElementById('searchInput').focus();
-        }
-      }
-
-      performWebSearch(query) {
-        if (!query) return;
-        
-        const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
-        window.open(searchUrl, '_blank', 'noopener,noreferrer');
-      }
-
-      // Suggestion actions
-      showContactInfo() {
-        this.showModal('Contact Information', `
-          <p>📧 Email: <a href="mailto:info@qrbrand.net">info@qrbrand.net</a></p>
-          <p>🏢 Address: 71-75 Shelton Street, Covent Garden, London, UK, WC2H 9JQ</p>
-        `);
-      }
-
-      showBranchInfo() {
-        this.showModal('Our Worldwide Branches', `
-          <p>🇶🇦 Qatar: +974 5525 7048</p>
-          <p>🇱🇧 Beirut: +961 333 8603</p>
-          <p>🇫🇷 France: +33 761 522 776</p>
-          <p>🇮🇶 Iraq: +964 780 053 0333</p>
-        `);
-      }
-
-      openEmail() {
-        window.location.href = 'mailto:info@qrbrand.net?subject=Business Inquiry';
-      }
-
-      requestWebsite() {
-        window.location.href = 'mailto:info@qrbrand.net?subject=Website Development Request&body=Hello, I would like to request a website for my business. Please contact me to discuss the details.';
-      }
-
-      requestApp() {
-        window.location.href = 'mailto:info@qrbrand.net?subject=App Development Request&body=Hello, I would like to request an app for my business. Please contact me to discuss the details.';
-      }
-
-      requestSystem() {
-        window.location.href = 'mailto:info@qrbrand.net?subject=System Development Request&body=Hello, I would like to request a custom system for my business. Please contact me to discuss the details.';
-      }
-
-      showModal(title, content) {
-        // Simple modal implementation
-        const modal = document.createElement('div');
-        modal.style.cssText = `
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.8);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 1000;
-          padding: 20px;
-        `;
-        
-        modal.innerHTML = `
-          <div style="
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 400px;
-            width: 100%;
-            color: #333;
-          ">
-            <h3 style="margin: 0 0 15px 0; color: #333;">${title}</h3>
-            <div style="line-height: 1.6;">${content}</div>
-            <button onclick="this.closest('div').parentElement.remove()" style="
-              margin-top: 20px;
-              padding: 10px 20px;
-              background: var(--accent-blue);
-              color: white;
-              border: none;
-              border-radius: 6px;
-              cursor: pointer;
-            ">Close</button>
-          </div>
-        `;
-        
-        // Close on backdrop click
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) {
-            modal.remove();
-          }
+        this.quoteElement.addEventListener('click', () => {
+          this.changeQuote();
         });
-        
-        document.body.appendChild(modal);
-        
-        // Auto-remove after 10 seconds
+      }
+
+      showRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * this.quotes.length);
+        this.currentIndex = randomIndex;
+        this.quoteElement.textContent = this.quotes[randomIndex];
+      }
+
+      changeQuote() {
+        // Add changing animation
+        this.quoteElement.classList.add('changing');
+
         setTimeout(() => {
-          if (modal.parentElement) {
-            modal.remove();
+          // Get next quote (avoid repeating the same quote)
+          let nextIndex = Math.floor(Math.random() * this.quotes.length);
+          while (nextIndex === this.currentIndex && this.quotes.length > 1) {
+            nextIndex = Math.floor(Math.random() * this.quotes.length);
           }
-        }, 10000);
+          
+          this.currentIndex = nextIndex;
+          this.quoteElement.textContent = this.quotes[nextIndex];
+          
+          // Remove changing animation
+          this.quoteElement.classList.remove('changing');
+          
+          // Auto hide after 5 seconds
+          setTimeout(() => {
+            this.quoteElement.classList.add('changing');
+            setTimeout(() => {
+              this.quoteElement.textContent = "Success starts with one step in the right direction"; // Default quote
+              this.quoteElement.classList.remove('changing');
+            }, 250);
+          }, 5000);
+          
+        }, 250);
       }
     }
 
@@ -1575,7 +1371,7 @@
           // Initialize managers
           this.backgroundManager = new BackgroundManager();
           this.statisticsManager = new StatisticsManager();
-          this.searchManager = new SearchManager();
+          this.motivationalQuotes = new MotivationalQuotes();
           this.mobileTouchManager = new MobileTouchManager();
           this.physicsMoon = new PhysicsMoon();
 
