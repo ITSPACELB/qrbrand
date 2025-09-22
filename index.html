@@ -735,21 +735,17 @@
       }
 
       .contact-grid {
-        position: fixed;
-        right: calc(var(--spacing-sm) + var(--safe-area-right));
-        top: 50%;
-        transform: translateY(-50%);
         flex-direction: column;
-        align-items: flex-end;
+        align-items: center;
         gap: var(--spacing-xs);
         max-width: 92vw;
         opacity: 0;
-        z-index: 50;
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(30px);
       }
 
       .contact-grid.visible {
         opacity: 1;
+        transform: translateY(0);
       }
 
       .contact-item {
@@ -763,7 +759,7 @@
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         transform: scale(0.95);
         width: fit-content;
-        margin: 0;
+        margin: 0 auto;
         border-radius: var(--radius-sm);
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         position: relative;
@@ -779,6 +775,7 @@
         transition: opacity var(--transition-fast);
       }
 
+      .contact-item:hover,
       .contact-item:active {
         background: rgba(0, 0, 0, 0.95);
         transform: scale(1.02);
@@ -786,6 +783,7 @@
         border-color: rgba(255, 255, 255, 0.3);
       }
 
+      .contact-item:hover::before,
       .contact-item:active::before {
         opacity: 1;
       }
@@ -856,11 +854,11 @@
   <div class="physics-moon" id="physicsMoon"></div>
 
   <div class="mobile-nav-container" id="mobileNavContainer">
-    <div class="nav-tab" data-country="qatar">About Us</div>
-    <div class="nav-tab" data-country="lebanon">Why Us</div>
-    <div class="nav-tab" data-country="france">Services</div>
-    <div class="nav-tab" data-country="iraq">Technologies</div>
-    <div class="nav-tab" data-country="email">Address</div>
+    <div class="nav-tab" data-content="about">About Us</div>
+    <div class="nav-tab" data-content="why">Why Us</div>
+    <div class="nav-tab" data-content="services">Services</div>
+    <div class="nav-tab" data-content="tech">Technologies</div>
+    <div class="nav-tab" data-content="address">Address</div>
   </div>
 
   <div class="content-modal" id="contentModal">
@@ -901,27 +899,27 @@
       </section>
 
       <section class="contact-grid" aria-label="Contact information">
-        <div class="contact-item" data-country="qatar">
+        <div class="contact-item">
           <img src="https://flagcdn.com/w20/qa.png" alt="Qatar flag" class="flag-icon" loading="lazy">
           <span>Qatar: <a href="tel:+97455257048" style="color: inherit; text-decoration: none;">+974 5525 7048</a></span>
         </div>
 
-        <div class="contact-item" data-country="lebanon">
+        <div class="contact-item">
           <img src="https://flagcdn.com/w20/lb.png" alt="Lebanon flag" class="flag-icon" loading="lazy">
           <span>Beirut: <a href="tel:+9613338603" style="color: inherit; text-decoration: none;">+961 333 8603</a></span>
         </div>
 
-        <div class="contact-item" data-country="france">
+        <div class="contact-item">
           <img src="https://flagcdn.com/w20/fr.png" alt="France flag" class="flag-icon" loading="lazy">
           <span>France: <a href="tel:+33761522776" style="color: inherit; text-decoration: none;">+33 761 522 776</a></span>
         </div>
 
-        <div class="contact-item" data-country="iraq">
+        <div class="contact-item">
           <img src="https://flagcdn.com/w20/iq.png" alt="Iraq flag" class="flag-icon" loading="lazy">
           <span>Iraq: <a href="tel:+9647800530333" style="color: inherit; text-decoration: none;">+964 780 053 0333</a></span>
         </div>
 
-        <div class="contact-item" data-country="email">
+        <div class="contact-item">
           <span>Email: <a href="mailto:info@qrbrand.net" style="color: inherit; text-decoration: none;">info@qrbrand.net</a></span>
         </div>
       </section>
@@ -1119,6 +1117,7 @@
         if (this.isMobile) {
           this.setupNavigationTabs();
           this.setupModalInteractions();
+          this.showInitialElements();
         }
       }
 
@@ -1128,8 +1127,8 @@
           const touchHandler = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const country = tab.getAttribute('data-country');
-            this.highlightContactItem(country);
+            const contentType = tab.getAttribute('data-content');
+            this.showContent(contentType);
             
             if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
               navigator.vibrate(10);
@@ -1138,20 +1137,6 @@
 
           this.touchHandlers.set(tab, touchHandler);
           tab.addEventListener('touchend', touchHandler, { passive: false });
-        });
-      }
-
-      highlightContactItem(country) {
-        const contactItems = document.querySelectorAll('.contact-item');
-        contactItems.forEach(item => {
-          if (item.getAttribute('data-country') === country) {
-            item.style.transform = 'scale(1.1)';
-            item.style.background = 'rgba(255, 255, 255, 0.2)';
-            setTimeout(() => {
-              item.style.transform = 'scale(1)';
-              item.style.background = '';
-            }, 500);
-          }
         });
       }
 
@@ -1194,6 +1179,21 @@
         modal.addEventListener('touchstart', touchStart, { passive: true });
         modal.addEventListener('touchmove', touchMove, { passive: true });
         modal.addEventListener('touchend', touchEnd, { passive: true });
+      }
+
+      showInitialElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactGrid = document.querySelector('.contact-grid');
+        
+        setTimeout(() => {
+          if (navContainer) navContainer.classList.add('visible');
+          if (contactGrid) contactGrid.classList.add('visible');
+          
+          setTimeout(() => {
+            if (navContainer) navContainer.classList.remove('visible');
+            if (contactGrid) contactGrid.classList.remove('visible');
+          }, 5000);
+        }, 1000);
       }
 
       showContent(contentType) {
@@ -1254,6 +1254,7 @@
         if (this.isMobile) {
           this.setupMobileTouchInteractions();
           this.setupSubtitleMotion();
+          this.showInitialContactInfo();
         }
       }
 
@@ -1266,12 +1267,17 @@
           }
           
           this.clearTimers();
-          this.showAllElements();
+          this.showContactElements();
+          this.showMotivationalQuote();
         };
 
         const touchEnd = () => {
-          this.touchTimers.set('hide', setTimeout(() => {
-            this.hideAllElements();
+          this.touchTimers.set('contact', setTimeout(() => {
+            this.hideContactElements();
+          }, 5000));
+
+          this.touchTimers.set('quote', setTimeout(() => {
+            this.hideMotivationalQuote();
           }, 5000));
         };
 
@@ -1306,26 +1312,44 @@
         this.touchTimers.clear();
       }
 
-      showAllElements() {
-        const navContainer = document.getElementById('mobileNavContainer');
+      showInitialContactInfo() {
+        setTimeout(() => {
+          this.showContactElements();
+          this.showMotivationalQuote();
+          
+          setTimeout(() => {
+            this.hideContactElements();
+            this.hideMotivationalQuote();
+          }, 5000);
+        }, 1000);
+      }
+
+      showContactElements() {
         const contactGrid = document.querySelector('.contact-grid');
+        const companyAddress = document.querySelector('.company-address');
+        
+        if (contactGrid) contactGrid.classList.add('visible');
+        if (companyAddress) companyAddress.classList.add('visible');
+      }
+
+      hideContactElements() {
+        const contactGrid = document.querySelector('.contact-grid');
+        const companyAddress = document.querySelector('.company-address');
+        
+        if (contactGrid) contactGrid.classList.remove('visible');
+        if (companyAddress) companyAddress.classList.remove('visible');
+      }
+
+      showMotivationalQuote() {
         const motivationalQuote = document.querySelector('.motivational-quote');
         const blackHole = document.querySelector('.black-hole');
-        
-        if (navContainer) navContainer.classList.add('visible');
-        if (contactGrid) contactGrid.classList.add('visible');
         if (motivationalQuote) motivationalQuote.classList.add('visible');
         if (blackHole) blackHole.classList.add('hidden');
       }
 
-      hideAllElements() {
-        const navContainer = document.getElementById('mobileNavContainer');
-        const contactGrid = document.querySelector('.contact-grid');
+      hideMotivationalQuote() {
         const motivationalQuote = document.querySelector('.motivational-quote');
         const blackHole = document.querySelector('.black-hole');
-        
-        if (navContainer) navContainer.classList.remove('visible');
-        if (contactGrid) contactGrid.classList.remove('visible');
         if (motivationalQuote) motivationalQuote.classList.remove('visible');
         if (blackHole) blackHole.classList.remove('hidden');
       }
@@ -1587,40 +1611,62 @@
         this.createScreenFlash();
 
         setTimeout(() => {
-          this.showAllElements();
+          this.showNavigationElements();
         }, 500);
 
         setTimeout(() => {
-          this.hideAllElements();
+          this.resetBall();
         }, 5500);
+      }
+
+      showNavigationElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactGrid = document.querySelector('.contact-grid');
+        const motivationalQuote = document.querySelector('.motivational-quote');
+        
+        if (navContainer) {
+          navContainer.style.transform = 'translateX(-100px)';
+          navContainer.style.opacity = '0';
+          navContainer.classList.add('visible');
+          
+          requestAnimationFrame(() => {
+            navContainer.style.transform = 'translateX(0)';
+            navContainer.style.opacity = '1';
+          });
+        }
+        
+        if (contactGrid) {
+          contactGrid.style.transform = 'translateX(100px)';
+          contactGrid.style.opacity = '0';
+          contactGrid.classList.add('visible');
+          
+          setTimeout(() => {
+            contactGrid.style.transform = 'translateX(0)';
+            contactGrid.style.opacity = '1';
+          }, 100);
+        }
+        
+        if (motivationalQuote) {
+          motivationalQuote.classList.add('visible');
+        }
 
         setTimeout(() => {
-          this.resetBall();
-        }, 6000);
-      }
-
-      showAllElements() {
-        const navContainer = document.getElementById('mobileNavContainer');
-        const contactGrid = document.querySelector('.contact-grid');
-        const motivationalQuote = document.querySelector('.motivational-quote');
-        const blackHole = document.querySelector('.black-hole');
-        
-        if (navContainer) navContainer.classList.add('visible');
-        if (contactGrid) contactGrid.classList.add('visible');
-        if (motivationalQuote) motivationalQuote.classList.add('visible');
-        if (blackHole) blackHole.classList.add('hidden');
-      }
-
-      hideAllElements() {
-        const navContainer = document.getElementById('mobileNavContainer');
-        const contactGrid = document.querySelector('.contact-grid');
-        const motivationalQuote = document.querySelector('.motivational-quote');
-        const blackHole = document.querySelector('.black-hole');
-        
-        if (navContainer) navContainer.classList.remove('visible');
-        if (contactGrid) contactGrid.classList.remove('visible');
-        if (motivationalQuote) motivationalQuote.classList.remove('visible');
-        if (blackHole) blackHole.classList.remove('hidden');
+          if (navContainer) {
+            navContainer.style.transform = 'translateX(-100px)';
+            navContainer.style.opacity = '0';
+            setTimeout(() => navContainer.classList.remove('visible'), 400);
+          }
+          
+          if (contactGrid) {
+            contactGrid.style.transform = 'translateX(100px)';
+            contactGrid.style.opacity = '0';
+            setTimeout(() => contactGrid.classList.remove('visible'), 400);
+          }
+          
+          if (motivationalQuote) {
+            motivationalQuote.classList.remove('visible');
+          }
+        }, 5000);
       }
 
       createScreenFlash() {
