@@ -297,23 +297,6 @@
       transform: translateY(-10px) scale(0.95);
     }
 
-    .company-address {
-      display: inline-block;
-      max-width: min(760px, 86vw);
-      background: var(--bg-transparent);
-      color: var(--primary-text);
-      padding: var(--spacing-md) var(--spacing-xl);
-      border-radius: var(--radius-lg);
-      margin-bottom: var(--spacing-xl);
-      font-size: var(--font-size-base);
-      line-height: 1.6;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
     .contact-grid {
       display: flex;
       flex-wrap: wrap;
@@ -377,7 +360,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
-    /* كرة البلياردو الواقعية */
+    /* كرة البلياردو */
     .physics-moon {
       position: fixed;
       width: 32px;
@@ -425,12 +408,7 @@
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     }
 
-    .physics-moon.bouncing {
-      transform: scale(1.15);
-      filter: contrast(1.5) brightness(0.8);
-    }
-
-    /* حفرة البلياردو الواقعية */
+    /* حفرة البلياردو المضيئة */
     .black-hole {
       position: absolute;
       width: 40px;
@@ -448,8 +426,27 @@
       box-shadow: 
         inset 0 0 15px rgba(0, 0, 0, 0.9),
         inset 0 0 25px rgba(0, 0, 0, 0.7),
-        0 0 20px rgba(0, 0, 0, 0.4);
+        0 0 20px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(255, 255, 255, 0.1);
       border: 2px solid rgba(0, 0, 0, 0.8);
+      animation: holePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes holePulse {
+      0%, 100% {
+        box-shadow: 
+          inset 0 0 15px rgba(0, 0, 0, 0.9),
+          inset 0 0 25px rgba(0, 0, 0, 0.7),
+          0 0 20px rgba(0, 0, 0, 0.4),
+          0 0 40px rgba(255, 255, 255, 0.1);
+      }
+      50% {
+        box-shadow: 
+          inset 0 0 15px rgba(0, 0, 0, 0.9),
+          inset 0 0 25px rgba(0, 0, 0, 0.7),
+          0 0 20px rgba(0, 0, 0, 0.4),
+          0 0 60px rgba(255, 255, 255, 0.2);
+      }
     }
 
     .black-hole::before {
@@ -470,7 +467,7 @@
       transform: translate(-50%, -50%) translateY(50px) scale(0.3);
     }
 
-    /* التبويبات الملونة للموبايل */
+    /* التبويبات على اليسار */
     .mobile-nav-container {
       position: fixed;
       left: calc(var(--spacing-sm) + var(--safe-area-left));
@@ -496,7 +493,7 @@
       font-size: var(--font-size-xs);
       font-weight: 600;
       text-align: center;
-      min-width: 82px;
+      min-width: 95px;
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.25);
       cursor: pointer;
@@ -510,6 +507,49 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    /* أرقام الهاتف على اليمين */
+    .mobile-contact-container {
+      position: fixed;
+      right: calc(var(--spacing-sm) + var(--safe-area-right));
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-contact-container.visible {
+      opacity: 1;
+    }
+
+    .mobile-contact-item {
+      background: rgba(0, 0, 0, 0.85);
+      color: var(--primary-text);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+      text-align: center;
+      min-width: 95px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+      transform: scale(0.95);
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2px;
     }
 
     /* ألوان زاهية لكل تبويب */
@@ -538,7 +578,7 @@
       box-shadow: 0 3px 15px rgba(255, 154, 158, 0.3);
     }
 
-    .nav-tab::before {
+    .nav-tab::before, .mobile-contact-item::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -547,13 +587,21 @@
       transition: opacity 0.3s ease;
     }
 
-    .nav-tab:active {
+    .nav-tab:active, .mobile-contact-item:active {
       transform: scale(1.02);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
-    .nav-tab:active::before {
+    .nav-tab:active::before, .mobile-contact-item:active::before {
       opacity: 1;
+    }
+
+    .mobile-contact-flag {
+      width: 14px;
+      height: 10px;
+      border-radius: 2px;
+      object-fit: cover;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     /* نافذة المحتوى */
@@ -676,6 +724,10 @@
         display: none !important;
       }
 
+      .contact-grid {
+        display: none !important;
+      }
+
       .black-hole {
         display: block !important;
       }
@@ -685,6 +737,10 @@
       }
       
       .mobile-nav-container {
+        display: flex !important;
+      }
+
+      .mobile-contact-container {
         display: flex !important;
       }
 
@@ -705,20 +761,6 @@
         transform-origin: center center;
       }
 
-      .company-address {
-        font-size: 11px;
-        max-width: 94vw;
-        padding: var(--spacing-sm) var(--spacing-md);
-        line-height: 1.4;
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      .company-address.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
       .motivational-quote {
         font-size: var(--font-size-sm);
         padding: var(--spacing-md) var(--spacing-lg);
@@ -734,67 +776,14 @@
         pointer-events: auto;
       }
 
-      .contact-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-xs);
-        max-width: 92vw;
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      .contact-grid.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .contact-item {
+      .nav-tab {
         font-size: 11px;
         padding: var(--spacing-sm) var(--spacing-md);
         min-height: 34px;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(20px);
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        transform: scale(0.95);
-        width: fit-content;
-        margin: 0 auto;
-        border-radius: var(--radius-sm);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-        position: relative;
-        overflow: hidden;
+        min-width: 82px;
       }
 
-      .contact-item::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
-        opacity: 0;
-        transition: opacity var(--transition-fast);
-      }
-
-      .contact-item:hover,
-      .contact-item:active {
-        background: rgba(0, 0, 0, 0.95);
-        transform: scale(1.02);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        border-color: rgba(255, 255, 255, 0.3);
-      }
-
-      .contact-item:hover::before,
-      .contact-item:active::before {
-        opacity: 1;
-      }
-
-      .flag-icon {
-        width: 14px;
-        height: 10px;
-        margin-right: var(--spacing-xs);
-      }
-
-      .nav-tab {
+      .mobile-contact-item {
         font-size: 11px;
         padding: var(--spacing-sm) var(--spacing-md);
         min-height: 34px;
@@ -807,12 +796,11 @@
         font-size: var(--font-size-2xl);
       }
 
-      .contact-item {
+      .nav-tab, .mobile-contact-item {
         padding: var(--spacing-sm);
         min-height: 32px;
         font-size: 10px;
-        background: rgba(0, 0, 0, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        min-width: 75px;
       }
     }
 
@@ -861,9 +849,31 @@
     <div class="nav-tab" data-content="address">Address</div>
   </div>
 
+  <div class="mobile-contact-container" id="mobileContactContainer">
+    <div class="mobile-contact-item">
+      <img src="https://flagcdn.com/w20/qa.png" alt="Qatar flag" class="mobile-contact-flag" loading="lazy">
+      <span>+974 5525 7048</span>
+    </div>
+    <div class="mobile-contact-item">
+      <img src="https://flagcdn.com/w20/lb.png" alt="Lebanon flag" class="mobile-contact-flag" loading="lazy">
+      <span>+961 333 8603</span>
+    </div>
+    <div class="mobile-contact-item">
+      <img src="https://flagcdn.com/w20/fr.png" alt="France flag" class="mobile-contact-flag" loading="lazy">
+      <span>+33 761 522 776</span>
+    </div>
+    <div class="mobile-contact-item">
+      <img src="https://flagcdn.com/w20/iq.png" alt="Iraq flag" class="mobile-contact-flag" loading="lazy">
+      <span>+964 780 053 0333</span>
+    </div>
+    <div class="mobile-contact-item">
+      <span>info@qrbrand.net</span>
+    </div>
+  </div>
+
   <div class="content-modal" id="contentModal">
     <div id="modalContent"></div>
-    <div class="close-hint">Swipe up to close</div>
+    <div class="close-hint">Swipe up/down to close</div>
   </div>
 
   <div class="main-container">
@@ -923,10 +933,6 @@
           <span>Email: <a href="mailto:info@qrbrand.net" style="color: inherit; text-decoration: none;">info@qrbrand.net</a></span>
         </div>
       </section>
-
-      <address class="company-address">
-        Our company address and P.O. Box in the UK: 71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ
-      </address>
     </main>
   </div>
 
@@ -1006,98 +1012,61 @@
           about: {
             title: "About QRBrand Ltd",
             content: `
-              <p>QRBrand Ltd stands as a pioneering force in the global software development landscape, delivering cutting-edge technological solutions that transform businesses across diverse industries. Since our establishment, we have consistently pushed the boundaries of innovation, creating sophisticated software architectures that drive digital transformation.</p>
+              <p>QRBrand Ltd is a leading software development company specializing in custom business solutions. We deliver innovative technology solutions that transform businesses across diverse industries.</p>
               
-              <p>Our commitment to excellence extends beyond mere code creation. We architect comprehensive digital ecosystems that seamlessly integrate with existing business infrastructures while providing scalable foundations for future growth. Each project reflects our dedication to precision engineering and user-centric design principles.</p>
-              
-              <p>With a global presence spanning Qatar, Lebanon, France, and Iraq, we bring together diverse perspectives and technical expertise to solve complex challenges. Our multicultural approach enables us to understand varied market dynamics and deliver solutions that resonate across different business environments.</p>
-              
-              <p>At QRBrand Ltd, we believe technology should empower, not complicate. Our solutions are crafted with this philosophy, ensuring that every line of code serves a strategic purpose in advancing our clients' objectives.</p>
+              <p>With offices spanning Qatar, Lebanon, France, and Iraq, we bring together diverse expertise to solve complex digital challenges with precision and creativity.</p>
             `
           },
           why: {
             title: "Why Choose QRBrand Ltd",
             content: `
-              <p>In an increasingly competitive digital landscape, QRBrand Ltd distinguishes itself through unwavering commitment to technical excellence and innovative problem-solving methodologies. Our approach combines deep technical expertise with strategic business acumen.</p>
+              <p>We distinguish ourselves through technical excellence and innovative problem-solving methodologies.</p>
               
               <ul>
-                <li>Advanced Technology Stack: We leverage cutting-edge frameworks, cloud-native architectures, and emerging technologies including AI/ML, blockchain, and IoT integrations</li>
-                <li>Agile Development Methodology: Our iterative approach ensures rapid delivery while maintaining the highest quality standards through comprehensive testing protocols</li>
-                <li>Scalable Architecture Design: Every solution is engineered for growth, utilizing microservices architecture and cloud-first principles</li>
-                <li>Security-First Approach: We implement enterprise-grade security measures, ensuring data protection and compliance with international standards</li>
-                <li>24/7 Technical Support: Our dedicated support infrastructure provides continuous monitoring and rapid response capabilities</li>
-                <li>Global Delivery Model: Multi-timezone coverage ensures seamless project execution and communication</li>
+                <li>Cutting-edge technology stack with AI/ML integration</li>
+                <li>Agile development with rapid delivery cycles</li>
+                <li>Scalable cloud-native architecture design</li>
+                <li>Enterprise-grade security implementation</li>
+                <li>24/7 technical support and monitoring</li>
               </ul>
-              
-              <p>Our proven track record spans fortune 500 companies to innovative startups, demonstrating our versatility and adaptability across diverse project requirements and industry verticals.</p>
             `
           },
           services: {
             title: "Our Professional Services",
             content: `
-              <p>QRBrand Ltd offers a comprehensive suite of professional services designed to address every aspect of modern digital transformation. Our service portfolio encompasses the entire software development lifecycle.</p>
+              <p>Comprehensive software development services for modern businesses:</p>
               
               <ul>
-                <li>Custom Software Development: Bespoke applications tailored to specific business requirements using modern development frameworks</li>
-                <li>Mobile Application Development: Native and cross-platform mobile solutions for iOS and Android ecosystems</li>
-                <li>Web Application Development: Progressive web applications with responsive design and optimal performance</li>
-                <li>Cloud Migration & DevOps: Seamless transition to cloud infrastructure with automated deployment pipelines</li>
-                <li>API Development & Integration: RESTful and GraphQL APIs with comprehensive documentation and testing</li>
-                <li>Database Architecture & Optimization: High-performance database design with advanced querying capabilities</li>
-                <li>Quality Assurance & Testing: Automated testing frameworks ensuring robust and reliable software delivery</li>
-                <li>Maintenance & Support: Ongoing technical support with proactive monitoring and optimization</li>
+                <li>Custom Software Development</li>
+                <li>Mobile App Development (iOS/Android)</li>
+                <li>Web Application Development</li>
+                <li>Cloud Migration & DevOps</li>
+                <li>API Development & Integration</li>
+                <li>Database Architecture & Optimization</li>
               </ul>
-              
-              <p>Each service is delivered through our established methodologies, ensuring consistent quality and predictable outcomes while maintaining flexibility to adapt to evolving requirements.</p>
             `
           },
           tech: {
             title: "Advanced Technologies",
             content: `
-              <p>QRBrand Ltd maintains expertise across the most advanced and emerging technology stacks, ensuring our clients benefit from industry-leading solutions and future-ready architectures.</p>
+              <p>We leverage the latest technology stacks:</p>
               
               <ul>
-                <li>Frontend Technologies: React.js, Vue.js, Angular, Next.js, TypeScript, Progressive Web Apps</li>
-                <li>Backend Frameworks: Node.js, Python Django/Flask, Java Spring, .NET Core, Go, Rust</li>
-                <li>Mobile Development: React Native, Flutter, Swift (iOS), Kotlin (Android), Xamarin</li>
-                <li>Cloud Platforms: AWS, Microsoft Azure, Google Cloud Platform, Docker, Kubernetes</li>
-                <li>Database Systems: PostgreSQL, MongoDB, Redis, Elasticsearch, GraphQL, Apache Kafka</li>
-                <li>AI & Machine Learning: TensorFlow, PyTorch, Natural Language Processing, Computer Vision</li>
-                <li>Blockchain Technologies: Ethereum, Smart Contracts, Web3 Integration, DeFi Solutions</li>
-                <li>DevOps & CI/CD: Jenkins, GitLab CI, GitHub Actions, Terraform, Ansible</li>
+                <li>Frontend: React.js, Vue.js, Angular, TypeScript</li>
+                <li>Backend: Node.js, Python, Java Spring, .NET</li>
+                <li>Mobile: React Native, Flutter, Swift, Kotlin</li>
+                <li>Cloud: AWS, Azure, Google Cloud, Docker</li>
+                <li>AI/ML: TensorFlow, PyTorch, Computer Vision</li>
+                <li>Blockchain: Ethereum, Smart Contracts, Web3</li>
               </ul>
-              
-              <p>Our technology selection process prioritizes long-term sustainability, performance optimization, and seamless integration capabilities, ensuring that every technical decision supports strategic business objectives.</p>
             `
           },
           address: {
-            title: "Global Presence",
+            title: "Our Address",
             content: `
-              <p>QRBrand Ltd maintains strategic offices across multiple continents, enabling us to provide localized expertise while leveraging global best practices and round-the-clock development capabilities.</p>
-              
               <p><strong>United Kingdom Headquarters:</strong><br>
               71-75 Shelton Street, Covent Garden<br>
               London, United Kingdom, WC2H 9JQ</p>
-              
-              <p><strong>Qatar Operations Center:</strong><br>
-              Contact: +974 5525 7048<br>
-              Specialized in enterprise solutions for the Middle East market</p>
-              
-              <p><strong>Lebanon Development Hub:</strong><br>
-              Contact: +961 333 8603<br>
-              Regional center for fintech and blockchain solutions</p>
-              
-              <p><strong>France Innovation Lab:</strong><br>
-              Contact: +33 761 522 776<br>
-              European research and development facility</p>
-              
-              <p><strong>Iraq Regional Office:</strong><br>
-              Contact: +964 780 053 0333<br>
-              Local presence for government and enterprise projects</p>
-              
-              <p><strong>Global Communications:</strong><br>
-              Email: info@qrbrand.net<br>
-              Website: qrbrand.net</p>
             `
           }
         };
@@ -1117,7 +1086,6 @@
         if (this.isMobile) {
           this.setupNavigationTabs();
           this.setupModalInteractions();
-          this.showInitialElements();
         }
       }
 
@@ -1169,7 +1137,7 @@
           
           const deltaY = startY - currentY;
           
-          if (deltaY < -80) {
+          if (Math.abs(deltaY) > 50) {
             this.hideContent();
           } else {
             modal.style.transform = 'translateY(0)';
@@ -1179,21 +1147,6 @@
         modal.addEventListener('touchstart', touchStart, { passive: true });
         modal.addEventListener('touchmove', touchMove, { passive: true });
         modal.addEventListener('touchend', touchEnd, { passive: true });
-      }
-
-      showInitialElements() {
-        const navContainer = document.getElementById('mobileNavContainer');
-        const contactGrid = document.querySelector('.contact-grid');
-        
-        setTimeout(() => {
-          if (navContainer) navContainer.classList.add('visible');
-          if (contactGrid) contactGrid.classList.add('visible');
-          
-          setTimeout(() => {
-            if (navContainer) navContainer.classList.remove('visible');
-            if (contactGrid) contactGrid.classList.remove('visible');
-          }, 5000);
-        }, 1000);
       }
 
       showContent(contentType) {
@@ -1254,30 +1207,25 @@
         if (this.isMobile) {
           this.setupMobileTouchInteractions();
           this.setupSubtitleMotion();
-          this.showInitialContactInfo();
+          this.showInitialElements();
         }
       }
 
       setupMobileTouchInteractions() {
         const touchStart = (e) => {
           if (e.target.closest('.nav-tab') || 
-              e.target.closest('.contact-item') || 
+              e.target.closest('.mobile-contact-item') || 
               e.target.closest('.content-modal')) {
             return;
           }
           
           this.clearTimers();
-          this.showContactElements();
-          this.showMotivationalQuote();
+          this.showElements();
         };
 
         const touchEnd = () => {
-          this.touchTimers.set('contact', setTimeout(() => {
-            this.hideContactElements();
-          }, 5000));
-
-          this.touchTimers.set('quote', setTimeout(() => {
-            this.hideMotivationalQuote();
+          this.touchTimers.set('elements', setTimeout(() => {
+            this.hideElements();
           }, 5000));
         };
 
@@ -1312,44 +1260,36 @@
         this.touchTimers.clear();
       }
 
-      showInitialContactInfo() {
+      showInitialElements() {
         setTimeout(() => {
-          this.showContactElements();
-          this.showMotivationalQuote();
+          this.showElements();
           
           setTimeout(() => {
-            this.hideContactElements();
-            this.hideMotivationalQuote();
+            this.hideElements();
           }, 5000);
         }, 1000);
       }
 
-      showContactElements() {
-        const contactGrid = document.querySelector('.contact-grid');
-        const companyAddress = document.querySelector('.company-address');
-        
-        if (contactGrid) contactGrid.classList.add('visible');
-        if (companyAddress) companyAddress.classList.add('visible');
-      }
-
-      hideContactElements() {
-        const contactGrid = document.querySelector('.contact-grid');
-        const companyAddress = document.querySelector('.company-address');
-        
-        if (contactGrid) contactGrid.classList.remove('visible');
-        if (companyAddress) companyAddress.classList.remove('visible');
-      }
-
-      showMotivationalQuote() {
+      showElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactContainer = document.getElementById('mobileContactContainer');
         const motivationalQuote = document.querySelector('.motivational-quote');
         const blackHole = document.querySelector('.black-hole');
+        
+        if (navContainer) navContainer.classList.add('visible');
+        if (contactContainer) contactContainer.classList.add('visible');
         if (motivationalQuote) motivationalQuote.classList.add('visible');
         if (blackHole) blackHole.classList.add('hidden');
       }
 
-      hideMotivationalQuote() {
+      hideElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactContainer = document.getElementById('mobileContactContainer');
         const motivationalQuote = document.querySelector('.motivational-quote');
         const blackHole = document.querySelector('.black-hole');
+        
+        if (navContainer) navContainer.classList.remove('visible');
+        if (contactContainer) contactContainer.classList.remove('visible');
         if (motivationalQuote) motivationalQuote.classList.remove('visible');
         if (blackHole) blackHole.classList.remove('hidden');
       }
@@ -1386,23 +1326,23 @@
         this.y = window.innerHeight / 4;
         this.vx = 0;
         this.vy = 0;
-        this.gravity = 0.4;
+        this.gravity = 0.3;
         this.bounce = 0.75;
-        this.friction = 0.988;
-        this.airResistance = 0.997;
+        this.friction = 0.99;
+        this.airResistance = 0.998;
         this.size = 32;
-        this.maxSpeed = 20;
-        this.rotationSpeed = 0;
+        this.maxSpeed = 15;
         this.isAnimating = false;
         this.animationId = null;
+        this.obstacles = [];
       }
 
       async init() {
         await this.requestMotionPermissions();
         this.setupDeviceMotion();
-        this.setupTouchInteractions();
         this.startAnimation();
         this.positionMoon();
+        this.updateObstacles();
       }
 
       async requestMotionPermissions() {
@@ -1437,7 +1377,7 @@
         window.addEventListener('devicemotion', (e) => {
           const acc = e.accelerationIncludingGravity;
           if (acc && acc.x !== null && acc.y !== null) {
-            const sensitivity = 0.25;
+            const sensitivity = 0.2;
             const forceX = acc.x * sensitivity;
             const forceY = -acc.y * sensitivity;
             
@@ -1448,50 +1388,40 @@
             this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
           }
         }, { passive: true });
-
-        if (window.DeviceOrientationEvent) {
-          window.addEventListener('deviceorientation', (e) => {
-            const beta = e.beta || 0;
-            const gamma = e.gamma || 0;
-            
-            this.vx += gamma * 0.1;
-            this.vy += beta * 0.1;
-          }, { passive: true });
-        }
       }
 
-      setupTouchInteractions() {
-        const touchHandler = (e) => {
-          const touch = e.touches[0];
-          const moonRect = this.moon.getBoundingClientRect();
-          const distance = Math.sqrt(
-            Math.pow(touch.clientX - (moonRect.left + moonRect.width / 2), 2) +
-            Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
-          );
-          
-          if (distance < 50) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.handleTouch(touch, moonRect);
-          }
-        };
-
-        document.addEventListener('touchstart', touchHandler, { passive: false });
-      }
-
-      handleTouch(touch, rect) {
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+      updateObstacles() {
+        this.obstacles = [];
         
-        const deltaX = touch.clientX - centerX;
-        const deltaY = touch.clientY - centerY;
-        
-        this.vx += deltaX * 0.02;
-        this.vy += deltaY * 0.02;
-        
-        if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
-          navigator.vibrate(15);
+        // Add main title as obstacle
+        const mainTitle = document.querySelector('.main-title');
+        if (mainTitle) {
+          const rect = mainTitle.getBoundingClientRect();
+          this.obstacles.push({
+            x: rect.left,
+            y: rect.top,
+            width: rect.width,
+            height: rect.height,
+            element: mainTitle,
+            type: 'title'
+          });
         }
+
+        // Add navigation tabs and contact items as obstacles
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const contactItems = document.querySelectorAll('.mobile-contact-item');
+        
+        [...navTabs, ...contactItems].forEach(element => {
+          const rect = element.getBoundingClientRect();
+          this.obstacles.push({
+            x: rect.left,
+            y: rect.top,
+            width: rect.width,
+            height: rect.height,
+            element: element,
+            type: 'ui'
+          });
+        });
       }
 
       startAnimation() {
@@ -1531,37 +1461,74 @@
         this.y += this.vy;
 
         this.checkBoundaryCollisions(bounds);
+        this.checkObstacleCollisions();
         this.checkBlackHoleCollision();
 
-        this.rotationSpeed *= 0.985;
         this.positionMoon();
 
         this.animationId = requestAnimationFrame((time) => this.animate(time));
       }
 
-      checkBoundaryCollisions(bounds) {
-        let hasCollision = false;
+      checkObstacleCollisions() {
+        this.updateObstacles();
+        
+        const ballRect = {
+          x: this.x,
+          y: this.y,
+          width: this.size,
+          height: this.size
+        };
 
+        this.obstacles.forEach(obstacle => {
+          if (this.isColliding(ballRect, obstacle)) {
+            this.handleObstacleCollision(obstacle);
+          }
+        });
+      }
+
+      isColliding(rect1, rect2) {
+        return rect1.x < rect2.x + rect2.width &&
+               rect1.x + rect1.width > rect2.x &&
+               rect1.y < rect2.y + rect2.height &&
+               rect1.y + rect1.height > rect2.y;
+      }
+
+      handleObstacleCollision(obstacle) {
+        const ballCenterX = this.x + this.size / 2;
+        const ballCenterY = this.y + this.size / 2;
+        const obstacleCenterX = obstacle.x + obstacle.width / 2;
+        const obstacleCenterY = obstacle.y + obstacle.height / 2;
+
+        const deltaX = ballCenterX - obstacleCenterX;
+        const deltaY = ballCenterY - obstacleCenterY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          this.vx *= -this.bounce;
+          this.x = deltaX > 0 ? obstacle.x + obstacle.width : obstacle.x - this.size;
+        } else {
+          this.vy *= -this.bounce;
+          this.y = deltaY > 0 ? obstacle.y + obstacle.height : obstacle.y - this.size;
+        }
+
+        if (obstacle.type === 'title' && APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+          navigator.vibrate(25);
+        }
+      }
+
+      checkBoundaryCollisions(bounds) {
         if (this.x <= 0 || this.x >= bounds.width - this.size) {
           this.vx *= -this.bounce;
           this.x = this.x <= 0 ? 0 : bounds.width - this.size;
-          hasCollision = true;
-          this.rotationSpeed += Math.abs(this.vx) * 0.1;
         }
 
         if (this.y <= 0 || this.y >= bounds.height - this.size) {
           this.vy *= -this.bounce;
           this.y = this.y <= 0 ? 0 : bounds.height - this.size;
-          hasCollision = true;
           
           if (this.y >= bounds.height - this.size) {
             this.vy *= 0.8;
             this.vx *= 0.95;
           }
-        }
-
-        if (hasCollision) {
-          this.handleCollision();
         }
       }
 
@@ -1582,8 +1549,8 @@
 
         if (distance < 80) {
           const attraction = (80 - distance) / 80;
-          const forceX = (holeCenterX - ballCenterX) * attraction * 0.05;
-          const forceY = (holeCenterY - ballCenterY) * attraction * 0.05;
+          const forceX = (holeCenterX - ballCenterX) * attraction * 0.03;
+          const forceY = (holeCenterY - ballCenterY) * attraction * 0.03;
           
           this.vx += forceX;
           this.vy += forceY;
@@ -1601,7 +1568,7 @@
 
         const ballElement = this.moon;
         ballElement.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        ballElement.style.transform = `translate3d(${holeX - 16}px, ${holeY - 16}px, 0) scale(0.1) rotate(540deg)`;
+        ballElement.style.transform = `translate3d(${holeX - 16}px, ${holeY - 16}px, 0) scale(0.1)`;
         ballElement.style.opacity = '0';
 
         if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
@@ -1621,7 +1588,7 @@
 
       showNavigationElements() {
         const navContainer = document.getElementById('mobileNavContainer');
-        const contactGrid = document.querySelector('.contact-grid');
+        const contactContainer = document.getElementById('mobileContactContainer');
         const motivationalQuote = document.querySelector('.motivational-quote');
         
         if (navContainer) {
@@ -1635,14 +1602,14 @@
           });
         }
         
-        if (contactGrid) {
-          contactGrid.style.transform = 'translateX(100px)';
-          contactGrid.style.opacity = '0';
-          contactGrid.classList.add('visible');
+        if (contactContainer) {
+          contactContainer.style.transform = 'translateX(100px)';
+          contactContainer.style.opacity = '0';
+          contactContainer.classList.add('visible');
           
           setTimeout(() => {
-            contactGrid.style.transform = 'translateX(0)';
-            contactGrid.style.opacity = '1';
+            contactContainer.style.transform = 'translateX(0)';
+            contactContainer.style.opacity = '1';
           }, 100);
         }
         
@@ -1657,10 +1624,10 @@
             setTimeout(() => navContainer.classList.remove('visible'), 400);
           }
           
-          if (contactGrid) {
-            contactGrid.style.transform = 'translateX(100px)';
-            contactGrid.style.opacity = '0';
-            setTimeout(() => contactGrid.classList.remove('visible'), 400);
+          if (contactContainer) {
+            contactContainer.style.transform = 'translateX(100px)';
+            contactContainer.style.opacity = '0';
+            setTimeout(() => contactContainer.classList.remove('visible'), 400);
           }
           
           if (motivationalQuote) {
@@ -1701,7 +1668,6 @@
         this.y = 50 + Math.random() * 100;
         this.vx = 0;
         this.vy = 0;
-        this.rotationSpeed = 0;
 
         const ballElement = this.moon;
         ballElement.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
@@ -1720,30 +1686,8 @@
         }, 100);
       }
 
-      handleCollision() {
-        this.moon.classList.add('bouncing');
-        setTimeout(() => {
-          this.moon.classList.remove('bouncing');
-        }, 100);
-
-        if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
-          const velocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-          if (velocity > 8) {
-            navigator.vibrate(25);
-          } else if (velocity > 4) {
-            navigator.vibrate(15);
-          } else {
-            navigator.vibrate(8);
-          }
-        }
-
-        this.vx += (Math.random() - 0.5) * 0.5;
-        this.vy += (Math.random() - 0.5) * 0.5;
-      }
-
       positionMoon() {
-        const rotation = this.rotationSpeed * (Date.now() * 0.01);
-        this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) rotate(${rotation}deg)`;
+        this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
       }
 
       destroy() {
