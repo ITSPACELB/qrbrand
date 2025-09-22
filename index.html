@@ -280,6 +280,7 @@
       max-width: 760px;
       margin-bottom: var(--spacing-lg);
       cursor: pointer;
+      position: relative;
     }
 
     .motivational-quote {
@@ -298,6 +299,8 @@
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 1;
       transform: translateY(0) scale(1);
+      position: relative;
+      z-index: 2;
     }
 
     @media (max-width: 768px) {
@@ -447,38 +450,30 @@
       height: 50px;
       border-radius: 50%;
       background: 
-        radial-gradient(ellipse at 25% 15%, #4a4a4a 0%, transparent 30%),
-        radial-gradient(ellipse at 30% 20%, #2a2a2a 0%, transparent 40%),
-        radial-gradient(ellipse at 70% 80%, #0a0a0a 0%, transparent 50%),
-        linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 25%, #0f0f0f 50%, #050505 75%, #000000 100%);
-      box-shadow: 
-        inset -12px -12px 25px rgba(0, 0, 0, 0.9),
-        inset 8px 8px 15px rgba(100, 100, 100, 0.3),
-        inset -3px -3px 8px rgba(0, 0, 0, 0.8),
-        inset 2px 2px 5px rgba(100, 100, 100, 0.2),
-        0 0 35px rgba(0, 0, 0, 0.8),
-        0 8px 25px rgba(0, 0, 0, 0.7),
-        0 2px 8px rgba(0, 0, 0, 0.5);
+        radial-gradient(ellipse at 25% 15%, #3a3a3a 0%, transparent 25%),
+        radial-gradient(ellipse at 30% 20%, #1a1a1a 0%, transparent 35%),
+        radial-gradient(ellipse at 70% 80%, #000000 0%, transparent 45%),
+        linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 20%, #050505 40%, #000000 60%, #000000 100%);
       z-index: 50;
       pointer-events: none;
       display: none;
-      transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform;
-      filter: contrast(1.2) brightness(0.9);
+      filter: contrast(1.3) brightness(0.8);
     }
 
     .physics-moon::before {
       content: '';
       position: absolute;
-      top: 6px;
-      left: 10px;
-      width: 16px;
-      height: 16px;
+      top: 8px;
+      left: 12px;
+      width: 12px;
+      height: 12px;
       background: 
-        radial-gradient(ellipse at 40% 30%, rgba(150, 150, 150, 0.4) 0%, rgba(100, 100, 100, 0.2) 40%, transparent 70%);
+        radial-gradient(ellipse at 40% 30%, rgba(80, 80, 80, 0.3) 0%, rgba(40, 40, 40, 0.15) 50%, transparent 80%);
       border-radius: 50%;
-      filter: blur(1.5px);
-      transform: rotate(-15deg);
+      filter: blur(1px);
+      transform: rotate(-10deg);
     }
 
     .physics-moon::after {
@@ -496,16 +491,29 @@
     }
 
     .physics-moon.bouncing {
-      transform: scale(1.15);
-      filter: contrast(1.3) brightness(1.0);
-      box-shadow: 
-        inset -12px -12px 25px rgba(0, 0, 0, 0.9),
-        inset 8px 8px 15px rgba(100, 100, 100, 0.3),
-        inset -3px -3px 8px rgba(0, 0, 0, 0.8),
-        inset 2px 2px 5px rgba(100, 100, 100, 0.2),
-        0 0 45px rgba(0, 0, 0, 0.9),
-        0 10px 30px rgba(0, 0, 0, 0.8),
-        0 4px 12px rgba(0, 0, 0, 0.6);
+      transform: scale(1.2);
+      filter: contrast(1.4) brightness(0.9);
+    }
+
+    /* Black Hole for bowling ball */
+    .black-hole {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: 
+        radial-gradient(circle at center, #000000 0%, #1a1a1a 30%, #2a2a2a 60%, transparent 100%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translateY(100px);
+      z-index: 1;
+      opacity: 1;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .black-hole.hidden {
+      opacity: 0;
+      transform: translate(-50%, -50%) translateY(100px) scale(0.5);
     }
 
     @media (max-width: 768px) {
@@ -719,6 +727,8 @@
 
       <!-- Motivational quotes section -->
       <section class="motivational-container" role="region" aria-label="Motivational quotes">
+        <!-- Black hole for bowling ball (mobile only) -->
+        <div class="black-hole" id="blackHole"></div>
         <div class="motivational-quote" id="motivationalQuote">
           Success starts with one step in the right direction
         </div>
@@ -945,15 +955,23 @@
 
       showMotivationalQuote() {
         const motivationalQuote = document.querySelector('.motivational-quote');
+        const blackHole = document.querySelector('.black-hole');
         if (motivationalQuote) {
           motivationalQuote.classList.add('visible');
+        }
+        if (blackHole) {
+          blackHole.classList.add('hidden');
         }
       }
 
       hideMotivationalQuote() {
         const motivationalQuote = document.querySelector('.motivational-quote');
+        const blackHole = document.querySelector('.black-hole');
         if (motivationalQuote) {
           motivationalQuote.classList.remove('visible');
+        }
+        if (blackHole) {
+          blackHole.classList.remove('hidden');
         }
       }
     }
@@ -964,16 +982,19 @@
         this.moon = document.getElementById('physicsMoon');
         this.isMobile = window.innerWidth <= 768;
         
-        // Enhanced physics properties
+        // Enhanced physics properties for more realistic bowling ball movement
         this.x = window.innerWidth / 2;
-        this.y = window.innerHeight / 2;
-        this.vx = 3 + Math.random() * 2;
-        this.vy = 3 + Math.random() * 2;
-        this.gravity = 0.6;
-        this.bounce = 0.75;
-        this.friction = 0.995;
+        this.y = window.innerHeight / 4;
+        this.vx = 4 + Math.random() * 3;
+        this.vy = 2 + Math.random() * 2;
+        this.gravity = 0.8;
+        this.bounce = 0.65;
+        this.friction = 0.992;
+        this.airResistance = 0.999;
         this.size = 50;
-        this.mass = 1;
+        this.mass = 2.5;
+        this.rotationSpeed = 0;
+        this.maxSpeed = 18;
         
         // Motion and haptic properties
         this.lastCollisionTime = 0;
@@ -1134,31 +1155,54 @@
           height: window.innerHeight
         };
 
-        // Apply enhanced physics
+        // Apply realistic bowling ball physics
         this.vy += this.gravity;
         this.vx *= this.friction;
-        this.vy *= this.friction;
+        this.vy *= this.airResistance;
 
-        // Update position with sub-pixel precision
+        // Apply air resistance
+        this.vx *= this.airResistance;
+
+        // Limit maximum speed for realism
+        const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if (currentSpeed > this.maxSpeed) {
+          const ratio = this.maxSpeed / currentSpeed;
+          this.vx *= ratio;
+          this.vy *= ratio;
+        }
+
+        // Update position with enhanced precision
         this.x += this.vx;
         this.y += this.vy;
 
         // Check collision with title
         this.checkTitleCollision();
 
-        // Advanced collision detection with haptic feedback
+        // Check black hole collision
+        this.checkBlackHoleCollision();
+
+        // Enhanced collision detection with realistic bowling ball physics
         let hasCollision = false;
 
         if (this.x <= 0 || this.x >= bounds.width - this.size) {
           this.vx *= -this.bounce;
           this.x = this.x <= 0 ? 0 : bounds.width - this.size;
           hasCollision = true;
+          
+          // Add spin effect on wall collision
+          this.rotationSpeed += Math.abs(this.vx) * 0.1;
         }
 
         if (this.y <= 0 || this.y >= bounds.height - this.size) {
           this.vy *= -this.bounce;
           this.y = this.y <= 0 ? 0 : bounds.height - this.size;
           hasCollision = true;
+          
+          // More realistic floor bounce with energy loss
+          if (this.y >= bounds.height - this.size) {
+            this.vy *= 0.8; // Energy loss on floor impact
+            this.vx *= 0.95; // Friction on floor
+          }
         }
 
         // Handle collisions with enhanced feedback
@@ -1167,8 +1211,98 @@
           this.lastCollisionTime = Date.now();
         }
 
+        // Apply rotation to visual element
+        this.rotationSpeed *= 0.98; // Gradual rotation decay
         this.positionMoon();
         this.animationId = requestAnimationFrame((time) => this.animate(time));
+      }
+
+      checkBlackHoleCollision() {
+        const blackHole = document.getElementById('blackHole');
+        if (!blackHole || blackHole.classList.contains('hidden')) return;
+
+        const blackHoleRect = blackHole.getBoundingClientRect();
+        const ballCenterX = this.x + this.size / 2;
+        const ballCenterY = this.y + this.size / 2;
+        const holeCenterX = blackHoleRect.left + blackHoleRect.width / 2;
+        const holeCenterY = blackHoleRect.top + blackHoleRect.height / 2;
+
+        const distance = Math.sqrt(
+          Math.pow(ballCenterX - holeCenterX, 2) + 
+          Math.pow(ballCenterY - holeCenterY, 2)
+        );
+
+        // If ball is close to the hole, it gets pulled in
+        if (distance < 40) {
+          // Ball falls into the hole
+          this.fallIntoHole(holeCenterX, holeCenterY);
+        }
+      }
+
+      fallIntoHole(holeX, holeY) {
+        // Stop the ball and animate it falling into the hole
+        this.vx = 0;
+        this.vy = 0;
+        this.isAnimating = false;
+
+        // Animate ball shrinking and moving to hole center
+        const ballElement = this.moon;
+        ballElement.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        ballElement.style.transform = `translate3d(${holeX - 25}px, ${holeY - 25}px, 0) scale(0.1)`;
+        ballElement.style.opacity = '0';
+
+        this.triggerHapticFeedback('heavy');
+
+        // Show contact information for 3 seconds
+        setTimeout(() => {
+          this.showContactInfo();
+        }, 400);
+
+        // Reset ball position and restart animation after contact info disappears
+        setTimeout(() => {
+          this.resetBall();
+        }, 4000);
+      }
+
+      showContactInfo() {
+        const contactGrid = document.querySelector('.contact-grid');
+        const companyAddress = document.querySelector('.company-address');
+        
+        if (contactGrid) {
+          contactGrid.classList.add('visible');
+        }
+        if (companyAddress) {
+          companyAddress.classList.add('visible');
+        }
+
+        // Hide contact info after 3 seconds
+        setTimeout(() => {
+          if (contactGrid) {
+            contactGrid.classList.remove('visible');
+          }
+          if (companyAddress) {
+            companyAddress.classList.remove('visible');
+          }
+        }, 3000);
+      }
+
+      resetBall() {
+        // Reset ball to starting position
+        this.x = Math.random() * (window.innerWidth - this.size);
+        this.y = 50;
+        this.vx = 4 + Math.random() * 3;
+        this.vy = 2 + Math.random() * 2;
+        this.rotationSpeed = 0;
+
+        // Reset visual properties
+        const ballElement = this.moon;
+        ballElement.style.transition = 'none';
+        ballElement.style.opacity = '1';
+        ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
+
+        // Restart animation
+        this.isAnimating = true;
+        this.animate();
       }
 
       checkTitleCollision() {
@@ -1283,8 +1417,9 @@
       }
 
       positionMoon() {
-        // Use transform3d for hardware acceleration
-        this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
+        // Use transform3d for hardware acceleration with rotation
+        const rotation = this.rotationSpeed * (Date.now() * 0.01);
+        this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) rotate(${rotation}deg)`;
       }
 
       triggerHapticFeedback(intensity = 'medium') {
