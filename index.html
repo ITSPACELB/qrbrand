@@ -240,23 +240,13 @@
       letter-spacing: -0.02em;
       margin-bottom: var(--spacing-lg);
       text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-    }
-
-    .main-title.scattered {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-
-    .main-title.letter {
-      display: inline-block;
       transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      transform-origin: center center;
     }
 
-    .main-title.letter.scattered {
-      transform: translate(var(--scatter-x, 0), var(--scatter-y, 0)) rotate(var(--scatter-r, 0deg)) scale(0.5);
-      opacity: 0;
+    .main-title.pushed {
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .subtitle {
@@ -495,7 +485,7 @@
       filter: contrast(1.4) brightness(0.9);
     }
 
-    /* Black Hole for bowling ball - Mobile Only */
+    /* Black Hole for bowling ball - Mobile Only - Positioned higher */
     .black-hole {
       position: absolute;
       width: 60px;
@@ -505,7 +495,7 @@
         radial-gradient(circle at center, #000000 0%, #0a0a0a 20%, #1a1a1a 40%, #2a2a2a 70%, transparent 100%);
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) translateY(100px);
+      transform: translate(-50%, -50%) translateY(60px);
       z-index: 1;
       opacity: 1;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -517,7 +507,7 @@
 
     .black-hole.hidden {
       opacity: 0;
-      transform: translate(-50%, -50%) translateY(100px) scale(0.5);
+      transform: translate(-50%, -50%) translateY(60px) scale(0.5);
     }
 
     @media (max-width: 768px) {
@@ -992,19 +982,25 @@
         this.moon = document.getElementById('physicsMoon');
         this.isMobile = window.innerWidth <= 768;
         
-        // Enhanced physics properties for more realistic bowling ball movement
+        // Enhanced physics properties for ultra-realistic bowling ball movement
         this.x = window.innerWidth / 2;
         this.y = window.innerHeight / 4;
-        this.vx = 4 + Math.random() * 3;
-        this.vy = 2 + Math.random() * 2;
-        this.gravity = 0.8;
+        this.vx = 0; // Start stationary
+        this.vy = 0; // Start stationary
+        this.gravity = 0.7;
         this.bounce = 0.65;
-        this.friction = 0.992;
-        this.airResistance = 0.999;
+        this.friction = 0.988;
+        this.airResistance = 0.997;
         this.size = 50;
         this.mass = 2.5;
         this.rotationSpeed = 0;
-        this.maxSpeed = 18;
+        this.maxSpeed = 20;
+        
+        // Advanced motion detection
+        this.motionThreshold = 0.5;
+        this.lastAcceleration = { x: 0, y: 0, z: 0 };
+        this.isDeviceMoving = false;
+        this.motionDecayRate = 0.92;
         
         // Motion and haptic properties with advanced mobile optimization
         this.lastCollisionTime = 0;
@@ -1067,38 +1063,68 @@
       }
 
       setupDeviceMotion() {
-        // Enhanced device motion with smoothing
+        // Ultra-sensitive device motion with advanced filtering
         if (window.DeviceMotionEvent) {
           window.addEventListener('devicemotion', (e) => {
             const acc = e.accelerationIncludingGravity;
-            if (acc && acc.x !== null && acc.y !== null) {
-              // Apply smoothing and sensitivity
-              const deltaX = (acc.x || 0) * this.motionSensitivity;
-              const deltaY = -(acc.y || 0) * this.motionSensitivity;
+            if (acc && acc.x !== null && acc.y !== null && acc.z !== null) {
               
-              this.vx += deltaX * this.smoothingFactor;
-              this.vy += deltaY * this.smoothingFactor;
+              // Calculate motion intensity
+              const currentMotion = Math.sqrt(
+                Math.pow(acc.x || 0, 2) + 
+                Math.pow(acc.y || 0, 2) + 
+                Math.pow(acc.z || 0, 2)
+              );
               
-              // Limit maximum velocity
-              this.vx = Math.max(-15, Math.min(15, this.vx));
-              this.vy = Math.max(-15, Math.min(15, this.vy));
+              // Detect if device is actually moving vs static gravity
+              const motionDelta = Math.abs(currentMotion - 9.8); // Earth's gravity baseline
+              this.isDeviceMoving = motionDelta > this.motionThreshold;
+              
+              if (this.isDeviceMoving) {
+                // Apply ultra-sensitive motion with high precision
+                const deltaX = (acc.x || 0) * 0.25;
+                const deltaY = -(acc.y || 0) * 0.25;
+                
+                this.vx += deltaX * this.smoothingFactor;
+                this.vy += deltaY * this.smoothingFactor;
+                
+                // Limit maximum velocity for realism
+                this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
+                this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
+              } else {
+                // Apply strong decay when device is still
+                this.vx *= this.motionDecayRate;
+                this.vy *= this.motionDecayRate;
+                
+                // Stop micro-movements when very slow
+                if (Math.abs(this.vx) < 0.1) this.vx = 0;
+                if (Math.abs(this.vy) < 0.1) this.vy = 0;
+              }
+              
+              this.lastAcceleration = { x: acc.x, y: acc.y, z: acc.z };
             }
           }, { passive: true });
         }
 
-        // Enhanced device orientation with smooth transitions
+        // Enhanced device orientation with ultra-precise control
         if (window.DeviceOrientationEvent) {
           window.addEventListener('deviceorientation', (e) => {
             const beta = e.beta || 0;  // front-to-back tilt (-180 to 180)
             const gamma = e.gamma || 0; // left-to-right tilt (-90 to 90)
             
-            // Smooth orientation changes
+            // Ultra-smooth orientation changes with higher sensitivity
             const smoothBeta = this.lastOrientation.beta * (1 - this.smoothingFactor) + beta * this.smoothingFactor;
             const smoothGamma = this.lastOrientation.gamma * (1 - this.smoothingFactor) + gamma * this.smoothingFactor;
             
-            // Apply orientation forces
-            this.vx += smoothGamma * this.orientationSensitivity;
-            this.vy += smoothBeta * this.orientationSensitivity;
+            // Only apply orientation forces if there's significant change
+            const betaDelta = Math.abs(smoothBeta - this.lastOrientation.beta);
+            const gammaDelta = Math.abs(smoothGamma - this.lastOrientation.gamma);
+            
+            if (betaDelta > 1 || gammaDelta > 1) {
+              this.vx += smoothGamma * 0.12;
+              this.vy += smoothBeta * 0.12;
+              this.isDeviceMoving = true;
+            }
             
             this.lastOrientation = { beta: smoothBeta, gamma: smoothGamma };
           }, { passive: true });
@@ -1452,12 +1478,13 @@
       }
 
       resetBall() {
-        // Reset ball to starting position with random spawn location
+        // Reset ball to starting position - stationary until device moves
         this.x = Math.random() * (window.innerWidth - this.size);
         this.y = 30 + Math.random() * 50;
-        this.vx = (3 + Math.random() * 4) * (Math.random() > 0.5 ? 1 : -1);
-        this.vy = 1 + Math.random() * 3;
+        this.vx = 0; // Start stationary
+        this.vy = 0; // Start stationary
         this.rotationSpeed = 0;
+        this.isDeviceMoving = false;
 
         // Reset visual properties with smooth entrance
         const ballElement = this.moon;
@@ -1494,79 +1521,53 @@
             ballCenterY >= titleRect.top && 
             ballCenterY <= titleRect.bottom) {
           
-          this.scatterTitle(titleElement);
-          this.triggerHapticFeedback('heavy');
+          this.pushTitle(titleElement, ballCenterX, ballCenterY, titleRect);
           
-          // Bounce the ball
+          // Realistic ball bounce based on collision point
+          const titleCenterX = titleRect.left + titleRect.width / 2;
+          const titleCenterY = titleRect.top + titleRect.height / 2;
+          
+          // Calculate collision angle
+          const deltaX = ballCenterX - titleCenterX;
+          const deltaY = ballCenterY - titleCenterY;
+          
+          // Apply realistic physics bounce
           this.vy *= -this.bounce;
-          this.vx += (Math.random() - 0.5) * 3;
+          this.vx += (deltaX / titleRect.width) * 8; // Side impact effect
+          
+          // Add some randomness for realism
+          this.vx += (Math.random() - 0.5) * 2;
+          this.vy += (Math.random() - 0.5) * 1;
         }
       }
 
-      scatterTitle(titleElement) {
-        if (titleElement.classList.contains('scattered')) return;
+      pushTitle(titleElement, ballX, ballY, titleRect) {
+        if (titleElement.classList.contains('pushed')) return;
 
-        const text = titleElement.textContent;
-        titleElement.innerHTML = '';
+        // Calculate push direction based on collision point
+        const titleCenterX = titleRect.left + titleRect.width / 2;
+        const titleCenterY = titleRect.top + titleRect.height / 2;
         
-        // Create individual letter spans
-        for (let i = 0; i < text.length; i++) {
-          const letter = text[i];
-          if (letter === ' ') {
-            titleElement.appendChild(document.createTextNode(' '));
-            continue;
-          }
-          
-          const span = document.createElement('span');
-          span.textContent = letter;
-          span.classList.add('letter');
-          
-          // Set random scatter values
-          const scatterX = (Math.random() - 0.5) * 300;
-          const scatterY = (Math.random() - 0.5) * 200;
-          const scatterR = (Math.random() - 0.5) * 360;
-          
-          span.style.setProperty('--scatter-x', scatterX + 'px');
-          span.style.setProperty('--scatter-y', scatterY + 'px');
-          span.style.setProperty('--scatter-r', scatterR + 'deg');
-          
-          titleElement.appendChild(span);
-        }
-
-        // Trigger scattering animation
-        setTimeout(() => {
-          titleElement.classList.add('scattered');
-          const letters = titleElement.querySelectorAll('.letter');
-          letters.forEach((letter, index) => {
-            setTimeout(() => {
-              letter.classList.add('scattered');
-            }, index * 20);
-          });
-        }, 50);
-
-        // Restore title after 3 seconds
-        setTimeout(() => {
-          this.restoreTitle(titleElement, text);
-        }, 3000);
-      }
-
-      restoreTitle(titleElement, originalText) {
-        const letters = titleElement.querySelectorAll('.letter');
+        const deltaX = ballX - titleCenterX;
+        const deltaY = ballY - titleCenterY;
         
-        // Remove scattered class from letters
-        letters.forEach((letter, index) => {
-          setTimeout(() => {
-            letter.classList.remove('scattered');
-          }, index * 20);
-        });
-
-        // Remove scattered class from title and restore original text
+        // Normalize the push direction
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const pushX = (deltaX / distance) * 30; // Push strength
+        const pushY = (deltaY / distance) * 15; // Reduced vertical push
+        
+        // Apply realistic push motion
+        titleElement.classList.add('pushed');
+        titleElement.style.transform = `translate(${pushX}px, ${pushY}px) rotate(${pushX * 0.3}deg)`;
+        
+        // Return to original position after realistic timing
         setTimeout(() => {
-          titleElement.classList.remove('scattered');
+          titleElement.style.transform = 'translate(0px, 0px) rotate(0deg)';
+          
           setTimeout(() => {
-            titleElement.textContent = originalText;
-          }, 300);
-        }, letters.length * 20 + 200);
+            titleElement.classList.remove('pushed');
+          }, 600);
+        }, 400);
       }
 
       handleCollision() {
