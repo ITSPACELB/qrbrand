@@ -21,8 +21,8 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="preconnect" href="https://flagcdn.com" crossorigin>
   
-  <!-- Load fonts with font-display: swap for better performance -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Load modern Apple-style font with Inter fallback -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -233,20 +233,21 @@
       margin: 0 auto;
     }
 
+    /* Modern Apple-style title design */
     .main-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
       font-size: var(--font-size-4xl);
       font-weight: 500;
       line-height: 1.1;
       letter-spacing: -0.02em;
       margin-bottom: var(--spacing-lg);
       text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #ffffff;
       position: relative;
       transform-origin: center center;
-    }
-
-    .main-title.pushed {
-      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: default;
+      user-select: none;
     }
 
     /* Mobile responsive subtitle with motion */
@@ -442,56 +443,59 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Physics Ultra-Realistic Black Bowling Ball - Enhanced for Mobile */
+    /* Realistic Billiard Ball #8 */
     .physics-moon {
       position: fixed;
       width: 50px;
       height: 50px;
       border-radius: 50%;
       background: 
-        radial-gradient(ellipse at 25% 15%, #3a3a3a 0%, transparent 25%),
-        radial-gradient(ellipse at 30% 20%, #1a1a1a 0%, transparent 35%),
-        radial-gradient(ellipse at 70% 80%, #000000 0%, transparent 45%),
-        linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 20%, #050505 40%, #000000 60%, #000000 100%);
+        radial-gradient(ellipse at 30% 20%, #2a2a2a 0%, transparent 30%),
+        radial-gradient(ellipse at 25% 25%, #ffffff 0%, transparent 15%),
+        radial-gradient(circle at center, #000000 0%, #1a1a1a 40%, #000000 100%);
       z-index: 50;
       pointer-events: none;
       display: none;
       transition: all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform;
-      filter: contrast(1.3) brightness(0.8);
+      filter: contrast(1.4) brightness(0.9);
+      box-shadow: 
+        inset -5px -5px 10px rgba(0, 0, 0, 0.8),
+        inset 3px 3px 6px rgba(255, 255, 255, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.6);
     }
 
     .physics-moon::before {
       content: '';
       position: absolute;
-      top: 8px;
-      left: 12px;
-      width: 12px;
-      height: 12px;
-      background: 
-        radial-gradient(ellipse at 40% 30%, rgba(80, 80, 80, 0.3) 0%, rgba(40, 40, 40, 0.15) 50%, transparent 80%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+      background: #ffffff;
       border-radius: 50%;
-      filter: blur(1px);
-      transform: rotate(-10deg);
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
     }
 
     .physics-moon::after {
-      content: '';
+      content: '8';
       position: absolute;
-      top: 20px;
-      left: 18px;
-      width: 3px;
-      height: 3px;
-      background: #000000;
-      border-radius: 50%;
-      box-shadow: 
-        0 8px 0 #000000,
-        0 16px 0 #000000;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000000;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
     }
 
     .physics-moon.bouncing {
-      transform: scale(1.2);
-      filter: contrast(1.4) brightness(0.9);
+      transform: scale(1.1);
+      filter: contrast(1.5) brightness(1.1);
     }
 
     /* Black Hole for bowling ball - Mobile Only - Positioned higher */
@@ -545,6 +549,11 @@
       .main-title {
         font-size: var(--font-size-3xl);
         margin-bottom: var(--spacing-md);
+      }
+
+      .main-title::before {
+        left: -20px;
+        font-size: 30px;
       }
 
       .subtitle {
@@ -704,7 +713,7 @@
   </div>
   <div class="background-overlay"></div>
 
-  <!-- Physics Golden Ball for Mobile -->
+  <!-- Physics Billiard Ball #8 for Mobile -->
   <div class="physics-moon" id="physicsMoon"></div>
 
   <div class="main-container">
@@ -732,7 +741,7 @@
         Do you need software or an app to develop your business?
       </p>
 
-      <h1 class="main-title">Welcome to QRBrand Ltd</h1>
+      <h1 class="main-title">Welcome to QR Brand ltd</h1>
 
       <!-- Motivational quotes section -->
       <section class="motivational-container" role="region" aria-label="Motivational quotes">
@@ -1021,56 +1030,50 @@
       }
     }
 
-    // Advanced Physics Golden Ball with Haptic Feedback
+    // Ultra-Precise Motion-Only Physics Billiard Ball #8
     class PhysicsMoon {
       constructor() {
         this.moon = document.getElementById('physicsMoon');
         this.isMobile = window.innerWidth <= 768;
         
-        // Ultra-realistic physics properties for bowling ball #8
+        // Ball position and physics
         this.x = window.innerWidth / 2;
         this.y = window.innerHeight / 4;
         this.vx = 0;
         this.vy = 0;
         this.gravity = 0.6;
         this.bounce = 0.7;
-        this.friction = 0.985;
-        this.airResistance = 0.995;
+        this.friction = 0.99;
         this.size = 50;
-        this.mass = 3.5; // Heavier like real bowling ball
         this.rotationSpeed = 0;
-        this.maxSpeed = 25;
+        this.maxSpeed = 20;
         
-        // Ultra-sensitive motion detection system
-        this.motionThreshold = 0.3;
-        this.accelerationHistory = [];
-        this.maxHistoryLength = 10;
-        this.smoothingFactor = 0.85;
+        // Ultra-precise motion detection system
+        this.motionThreshold = 0.08; // Very sensitive threshold
+        this.accelerationBuffer = [];
+        this.bufferSize = 3; // Small buffer for instant response
         this.isDeviceMoving = false;
-        this.lastValidMotion = Date.now();
-        this.motionTimeout = 200; // ms
+        this.lastMotionTime = 0;
+        this.motionTimeoutDuration = 100; // Very short timeout
+        this.baselineAcceleration = { x: 0, y: 0, z: 0 };
+        this.hasBaseline = false;
+        
+        // Motion sensitivity - very high for realistic response
         this.sensitivity = {
-          x: 0.35,
-          y: 0.35,
-          orientation: 0.15
+          horizontal: 1.2, // Very high horizontal sensitivity
+          vertical: 0.6    // Moderate vertical sensitivity
         };
         
-        // Motion and haptic properties with advanced mobile optimization
-        this.lastCollisionTime = 0;
-        this.collisionCooldown = 120;
-        this.motionSensitivity = 0.18;
-        this.orientationSensitivity = 0.10;
-        this.lastOrientation = { beta: 0, gamma: 0 };
-        this.smoothingFactor = 0.75;
-        this.trailEffect = [];
-        this.maxTrailLength = 8;
+        // Stationary state management
+        this.isStationary = true;
+        this.stationaryThreshold = 0.05;
+        this.immediateStopThreshold = 0.02;
         
-        // Advanced physics properties
-        this.magneticPull = false;
-        this.holeAttraction = 0;
-        this.spinDecay = 0.985;
+        // Device orientation tracking
+        this.lastOrientation = { gamma: 0, beta: 0 };
+        this.orientationSensitivity = 0.4;
         
-        // Performance optimization
+        // Animation control
         this.isAnimating = false;
         this.animationId = null;
         this.lastFrameTime = 0;
@@ -1084,14 +1087,13 @@
 
       init() {
         this.requestMotionPermissions();
-        this.setupDeviceMotion();
+        this.setupAdvancedMotionDetection();
         this.setupTouchInteractions();
         this.startAnimation();
         this.positionMoon();
       }
 
       async requestMotionPermissions() {
-        // Request permissions for iOS 13+
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
           try {
             const permission = await DeviceMotionEvent.requestPermission();
@@ -1115,114 +1117,135 @@
         }
       }
 
-      setupDeviceMotion() {
-        // Ultra-sensitive motion system for Android and iOS
+      setupAdvancedMotionDetection() {
+        // Ultra-sensitive device motion detection
         if (window.DeviceMotionEvent) {
+          // Calibration phase - establish baseline
+          let calibrationSamples = 0;
+          const maxCalibrationSamples = 10;
+          
           window.addEventListener('devicemotion', (e) => {
             const acc = e.accelerationIncludingGravity;
-            if (acc && acc.x !== null && acc.y !== null && acc.z !== null) {
+            if (!acc || acc.x === null || acc.y === null || acc.z === null) return;
+            
+            const currentAccel = {
+              x: acc.x || 0,
+              y: acc.y || 0,
+              z: acc.z || 0,
+              timestamp: Date.now()
+            };
+            
+            // Establish baseline during first few samples
+            if (!this.hasBaseline && calibrationSamples < maxCalibrationSamples) {
+              this.baselineAcceleration.x += currentAccel.x;
+              this.baselineAcceleration.y += currentAccel.y;
+              this.baselineAcceleration.z += currentAccel.z;
+              calibrationSamples++;
               
-              // Store acceleration history for advanced filtering
-              this.accelerationHistory.push({
-                x: acc.x || 0,
-                y: acc.y || 0,
-                z: acc.z || 0,
-                timestamp: Date.now()
-              });
-              
-              if (this.accelerationHistory.length > this.maxHistoryLength) {
-                this.accelerationHistory.shift();
+              if (calibrationSamples === maxCalibrationSamples) {
+                this.baselineAcceleration.x /= maxCalibrationSamples;
+                this.baselineAcceleration.y /= maxCalibrationSamples;
+                this.baselineAcceleration.z /= maxCalibrationSamples;
+                this.hasBaseline = true;
+                console.log('Motion baseline established');
               }
+              return;
+            }
+            
+            if (!this.hasBaseline) return;
+            
+            // Add to buffer
+            this.accelerationBuffer.push(currentAccel);
+            if (this.accelerationBuffer.length > this.bufferSize) {
+              this.accelerationBuffer.shift();
+            }
+            
+            // Analyze motion
+            if (this.accelerationBuffer.length >= 2) {
+              const latest = this.accelerationBuffer[this.accelerationBuffer.length - 1];
+              const previous = this.accelerationBuffer[this.accelerationBuffer.length - 2];
               
-              // Calculate motion intensity with advanced filtering
-              const currentAccel = this.accelerationHistory[this.accelerationHistory.length - 1];
+              // Calculate deviation from baseline
+              const baselineDeviationX = Math.abs(latest.x - this.baselineAcceleration.x);
+              const baselineDeviationY = Math.abs(latest.y - this.baselineAcceleration.y);
+              const baselineDeviationZ = Math.abs(latest.z - this.baselineAcceleration.z);
               
-              if (this.accelerationHistory.length >= 3) {
-                const prevAccel = this.accelerationHistory[this.accelerationHistory.length - 3];
+              // Calculate change in acceleration
+              const deltaX = Math.abs(latest.x - previous.x);
+              const deltaY = Math.abs(latest.y - previous.y);
+              const deltaZ = Math.abs(latest.z - previous.z);
+              
+              const totalDelta = deltaX + deltaY + deltaZ;
+              const totalDeviation = baselineDeviationX + baselineDeviationY + baselineDeviationZ;
+              
+              // Detect intentional device motion
+              if (totalDelta > this.motionThreshold || totalDeviation > this.motionThreshold * 2) {
+                this.isDeviceMoving = true;
+                this.isStationary = false;
+                this.lastMotionTime = Date.now();
                 
-                // Calculate delta acceleration (change in movement)
-                const deltaX = Math.abs(currentAccel.x - prevAccel.x);
-                const deltaY = Math.abs(currentAccel.y - prevAccel.y);
-                const deltaZ = Math.abs(currentAccel.z - prevAccel.z);
+                // Apply forces based on actual acceleration relative to baseline
+                const forceX = (latest.x - this.baselineAcceleration.x) * this.sensitivity.horizontal;
+                const forceY = -(latest.y - this.baselineAcceleration.y) * this.sensitivity.vertical;
                 
-                const totalDelta = deltaX + deltaY + deltaZ;
+                // Apply motion with immediate response
+                this.vx += forceX;
+                this.vy += forceY;
                 
-                // Detect intentional movement vs gravity/vibration
-                if (totalDelta > this.motionThreshold) {
-                  this.isDeviceMoving = true;
-                  this.lastValidMotion = Date.now();
-                  
-                  // Apply ultra-precise motion with directional sensitivity
-                  const forceX = currentAccel.x * this.sensitivity.x;
-                  const forceY = -currentAccel.y * this.sensitivity.y; // Invert Y for natural feel
-                  
-                  // Apply forces with advanced physics
-                  this.vx += forceX * this.smoothingFactor;
-                  this.vy += forceY * this.smoothingFactor;
-                  
-                  // Apply realistic velocity limits
-                  this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
-                  this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
-                  
-                } else if (Date.now() - this.lastValidMotion > this.motionTimeout) {
-                  // Device is stationary - apply strong decay
-                  this.isDeviceMoving = false;
-                  this.vx *= 0.88;
-                  this.vy *= 0.88;
-                  
-                  // Complete stop for micro-movements
-                  if (Math.abs(this.vx) < 0.2) this.vx = 0;
-                  if (Math.abs(this.vy) < 0.2) this.vy = 0;
-                }
+                // Limit velocity
+                this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
+                this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
+                
+              } else if (Date.now() - this.lastMotionTime > this.motionTimeoutDuration) {
+                // Device is stationary - stop ball immediately
+                this.isDeviceMoving = false;
+                this.isStationary = true;
+                
+                // Immediate velocity reduction when device stops moving
+                this.vx *= 0.5; // Quick decay
+                this.vy *= 0.5;
+                
+                // Complete stop for very small velocities
+                if (Math.abs(this.vx) < this.immediateStopThreshold) this.vx = 0;
+                if (Math.abs(this.vy) < this.immediateStopThreshold) this.vy = 0;
               }
             }
           }, { passive: true });
         }
 
-        // Enhanced orientation with ultra-precise tilt detection
+        // Enhanced orientation detection
         if (window.DeviceOrientationEvent) {
-          let lastOrientation = { beta: 0, gamma: 0 };
-          
           window.addEventListener('deviceorientation', (e) => {
-            const beta = e.beta || 0;
-            const gamma = e.gamma || 0;
+            const gamma = e.gamma || 0; // Left-right tilt
+            const beta = e.beta || 0;   // Front-back tilt
             
-            // Calculate orientation changes with high precision
-            const betaChange = Math.abs(beta - lastOrientation.beta);
-            const gammaChange = Math.abs(gamma - lastOrientation.gamma);
+            // Calculate orientation changes
+            const gammaChange = Math.abs(gamma - this.lastOrientation.gamma);
+            const betaChange = Math.abs(beta - this.lastOrientation.beta);
             
-            // Only apply forces for significant orientation changes
-            if (betaChange > 0.5 || gammaChange > 0.5) {
-              // Apply smooth tilt forces
-              this.vx += gamma * this.sensitivity.orientation;
-              this.vy += beta * this.sensitivity.orientation;
-              
+            // Apply forces for significant orientation changes
+            if (gammaChange > 0.5 || betaChange > 0.5) {
               this.isDeviceMoving = true;
-              this.lastValidMotion = Date.now();
+              this.isStationary = false;
+              this.lastMotionTime = Date.now();
+              
+              // Apply orientation-based forces
+              this.vx += gamma * this.orientationSensitivity;
+              this.vy += beta * this.orientationSensitivity * 0.5; // Less vertical sensitivity
+              
+              // Limit velocity
+              this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
+              this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
             }
             
-            lastOrientation = { beta, gamma };
+            this.lastOrientation = { gamma, beta };
           }, { passive: true });
         }
       }
 
       setupTouchInteractions() {
-        // Add touch interactions for manual control
+        // Direct touch control for testing
         document.addEventListener('touchstart', (e) => {
-          const touch = e.touches[0];
-          const moonRect = this.moon.getBoundingClientRect();
-          const distance = Math.sqrt(
-            Math.pow(touch.clientX - (moonRect.left + moonRect.width / 2), 2) +
-            Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
-          );
-          
-          if (distance < 50) {
-            e.preventDefault();
-            this.handleTouch(touch);
-          }
-        }, { passive: false });
-
-        document.addEventListener('touchmove', (e) => {
           const touch = e.touches[0];
           const moonRect = this.moon.getBoundingClientRect();
           const distance = Math.sqrt(
@@ -1245,9 +1268,13 @@
         const deltaX = touch.clientX - centerX;
         const deltaY = touch.clientY - centerY;
         
-        // Apply touch force
-        this.vx += deltaX * 0.02;
-        this.vy += deltaY * 0.02;
+        // Apply touch force - simulate device movement
+        this.vx += deltaX * 0.03;
+        this.vy += deltaY * 0.03;
+        
+        this.isDeviceMoving = true;
+        this.isStationary = false;
+        this.lastMotionTime = Date.now();
         
         this.triggerHapticFeedback('light');
       }
@@ -1261,7 +1288,6 @@
       animate(currentTime = 0) {
         if (!this.isMobile || !this.isAnimating) return;
 
-        // Throttle to target FPS
         if (currentTime - this.lastFrameTime < this.frameInterval) {
           this.animationId = requestAnimationFrame((time) => this.animate(time));
           return;
@@ -1273,41 +1299,33 @@
           height: window.innerHeight
         };
 
-        // Apply realistic bowling ball physics
-        this.vy += this.gravity;
-        this.vx *= this.friction;
-        this.vy *= this.airResistance;
-
-        // Apply air resistance
-        this.vx *= this.airResistance;
-
-        // Limit maximum speed for realism
-        const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-        if (currentSpeed > this.maxSpeed) {
-          const ratio = this.maxSpeed / currentSpeed;
-          this.vx *= ratio;
-          this.vy *= ratio;
+        // Only apply physics if device is moving or ball has existing velocity
+        if (this.isDeviceMoving || Math.abs(this.vx) > this.stationaryThreshold || Math.abs(this.vy) > this.stationaryThreshold) {
+          // Apply gravity only when there's motion
+          if (!this.isStationary) {
+            this.vy += this.gravity;
+          }
+          
+          // Apply friction
+          this.vx *= this.friction;
+          this.vy *= this.friction;
+          
+          // Update position
+          this.x += this.vx;
+          this.y += this.vy;
+        } else {
+          // Complete stop when device is stationary and velocity is minimal
+          this.vx = 0;
+          this.vy = 0;
         }
 
-        // Update position with enhanced precision
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Check collision with title
-        this.checkTitleCollision();
-
-        // Check black hole collision
-        this.checkBlackHoleCollision();
-
-        // Enhanced collision detection with realistic bowling ball physics
+        // Collision detection
         let hasCollision = false;
 
         if (this.x <= 0 || this.x >= bounds.width - this.size) {
           this.vx *= -this.bounce;
           this.x = this.x <= 0 ? 0 : bounds.width - this.size;
           hasCollision = true;
-          
-          // Add spin effect on wall collision
           this.rotationSpeed += Math.abs(this.vx) * 0.1;
         }
 
@@ -1316,22 +1334,23 @@
           this.y = this.y <= 0 ? 0 : bounds.height - this.size;
           hasCollision = true;
           
-          // More realistic floor bounce with energy loss
           if (this.y >= bounds.height - this.size) {
-            this.vy *= 0.8; // Energy loss on floor impact
-            this.vx *= 0.95; // Friction on floor
+            this.vy *= 0.8;
+            this.vx *= 0.95;
           }
         }
 
-        // Handle collisions with enhanced feedback
-        if (hasCollision && Date.now() - this.lastCollisionTime > this.collisionCooldown) {
+        if (hasCollision) {
           this.handleCollision();
-          this.lastCollisionTime = Date.now();
         }
 
-        // Apply rotation to visual element
-        this.rotationSpeed *= 0.98; // Gradual rotation decay
+        // Check black hole collision
+        this.checkBlackHoleCollision();
+
+        // Update rotation
+        this.rotationSpeed *= 0.98;
         this.positionMoon();
+        
         this.animationId = requestAnimationFrame((time) => this.animate(time));
       }
 
@@ -1560,6 +1579,7 @@
         this.vy = 0; // Start stationary
         this.rotationSpeed = 0;
         this.isDeviceMoving = false;
+        this.motionState = 'stationary';
 
         // Reset visual properties with smooth entrance
         const ballElement = this.moon;
@@ -1580,69 +1600,6 @@
             this.animate();
           }, 600);
         }, 100);
-      }
-
-      checkTitleCollision() {
-        const titleElement = document.querySelector('.main-title');
-        if (!titleElement) return;
-
-        const titleRect = titleElement.getBoundingClientRect();
-        const ballCenterX = this.x + this.size / 2;
-        const ballCenterY = this.y + this.size / 2;
-
-        // Check if ball intersects with title
-        if (ballCenterX >= titleRect.left && 
-            ballCenterX <= titleRect.right && 
-            ballCenterY >= titleRect.top && 
-            ballCenterY <= titleRect.bottom) {
-          
-          this.pushTitle(titleElement, ballCenterX, ballCenterY, titleRect);
-          
-          // Realistic ball bounce based on collision point
-          const titleCenterX = titleRect.left + titleRect.width / 2;
-          const titleCenterY = titleRect.top + titleRect.height / 2;
-          
-          // Calculate collision angle
-          const deltaX = ballCenterX - titleCenterX;
-          const deltaY = ballCenterY - titleCenterY;
-          
-          // Apply realistic physics bounce
-          this.vy *= -this.bounce;
-          this.vx += (deltaX / titleRect.width) * 8; // Side impact effect
-          
-          // Add some randomness for realism
-          this.vx += (Math.random() - 0.5) * 2;
-          this.vy += (Math.random() - 0.5) * 1;
-        }
-      }
-
-      pushTitle(titleElement, ballX, ballY, titleRect) {
-        if (titleElement.classList.contains('pushed')) return;
-
-        // Calculate push direction based on collision point
-        const titleCenterX = titleRect.left + titleRect.width / 2;
-        const titleCenterY = titleRect.top + titleRect.height / 2;
-        
-        const deltaX = ballX - titleCenterX;
-        const deltaY = ballY - titleCenterY;
-        
-        // Normalize the push direction
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        const pushX = (deltaX / distance) * 30; // Push strength
-        const pushY = (deltaY / distance) * 15; // Reduced vertical push
-        
-        // Apply realistic push motion
-        titleElement.classList.add('pushed');
-        titleElement.style.transform = `translate(${pushX}px, ${pushY}px) rotate(${pushX * 0.3}deg)`;
-        
-        // Return to original position after realistic timing
-        setTimeout(() => {
-          titleElement.style.transform = 'translate(0px, 0px) rotate(0deg)';
-          
-          setTimeout(() => {
-            titleElement.classList.remove('pushed');
-          }, 600);
-        }, 400);
       }
 
       handleCollision() {
