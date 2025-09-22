@@ -495,25 +495,35 @@
       filter: contrast(1.4) brightness(0.9);
     }
 
-    /* Black Hole for bowling ball */
+    /* Black Hole for bowling ball - Mobile Only */
     .black-hole {
       position: absolute;
       width: 60px;
       height: 60px;
       border-radius: 50%;
       background: 
-        radial-gradient(circle at center, #000000 0%, #1a1a1a 30%, #2a2a2a 60%, transparent 100%);
+        radial-gradient(circle at center, #000000 0%, #0a0a0a 20%, #1a1a1a 40%, #2a2a2a 70%, transparent 100%);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) translateY(100px);
       z-index: 1;
       opacity: 1;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: none;
+      box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(0, 0, 0, 0.5);
     }
 
     .black-hole.hidden {
       opacity: 0;
       transform: translate(-50%, -50%) translateY(100px) scale(0.5);
+    }
+
+    @media (max-width: 768px) {
+      .black-hole {
+        display: block;
+      }
     }
 
     @media (max-width: 768px) {
@@ -996,13 +1006,20 @@
         this.rotationSpeed = 0;
         this.maxSpeed = 18;
         
-        // Motion and haptic properties
+        // Motion and haptic properties with advanced mobile optimization
         this.lastCollisionTime = 0;
-        this.collisionCooldown = 150;
-        this.motionSensitivity = 0.15;
-        this.orientationSensitivity = 0.08;
+        this.collisionCooldown = 120;
+        this.motionSensitivity = 0.18;
+        this.orientationSensitivity = 0.10;
         this.lastOrientation = { beta: 0, gamma: 0 };
-        this.smoothingFactor = 0.7;
+        this.smoothingFactor = 0.75;
+        this.trailEffect = [];
+        this.maxTrailLength = 8;
+        
+        // Advanced physics properties
+        this.magneticPull = false;
+        this.holeAttraction = 0;
+        this.spinDecay = 0.985;
         
         // Performance optimization
         this.isAnimating = false;
@@ -1232,10 +1249,68 @@
           Math.pow(ballCenterY - holeCenterY, 2)
         );
 
-        // If ball is close to the hole, it gets pulled in
-        if (distance < 40) {
-          // Ball falls into the hole
+        // Advanced magnetic attraction effect
+        if (distance < 80) {
+          this.magneticPull = true;
+          this.holeAttraction = Math.max(0.5, (80 - distance) / 80);
+          
+          // Apply magnetic force towards hole
+          const forceX = (holeCenterX - ballCenterX) * this.holeAttraction * 0.08;
+          const forceY = (holeCenterY - ballCenterY) * this.holeAttraction * 0.08;
+          
+          this.vx += forceX;
+          this.vy += forceY;
+          
+          // Add visual magnetic effect
+          this.addMagneticWave(holeCenterX, holeCenterY);
+        } else {
+          this.magneticPull = false;
+          this.holeAttraction = 0;
+        }
+
+        // If ball is close enough to the hole, it gets pulled in
+        if (distance < 25) {
           this.fallIntoHole(holeCenterX, holeCenterY);
+        }
+      }
+
+      addMagneticWave(holeX, holeY) {
+        // Create magnetic attraction wave effect
+        if (Math.random() < 0.3) { // Limit frequency for performance
+          const wave = document.createElement('div');
+          wave.style.cssText = `
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(100, 100, 255, 0.4);
+            border-radius: 50%;
+            left: ${holeX - 15}px;
+            top: ${holeY - 15}px;
+            pointer-events: none;
+            z-index: 45;
+            animation: magneticWave 0.8s ease-out forwards;
+          `;
+          
+          // Add keyframe animation
+          if (!document.getElementById('magneticWaveStyle')) {
+            const style = document.createElement('style');
+            style.id = 'magneticWaveStyle';
+            style.textContent = `
+              @keyframes magneticWave {
+                0% { transform: scale(1); opacity: 0.6; }
+                100% { transform: scale(2.5); opacity: 0; }
+              }
+            `;
+            document.head.appendChild(style);
+          }
+          
+          document.body.appendChild(wave);
+          
+          setTimeout(() => {
+            if (wave.parentNode) {
+              document.body.removeChild(wave);
+            }
+          }, 800);
         }
       }
 
@@ -1245,23 +1320,113 @@
         this.vy = 0;
         this.isAnimating = false;
 
-        // Animate ball shrinking and moving to hole center
+        // Change background gradient when ball falls
+        this.changeBackgroundOnSuccess();
+
+        // Animate ball shrinking and moving to hole center with advanced effects
         const ballElement = this.moon;
-        ballElement.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        ballElement.style.transform = `translate3d(${holeX - 25}px, ${holeY - 25}px, 0) scale(0.1)`;
+        ballElement.classList.add('falling');
+        ballElement.style.transition = 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        ballElement.style.transform = `translate3d(${holeX - 25}px, ${holeY - 25}px, 0) scale(0.05) rotate(720deg)`;
         ballElement.style.opacity = '0';
 
-        this.triggerHapticFeedback('heavy');
+        // Advanced haptic pattern for success
+        this.triggerAdvancedHaptic();
+
+        // Add screen flash effect
+        this.createScreenFlash();
 
         // Show contact information for 3 seconds
         setTimeout(() => {
           this.showContactInfo();
-        }, 400);
+        }, 600);
 
         // Reset ball position and restart animation after contact info disappears
         setTimeout(() => {
           this.resetBall();
-        }, 4000);
+        }, 4500);
+      }
+
+      changeBackgroundOnSuccess() {
+        const backgroundElement = document.getElementById('backgroundImage');
+        if (backgroundElement) {
+          // Create a success gradient
+          const successGradients = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+            'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)'
+          ];
+          
+          const randomGradient = successGradients[Math.floor(Math.random() * successGradients.length)];
+          backgroundElement.style.background = randomGradient;
+          backgroundElement.style.transition = 'background 1.5s ease-in-out';
+          
+          // Revert to original after 5 seconds
+          setTimeout(() => {
+            const originalGradients = [
+              'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
+              'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+              'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+              'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+              'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+              'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
+              'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
+              'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
+              'linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%)',
+              'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
+              'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
+              'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)',
+              'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
+            ];
+            const originalGradient = originalGradients[Math.floor(Math.random() * originalGradients.length)];
+            backgroundElement.style.background = originalGradient;
+          }, 5000);
+        }
+      }
+
+      triggerAdvancedHaptic() {
+        if (!navigator.vibrate) return;
+        
+        // Advanced success haptic pattern
+        const successPattern = [100, 50, 100, 50, 200, 100, 300];
+        try {
+          navigator.vibrate(successPattern);
+        } catch (error) {
+          // Fallback to simple vibration
+          navigator.vibrate(200);
+        }
+      }
+
+      createScreenFlash() {
+        // Create a subtle screen flash effect
+        const flash = document.createElement('div');
+        flash.style.cssText = `
+          position: fixed;
+          inset: 0;
+          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+          z-index: 1000;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(flash);
+        
+        // Flash animation
+        requestAnimationFrame(() => {
+          flash.style.opacity = '1';
+          setTimeout(() => {
+            flash.style.opacity = '0';
+            setTimeout(() => {
+              document.body.removeChild(flash);
+            }, 300);
+          }, 100);
+        });
       }
 
       showContactInfo() {
@@ -1287,22 +1452,32 @@
       }
 
       resetBall() {
-        // Reset ball to starting position
+        // Reset ball to starting position with random spawn location
         this.x = Math.random() * (window.innerWidth - this.size);
-        this.y = 50;
-        this.vx = 4 + Math.random() * 3;
-        this.vy = 2 + Math.random() * 2;
+        this.y = 30 + Math.random() * 50;
+        this.vx = (3 + Math.random() * 4) * (Math.random() > 0.5 ? 1 : -1);
+        this.vy = 1 + Math.random() * 3;
         this.rotationSpeed = 0;
 
-        // Reset visual properties
+        // Reset visual properties with smooth entrance
         const ballElement = this.moon;
-        ballElement.style.transition = 'none';
-        ballElement.style.opacity = '1';
-        ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
+        ballElement.classList.remove('falling');
+        ballElement.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        ballElement.style.opacity = '0';
+        ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 50}px, 0) scale(0.8)`;
 
-        // Restart animation
-        this.isAnimating = true;
-        this.animate();
+        // Animate entrance
+        setTimeout(() => {
+          ballElement.style.opacity = '1';
+          ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
+          
+          setTimeout(() => {
+            ballElement.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            // Restart animation
+            this.isAnimating = true;
+            this.animate();
+          }, 600);
+        }, 100);
       }
 
       checkTitleCollision() {
