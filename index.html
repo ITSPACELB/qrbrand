@@ -249,6 +249,7 @@
       transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    /* Mobile responsive subtitle with motion */
     .subtitle {
       display: inline-block;
       background: var(--bg-card);
@@ -262,6 +263,14 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       max-width: min(760px, 86vw);
       line-height: 1.5;
+      transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    @media (max-width: 768px) {
+      .subtitle {
+        transform-origin: center center;
+      }
     }
 
     /* Motivational quotes section - Mobile touch interaction */
@@ -886,16 +895,19 @@
       }
     }
 
-    // Mobile Touch Statistics Manager - Enhanced for contact and quotes interactions
+    // Mobile Touch Statistics Manager - Enhanced with subtitle motion and 5-second timing
     class MobileTouchManager {
       constructor() {
         this.isMobile = window.innerWidth <= 768;
+        this.subtitleMotion = { x: 0, y: 0 };
         this.init();
       }
 
       init() {
         if (this.isMobile) {
           this.setupMobileTouchInteractions();
+          this.setupSubtitleMotion();
+          this.showInitialContactInfo();
         }
       }
 
@@ -903,7 +915,7 @@
         let touchTimer = null;
         let quoteTimer = null;
         
-        // Enhanced touch interactions for contact elements and motivational quotes
+        // Enhanced touch interactions with 5-second timing
         document.addEventListener('touchstart', (e) => {
           clearTimeout(touchTimer);
           clearTimeout(quoteTimer);
@@ -912,10 +924,10 @@
         });
 
         document.addEventListener('touchend', () => {
-          // Keep contact elements visible for 3 seconds after touch ends
+          // Keep contact elements visible for 5 seconds after touch ends
           touchTimer = setTimeout(() => {
             this.hideContactElements();
-          }, 3000);
+          }, 5000);
 
           // Keep motivational quote visible for 5 seconds after touch ends
           quoteTimer = setTimeout(() => {
@@ -927,6 +939,39 @@
         window.addEventListener('resize', () => {
           this.isMobile = window.innerWidth <= 768;
         });
+      }
+
+      setupSubtitleMotion() {
+        // Enhanced device orientation for subtitle movement
+        if (window.DeviceOrientationEvent) {
+          window.addEventListener('deviceorientation', (e) => {
+            const gamma = e.gamma || 0; // left-to-right tilt (-90 to 90)
+            const beta = e.beta || 0;   // front-to-back tilt (-180 to 180)
+            
+            // Calculate smooth motion with realistic physics
+            const maxMove = 15; // Maximum movement in pixels
+            const moveX = (gamma / 90) * maxMove;
+            const moveY = (beta / 180) * (maxMove * 0.3); // Less vertical movement
+            
+            // Apply motion to subtitle
+            const subtitle = document.querySelector('.subtitle');
+            if (subtitle) {
+              subtitle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+          }, { passive: true });
+        }
+      }
+
+      showInitialContactInfo() {
+        // Show contact info on page load for 5 seconds
+        setTimeout(() => {
+          this.showContactElements();
+          
+          // Hide after 5 seconds
+          setTimeout(() => {
+            this.hideContactElements();
+          }, 5000);
+        }, 1000); // Show after 1 second of page load
       }
 
       showContactElements() {
@@ -982,25 +1027,33 @@
         this.moon = document.getElementById('physicsMoon');
         this.isMobile = window.innerWidth <= 768;
         
-        // Enhanced physics properties for ultra-realistic bowling ball movement
+        // Ultra-realistic physics properties for bowling ball #8
         this.x = window.innerWidth / 2;
         this.y = window.innerHeight / 4;
-        this.vx = 0; // Start stationary
-        this.vy = 0; // Start stationary
-        this.gravity = 0.7;
-        this.bounce = 0.65;
-        this.friction = 0.988;
-        this.airResistance = 0.997;
+        this.vx = 0;
+        this.vy = 0;
+        this.gravity = 0.6;
+        this.bounce = 0.7;
+        this.friction = 0.985;
+        this.airResistance = 0.995;
         this.size = 50;
-        this.mass = 2.5;
+        this.mass = 3.5; // Heavier like real bowling ball
         this.rotationSpeed = 0;
-        this.maxSpeed = 20;
+        this.maxSpeed = 25;
         
-        // Advanced motion detection
-        this.motionThreshold = 0.5;
-        this.lastAcceleration = { x: 0, y: 0, z: 0 };
+        // Ultra-sensitive motion detection system
+        this.motionThreshold = 0.3;
+        this.accelerationHistory = [];
+        this.maxHistoryLength = 10;
+        this.smoothingFactor = 0.85;
         this.isDeviceMoving = false;
-        this.motionDecayRate = 0.92;
+        this.lastValidMotion = Date.now();
+        this.motionTimeout = 200; // ms
+        this.sensitivity = {
+          x: 0.35,
+          y: 0.35,
+          orientation: 0.15
+        };
         
         // Motion and haptic properties with advanced mobile optimization
         this.lastCollisionTime = 0;
@@ -1063,70 +1116,92 @@
       }
 
       setupDeviceMotion() {
-        // Ultra-sensitive device motion with advanced filtering
+        // Ultra-sensitive motion system for Android and iOS
         if (window.DeviceMotionEvent) {
           window.addEventListener('devicemotion', (e) => {
             const acc = e.accelerationIncludingGravity;
             if (acc && acc.x !== null && acc.y !== null && acc.z !== null) {
               
-              // Calculate motion intensity
-              const currentMotion = Math.sqrt(
-                Math.pow(acc.x || 0, 2) + 
-                Math.pow(acc.y || 0, 2) + 
-                Math.pow(acc.z || 0, 2)
-              );
+              // Store acceleration history for advanced filtering
+              this.accelerationHistory.push({
+                x: acc.x || 0,
+                y: acc.y || 0,
+                z: acc.z || 0,
+                timestamp: Date.now()
+              });
               
-              // Detect if device is actually moving vs static gravity
-              const motionDelta = Math.abs(currentMotion - 9.8); // Earth's gravity baseline
-              this.isDeviceMoving = motionDelta > this.motionThreshold;
-              
-              if (this.isDeviceMoving) {
-                // Apply ultra-sensitive motion with high precision
-                const deltaX = (acc.x || 0) * 0.25;
-                const deltaY = -(acc.y || 0) * 0.25;
-                
-                this.vx += deltaX * this.smoothingFactor;
-                this.vy += deltaY * this.smoothingFactor;
-                
-                // Limit maximum velocity for realism
-                this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
-                this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
-              } else {
-                // Apply strong decay when device is still
-                this.vx *= this.motionDecayRate;
-                this.vy *= this.motionDecayRate;
-                
-                // Stop micro-movements when very slow
-                if (Math.abs(this.vx) < 0.1) this.vx = 0;
-                if (Math.abs(this.vy) < 0.1) this.vy = 0;
+              if (this.accelerationHistory.length > this.maxHistoryLength) {
+                this.accelerationHistory.shift();
               }
               
-              this.lastAcceleration = { x: acc.x, y: acc.y, z: acc.z };
+              // Calculate motion intensity with advanced filtering
+              const currentAccel = this.accelerationHistory[this.accelerationHistory.length - 1];
+              
+              if (this.accelerationHistory.length >= 3) {
+                const prevAccel = this.accelerationHistory[this.accelerationHistory.length - 3];
+                
+                // Calculate delta acceleration (change in movement)
+                const deltaX = Math.abs(currentAccel.x - prevAccel.x);
+                const deltaY = Math.abs(currentAccel.y - prevAccel.y);
+                const deltaZ = Math.abs(currentAccel.z - prevAccel.z);
+                
+                const totalDelta = deltaX + deltaY + deltaZ;
+                
+                // Detect intentional movement vs gravity/vibration
+                if (totalDelta > this.motionThreshold) {
+                  this.isDeviceMoving = true;
+                  this.lastValidMotion = Date.now();
+                  
+                  // Apply ultra-precise motion with directional sensitivity
+                  const forceX = currentAccel.x * this.sensitivity.x;
+                  const forceY = -currentAccel.y * this.sensitivity.y; // Invert Y for natural feel
+                  
+                  // Apply forces with advanced physics
+                  this.vx += forceX * this.smoothingFactor;
+                  this.vy += forceY * this.smoothingFactor;
+                  
+                  // Apply realistic velocity limits
+                  this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
+                  this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
+                  
+                } else if (Date.now() - this.lastValidMotion > this.motionTimeout) {
+                  // Device is stationary - apply strong decay
+                  this.isDeviceMoving = false;
+                  this.vx *= 0.88;
+                  this.vy *= 0.88;
+                  
+                  // Complete stop for micro-movements
+                  if (Math.abs(this.vx) < 0.2) this.vx = 0;
+                  if (Math.abs(this.vy) < 0.2) this.vy = 0;
+                }
+              }
             }
           }, { passive: true });
         }
 
-        // Enhanced device orientation with ultra-precise control
+        // Enhanced orientation with ultra-precise tilt detection
         if (window.DeviceOrientationEvent) {
+          let lastOrientation = { beta: 0, gamma: 0 };
+          
           window.addEventListener('deviceorientation', (e) => {
-            const beta = e.beta || 0;  // front-to-back tilt (-180 to 180)
-            const gamma = e.gamma || 0; // left-to-right tilt (-90 to 90)
+            const beta = e.beta || 0;
+            const gamma = e.gamma || 0;
             
-            // Ultra-smooth orientation changes with higher sensitivity
-            const smoothBeta = this.lastOrientation.beta * (1 - this.smoothingFactor) + beta * this.smoothingFactor;
-            const smoothGamma = this.lastOrientation.gamma * (1 - this.smoothingFactor) + gamma * this.smoothingFactor;
+            // Calculate orientation changes with high precision
+            const betaChange = Math.abs(beta - lastOrientation.beta);
+            const gammaChange = Math.abs(gamma - lastOrientation.gamma);
             
-            // Only apply orientation forces if there's significant change
-            const betaDelta = Math.abs(smoothBeta - this.lastOrientation.beta);
-            const gammaDelta = Math.abs(smoothGamma - this.lastOrientation.gamma);
-            
-            if (betaDelta > 1 || gammaDelta > 1) {
-              this.vx += smoothGamma * 0.12;
-              this.vy += smoothBeta * 0.12;
+            // Only apply forces for significant orientation changes
+            if (betaChange > 0.5 || gammaChange > 0.5) {
+              // Apply smooth tilt forces
+              this.vx += gamma * this.sensitivity.orientation;
+              this.vy += beta * this.sensitivity.orientation;
+              
               this.isDeviceMoving = true;
+              this.lastValidMotion = Date.now();
             }
             
-            this.lastOrientation = { beta: smoothBeta, gamma: smoothGamma };
+            lastOrientation = { beta, gamma };
           }, { passive: true });
         }
       }
@@ -1370,7 +1445,7 @@
         // Reset ball position and restart animation after contact info disappears
         setTimeout(() => {
           this.resetBall();
-        }, 4500);
+        }, 6000); // 5 seconds for contact info + 1 second buffer
       }
 
       changeBackgroundOnSuccess() {
@@ -1466,7 +1541,7 @@
           companyAddress.classList.add('visible');
         }
 
-        // Hide contact info after 3 seconds
+        // Hide contact info after 5 seconds
         setTimeout(() => {
           if (contactGrid) {
             contactGrid.classList.remove('visible');
@@ -1474,7 +1549,7 @@
           if (companyAddress) {
             companyAddress.classList.remove('visible');
           }
-        }, 3000);
+        }, 5000);
       }
 
       resetBall() {
