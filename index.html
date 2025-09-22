@@ -21,8 +21,8 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="preconnect" href="https://flagcdn.com" crossorigin>
   
-  <!-- Load modern Apple-style font with Inter fallback -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Load fonts with font-display: swap for better performance -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -233,21 +233,20 @@
       margin: 0 auto;
     }
 
-    /* Modern Apple-style title design */
     .main-title {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
       font-size: var(--font-size-4xl);
       font-weight: 500;
       line-height: 1.1;
       letter-spacing: -0.02em;
       margin-bottom: var(--spacing-lg);
       text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-      color: #ffffff;
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       transform-origin: center center;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: default;
-      user-select: none;
+    }
+
+    .main-title.pushed {
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     /* Mobile responsive subtitle with motion */
@@ -443,145 +442,56 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Realistic Billiard Ball */
+    /* Physics Ultra-Realistic Black Bowling Ball - Enhanced for Mobile */
     .physics-moon {
       position: fixed;
       width: 50px;
       height: 50px;
+      border-radius: 50%;
+      background: 
+        radial-gradient(ellipse at 25% 15%, #3a3a3a 0%, transparent 25%),
+        radial-gradient(ellipse at 30% 20%, #1a1a1a 0%, transparent 35%),
+        radial-gradient(ellipse at 70% 80%, #000000 0%, transparent 45%),
+        linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 20%, #050505 40%, #000000 60%, #000000 100%);
       z-index: 50;
       pointer-events: none;
       display: none;
       transition: all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform;
+      filter: contrast(1.3) brightness(0.8);
     }
 
-    /* Billiard Ball Styles */
-    .billiard-ball-container {
-      width: 50px;
-      height: 50px;
-      position: relative;
-      transform-style: preserve-3d;
-      perspective: 200px;
-    }
-
-    .billiard-ball {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      position: relative;
-      transform-style: preserve-3d;
-      background: 
-        radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.8) 0%, transparent 50%),
-        radial-gradient(ellipse at 20% 25%, rgba(255,255,255,0.6) 0%, transparent 25%),
-        radial-gradient(circle at center, #000000 0%, #1a1a1a 30%, #2a2a2a 60%, #000000 100%);
-      box-shadow: 
-        inset -8px -8px 15px rgba(0, 0, 0, 0.9),
-        inset 5px 5px 10px rgba(255, 255, 255, 0.1),
-        0 8px 25px rgba(0, 0, 0, 0.7),
-        0 3px 8px rgba(0, 0, 0, 0.5);
-      filter: contrast(1.3) brightness(0.9) saturate(1.1);
-      transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .ball-surface {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      position: relative;
-      transform-style: preserve-3d;
-      overflow: hidden;
-    }
-
-    .ball-highlight {
+    .physics-moon::before {
+      content: '';
       position: absolute;
-      top: 15%;
-      left: 25%;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: 
-        radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 40%, transparent 70%);
-      filter: blur(0.5px);
-    }
-
-    .ball-shadow {
-      position: absolute;
-      bottom: 10%;
-      right: 15%;
-      width: 20px;
+      top: 8px;
+      left: 12px;
+      width: 12px;
       height: 12px;
-      border-radius: 50%;
       background: 
-        radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%);
+        radial-gradient(ellipse at 40% 30%, rgba(80, 80, 80, 0.3) 0%, rgba(40, 40, 40, 0.15) 50%, transparent 80%);
+      border-radius: 50%;
       filter: blur(1px);
+      transform: rotate(-10deg);
     }
 
-    .ball-number {
+    .physics-moon::after {
+      content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 22px;
-      height: 22px;
-      background: 
-        radial-gradient(circle, #ffffff 0%, #f0f0f0 70%, #e0e0e0 100%);
+      top: 20px;
+      left: 18px;
+      width: 3px;
+      height: 3px;
+      background: #000000;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Arial Black', Arial, sans-serif;
-      font-size: 14px;
-      font-weight: bold;
-      color: #000000;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.3);
       box-shadow: 
-        inset 0 2px 4px rgba(255,255,255,0.3),
-        inset 0 -2px 4px rgba(0,0,0,0.2),
-        0 2px 4px rgba(0,0,0,0.3);
-      z-index: 2;
+        0 8px 0 #000000,
+        0 16px 0 #000000;
     }
 
-    .ball-stripe {
-      position: absolute;
-      width: 100%;
-      height: 8px;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(0,0,0,0.3) 20%, 
-        rgba(0,0,0,0.5) 50%, 
-        rgba(0,0,0,0.3) 80%, 
-        transparent 100%);
-      border-radius: 4px;
-      left: 0;
-    }
-
-    .ball-stripe.stripe-1 {
-      top: 30%;
-      transform: rotate(-15deg);
-    }
-
-    .ball-stripe.stripe-2 {
-      bottom: 30%;
-      transform: rotate(15deg);
-    }
-
-    .billiard-ball.rolling {
-      box-shadow: 
-        inset -8px -8px 15px rgba(0, 0, 0, 0.9),
-        inset 5px 5px 10px rgba(255, 255, 255, 0.15),
-        0 12px 35px rgba(0, 0, 0, 0.8),
-        0 5px 15px rgba(0, 0, 0, 0.6);
-      filter: contrast(1.4) brightness(1.0) saturate(1.2);
-    }
-
-    .billiard-ball.bouncing {
-      transform: scale(1.05);
-      box-shadow: 
-        inset -8px -8px 15px rgba(0, 0, 0, 0.9),
-        inset 5px 5px 10px rgba(255, 255, 255, 0.2),
-        0 15px 40px rgba(0, 0, 0, 0.9),
-        0 8px 20px rgba(0, 0, 0, 0.7);
-      filter: contrast(1.5) brightness(1.1) saturate(1.3);
+    .physics-moon.bouncing {
+      transform: scale(1.2);
+      filter: contrast(1.4) brightness(0.9);
     }
 
     /* Black Hole for bowling ball - Mobile Only - Positioned higher */
@@ -621,46 +531,7 @@
       }
     }
 
-    /* Animation keyframes */
-    @keyframes ballSpin {
-      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-      100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-    }
-
-    @keyframes magneticPulse {
-      0% { 
-        transform: scale(1); 
-        opacity: 0.8; 
-        border-color: rgba(100, 150, 255, 0.8);
-      }
-      50% { 
-        transform: scale(1.8); 
-        opacity: 0.4;
-        border-color: rgba(150, 200, 255, 0.6);
-      }
-      100% { 
-        transform: scale(3); 
-        opacity: 0; 
-        border-color: rgba(200, 250, 255, 0.2);
-      }
-    }
-
-    @keyframes particleExplosion {
-      0% { 
-        transform: translate(0, 0) scale(0);
-        opacity: 1;
-      }
-      50% { 
-        transform: translate(calc(var(--final-x) * 0.7), calc(var(--final-y) * 0.7)) scale(1.2);
-        opacity: 0.8;
-      }
-      100% { 
-        transform: translate(var(--final-x), var(--final-y)) scale(0);
-        opacity: 0;
-      }
-    }
-
-    /* Responsive design */
+    /* Responsive design - محسن للموبايل */
     @media (max-width: 768px) {
       :root {
         --font-size-3xl: 36px;
@@ -695,6 +566,7 @@
         max-width: 94vw;
       }
 
+      /* Enhanced touch interactions for contact information */
       .contact-grid {
         flex-direction: column;
         align-items: center;
@@ -721,6 +593,10 @@
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
       }
 
+      .contact-item:last-child {
+        grid-column: 1;
+      }
+
       .flag-icon {
         width: 14px;
         height: 10px;
@@ -742,6 +618,10 @@
         font-size: var(--font-size-2xl);
       }
 
+      .search-input-container {
+        padding: var(--spacing-md);
+      }
+
       .contact-item {
         padding: var(--spacing-sm);
         min-height: 32px;
@@ -749,6 +629,30 @@
         background: rgba(0, 0, 0, 0.75);
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      :root {
+        --bg-glass: rgba(0, 0, 0, 0.9);
+        --bg-card: rgba(0, 0, 0, 0.95);
+        --bg-transparent: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Focus styles for keyboard navigation */
+    *:focus {
+      outline: 2px solid var(--accent-blue);
+      outline-offset: 2px;
     }
 
     /* Loading state */
@@ -800,20 +704,8 @@
   </div>
   <div class="background-overlay"></div>
 
-  <!-- Realistic 3D Billiard Ball for Mobile -->
-  <div class="physics-moon" id="physicsMoon">
-    <div class="billiard-ball-container">
-      <div class="billiard-ball">
-        <div class="ball-surface">
-          <div class="ball-highlight"></div>
-          <div class="ball-shadow"></div>
-          <div class="ball-number">8</div>
-          <div class="ball-stripe stripe-1"></div>
-          <div class="ball-stripe stripe-2"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Physics Golden Ball for Mobile -->
+  <div class="physics-moon" id="physicsMoon"></div>
 
   <div class="main-container">
     <!-- Statistics section -->
@@ -840,7 +732,7 @@
         Do you need software or an app to develop your business?
       </p>
 
-      <h1 class="main-title">Welcome to QR Brand ltd</h1>
+      <h1 class="main-title">Welcome to QRBrand Ltd</h1>
 
       <!-- Motivational quotes section -->
       <section class="motivational-container" role="region" aria-label="Motivational quotes">
@@ -900,7 +792,7 @@
       }
     };
 
-    // Enhanced gradient backgrounds
+    // Enhanced gradient backgrounds - no external images needed
     const fallbackGradients = [
       'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
@@ -920,15 +812,75 @@
       'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
     ];
 
-    // Background Manager
+    // Optimized background image loading with enhanced performance
     class BackgroundManager {
       constructor() {
+        this.currentImageIndex = 0;
+        this.loadedImages = new Map();
+        this.isLoading = false;
         this.backgroundElement = document.getElementById('backgroundImage');
+        this.preloadQueue = [];
         this.init();
       }
 
       init() {
+        performance.mark('backgroundInit');
+        this.loadRandomBackground();
+        
+        // Preload next few images for smooth transitions
+        setTimeout(() => this.preloadImages(), 500);
+      }
+
+      async loadRandomBackground() {
+        if (this.isLoading) return;
+        this.isLoading = true;
+
+        // Skip external images entirely and use gradients directly
+        console.log('Using beautiful gradient background');
         this.setFallbackBackground();
+        performance.mark('backgroundLoaded');
+        this.isLoading = false;
+      }
+
+      async getOptimizedImageUrl(imageId) {
+        // Not needed - using gradients only
+        return null;
+      }
+
+      loadImage(url) {
+        return new Promise((resolve, reject) => {
+          if (this.loadedImages.has(url)) {
+            resolve(this.loadedImages.get(url));
+            return;
+          }
+
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          
+          const timeout = setTimeout(() => {
+            img.onload = null;
+            img.onerror = null;
+            reject(new Error('Image load timeout'));
+          }, 5000); // Reduced timeout
+
+          img.onload = () => {
+            clearTimeout(timeout);
+            this.loadedImages.set(url, img);
+            resolve(img);
+          };
+
+          img.onerror = () => {
+            clearTimeout(timeout);
+            reject(new Error('Image load failed'));
+          };
+
+          img.src = url;
+        });
+      }
+
+      setBackground(url) {
+        this.backgroundElement.style.backgroundImage = `url('${url}')`;
+        this.backgroundElement.classList.add('loaded');
       }
 
       setFallbackBackground() {
@@ -936,658 +888,14 @@
         this.backgroundElement.style.background = randomGradient;
         this.backgroundElement.classList.add('loaded');
       }
-    }
 
-    // Ultra-Realistic 3D Billiard Ball Physics Engine for Mobile
-    class RealisticBilliardBall {
-      constructor() {
-        this.ball = document.getElementById('physicsMoon');
-        this.isMobile = window.innerWidth <= 768;
-        
-        // Ball physical properties
-        this.x = window.innerWidth / 2;
-        this.y = window.innerHeight / 4;
-        this.vx = 0;
-        this.vy = 0;
-        this.size = 50;
-        
-        // Physics constants
-        this.gravity = 0.4;
-        this.friction = 0.985;
-        this.bounce = 0.75;
-        this.airResistance = 0.999;
-        this.maxSpeed = 25;
-        this.minSpeed = 0.1;
-        
-        // Motion detection
-        this.motionSensitivity = 1.5;
-        this.orientationSensitivity = 0.8;
-        this.accelerationThreshold = 0.05;
-        this.motionBuffer = [];
-        this.bufferSize = 5;
-        
-        // Device motion state
-        this.isDeviceMoving = false;
-        this.lastMotionTime = 0;
-        this.motionTimeout = 150;
-        this.baselineAcceleration = { x: 0, y: 0, z: 0 };
-        this.hasBaseline = false;
-        this.calibrationSamples = 0;
-        this.maxCalibrationSamples = 20;
-        
-        // Enhanced 3D rotation
-        this.rotationX = 0;
-        this.rotationY = 0;
-        this.rotationZ = 0;
-        this.rotationSpeedX = 0;
-        this.rotationSpeedY = 0;
-        this.rotationSpeedZ = 0;
-        this.maxRotationSpeed = 15;
-        
-        // Animation control
-        this.isAnimating = false;
-        this.animationId = null;
-        this.lastFrameTime = 0;
-        this.targetFPS = 60;
-        this.frameInterval = 1000 / this.targetFPS;
-        
-        // Ball state
-        this.isStationary = true;
-        
-        if (this.isMobile) {
-          this.init();
-        }
-      }
-
-      init() {
-        this.requestMotionPermissions();
-        this.setupPrecisionMotionDetection();
-        this.setupOrientationDetection();
-        this.setupTouchInteractions();
-        this.startPhysicsEngine();
-        this.positionBall();
-      }
-
-      async requestMotionPermissions() {
-        if (typeof DeviceMotionEvent.requestPermission === 'function') {
-          try {
-            const motionPermission = await DeviceMotionEvent.requestPermission();
-            console.log('Motion permission:', motionPermission);
-          } catch (error) {
-            console.error('Motion permission error:', error);
-          }
-        }
-
-        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-          try {
-            const orientationPermission = await DeviceOrientationEvent.requestPermission();
-            console.log('Orientation permission:', orientationPermission);
-          } catch (error) {
-            console.error('Orientation permission error:', error);
-          }
-        }
-      }
-
-      setupPrecisionMotionDetection() {
-        if (!window.DeviceMotionEvent) return;
-
-        window.addEventListener('devicemotion', (event) => {
-          const acc = event.accelerationIncludingGravity;
-          if (!acc || acc.x === null || acc.y === null || acc.z === null) return;
-
-          const currentAcceleration = {
-            x: acc.x || 0,
-            y: acc.y || 0,
-            z: acc.z || 0,
-            timestamp: Date.now()
-          };
-
-          // Calibration phase
-          if (!this.hasBaseline && this.calibrationSamples < this.maxCalibrationSamples) {
-            this.baselineAcceleration.x += currentAcceleration.x;
-            this.baselineAcceleration.y += currentAcceleration.y;
-            this.baselineAcceleration.z += currentAcceleration.z;
-            this.calibrationSamples++;
-
-            if (this.calibrationSamples === this.maxCalibrationSamples) {
-              this.baselineAcceleration.x /= this.maxCalibrationSamples;
-              this.baselineAcceleration.y /= this.maxCalibrationSamples;
-              this.baselineAcceleration.z /= this.maxCalibrationSamples;
-              this.hasBaseline = true;
-              console.log('Motion baseline established:', this.baselineAcceleration);
-            }
-            return;
-          }
-
-          if (!this.hasBaseline) return;
-
-          // Add to buffer
-          this.motionBuffer.push(currentAcceleration);
-          if (this.motionBuffer.length > this.bufferSize) {
-            this.motionBuffer.shift();
-          }
-
-          // Analyze motion
-          if (this.motionBuffer.length >= 2) {
-            const latest = this.motionBuffer[this.motionBuffer.length - 1];
-            const previous = this.motionBuffer[this.motionBuffer.length - 2];
-
-            // Calculate deviation from baseline
-            const deviationX = Math.abs(latest.x - this.baselineAcceleration.x);
-            const deviationY = Math.abs(latest.y - this.baselineAcceleration.y);
-            const deviationZ = Math.abs(latest.z - this.baselineAcceleration.z);
-
-            // Calculate change in acceleration
-            const deltaX = Math.abs(latest.x - previous.x);
-            const deltaY = Math.abs(latest.y - previous.y);
-            const deltaZ = Math.abs(latest.z - previous.z);
-
-            const totalDelta = deltaX + deltaY + deltaZ;
-            const totalDeviation = deviationX + deviationY + deviationZ;
-
-            // Detect intentional device motion
-            if (totalDelta > this.accelerationThreshold || totalDeviation > this.accelerationThreshold * 1.5) {
-              this.isDeviceMoving = true;
-              this.isStationary = false;
-              this.lastMotionTime = Date.now();
-
-              // Apply forces based on actual acceleration
-              const forceX = (latest.x - this.baselineAcceleration.x) * this.motionSensitivity;
-              const forceY = -(latest.y - this.baselineAcceleration.y) * this.motionSensitivity;
-
-              // Apply motion with immediate response
-              this.vx += forceX;
-              this.vy += forceY;
-
-              // Limit velocity
-              this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
-              this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
-
-              // Update rotation speeds
-              this.rotationSpeedX += Math.abs(forceY) * 2;
-              this.rotationSpeedY += Math.abs(forceX) * 2;
-              this.rotationSpeedZ += (Math.abs(forceX) + Math.abs(forceY)) * 0.5;
-
-              this.rotationSpeedX = Math.min(this.rotationSpeedX, this.maxRotationSpeed);
-              this.rotationSpeedY = Math.min(this.rotationSpeedY, this.maxRotationSpeed);
-              this.rotationSpeedZ = Math.min(this.rotationSpeedZ, this.maxRotationSpeed);
-
-              this.addRollingEffect();
-
-            } else if (Date.now() - this.lastMotionTime > this.motionTimeout) {
-              // Device is stationary
-              this.isDeviceMoving = false;
-              
-              if (Math.abs(this.vx) < this.minSpeed && Math.abs(this.vy) < this.minSpeed) {
-                this.isStationary = true;
-                this.vx = 0;
-                this.vy = 0;
-                this.rotationSpeedX *= 0.9;
-                this.rotationSpeedY *= 0.9;
-                this.rotationSpeedZ *= 0.9;
-              }
-            }
-          }
-        }, { passive: true });
-      }
-
-      setupOrientationDetection() {
-        if (!window.DeviceOrientationEvent) return;
-
-        let lastOrientation = { gamma: 0, beta: 0, alpha: 0 };
-
-        window.addEventListener('deviceorientation', (event) => {
-          const gamma = event.gamma || 0;
-          const beta = event.beta || 0;
-          const alpha = event.alpha || 0;
-
-          const gammaChange = Math.abs(gamma - lastOrientation.gamma);
-          const betaChange = Math.abs(beta - lastOrientation.beta);
-
-          if (gammaChange > 0.3 || betaChange > 0.3) {
-            this.isDeviceMoving = true;
-            this.isStationary = false;
-            this.lastMotionTime = Date.now();
-
-            const orientationForceX = gamma * this.orientationSensitivity * 0.1;
-            const orientationForceY = beta * this.orientationSensitivity * 0.05;
-
-            this.vx += orientationForceX;
-            this.vy += orientationForceY;
-
-            this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
-            this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
-
-            this.rotationSpeedY += Math.abs(gammaChange) * 0.5;
-            this.rotationSpeedX += Math.abs(betaChange) * 0.3;
-          }
-
-          lastOrientation = { gamma, beta, alpha };
-        }, { passive: true });
-      }
-
-      setupTouchInteractions() {
-        this.ball.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          const touch = e.touches[0];
-          this.handleDirectTouch(touch);
-        }, { passive: false });
-      }
-
-      handleDirectTouch(touch) {
-        const rect = this.ball.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        const deltaX = touch.clientX - centerX;
-        const deltaY = touch.clientY - centerY;
-
-        this.vx += deltaX * 0.05;
-        this.vy += deltaY * 0.05;
-
-        this.isDeviceMoving = true;
-        this.isStationary = false;
-        this.lastMotionTime = Date.now();
-
-        this.triggerHapticFeedback('medium');
-        this.addRollingEffect();
-      }
-
-      startPhysicsEngine() {
-        if (this.isAnimating) return;
-        this.isAnimating = true;
-        this.animate();
-      }
-
-      animate(currentTime = 0) {
-        if (!this.isMobile || !this.isAnimating) return;
-
-        if (currentTime - this.lastFrameTime < this.frameInterval) {
-          this.animationId = requestAnimationFrame((time) => this.animate(time));
-          return;
-        }
-        this.lastFrameTime = currentTime;
-
-        const bounds = {
-          width: window.innerWidth,
-          height: window.innerHeight
-        };
-
-        // Apply physics only if ball is moving
-        if (!this.isStationary || Math.abs(this.vx) > this.minSpeed || Math.abs(this.vy) > this.minSpeed) {
-          
-          // Apply gravity
-          if (!this.isStationary) {
-            this.vy += this.gravity;
-          }
-
-          // Apply air resistance and friction
-          this.vx *= this.airResistance;
-          this.vy *= this.airResistance;
-
-          // Update position
-          this.x += this.vx;
-          this.y += this.vy;
-
-          // Update rotation
-          this.rotationX += this.rotationSpeedX;
-          this.rotationY += this.rotationSpeedY;
-          this.rotationZ += this.rotationSpeedZ;
-
-          // Reduce rotation speeds gradually
-          this.rotationSpeedX *= 0.98;
-          this.rotationSpeedY *= 0.98;
-          this.rotationSpeedZ *= 0.98;
-        }
-
-        // Collision detection
-        let hasCollision = false;
-
-        // Edge collisions
-        if (this.x <= 0 || this.x >= bounds.width - this.size) {
-          this.vx *= -this.bounce;
-          this.x = this.x <= 0 ? 0 : bounds.width - this.size;
-          hasCollision = true;
-          
-          this.rotationSpeedY += Math.abs(this.vx) * 0.3;
-        }
-
-        if (this.y <= 0 || this.y >= bounds.height - this.size) {
-          this.vy *= -this.bounce;
-          this.y = this.y <= 0 ? 0 : bounds.height - this.size;
-          hasCollision = true;
-
-          this.rotationSpeedX += Math.abs(this.vy) * 0.3;
-
-          if (this.y >= bounds.height - this.size) {
-            this.vx *= this.friction;
-            this.vy *= 0.7;
-          }
-        }
-
-        if (hasCollision) {
-          this.handleCollision();
-        }
-
-        // Check for complete stop
-        if (Math.abs(this.vx) < this.minSpeed && Math.abs(this.vy) < this.minSpeed && !this.isDeviceMoving) {
-          this.vx = 0;
-          this.vy = 0;
-          this.isStationary = true;
-        }
-
-        // Check black hole collision
-        this.checkBlackHoleCollision();
-
-        // Update ball position
-        this.positionBall();
-
-        this.animationId = requestAnimationFrame((time) => this.animate(time));
-      }
-
-      handleCollision() {
-        const ballElement = this.ball.querySelector('.billiard-ball');
-        if (ballElement) {
-          ballElement.classList.add('bouncing');
-          setTimeout(() => {
-            ballElement.classList.remove('bouncing');
-          }, 150);
-        }
-
-        const velocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-        if (velocity > 12) {
-          this.triggerHapticFeedback('heavy');
-        } else if (velocity > 6) {
-          this.triggerHapticFeedback('medium');
-        } else {
-          this.triggerHapticFeedback('light');
-        }
-
-        this.vx += (Math.random() - 0.5) * 0.5;
-        this.vy += (Math.random() - 0.5) * 0.5;
-
-        this.rotationSpeedZ += velocity * 0.1;
-      }
-
-      addRollingEffect() {
-        const ballElement = this.ball.querySelector('.billiard-ball');
-        if (ballElement) {
-          ballElement.classList.add('rolling');
-          setTimeout(() => {
-            ballElement.classList.remove('rolling');
-          }, 200);
-        }
-      }
-
-      checkBlackHoleCollision() {
-        const blackHole = document.getElementById('blackHole');
-        if (!blackHole || blackHole.classList.contains('hidden')) return;
-
-        const blackHoleRect = blackHole.getBoundingClientRect();
-        const ballCenterX = this.x + this.size / 2;
-        const ballCenterY = this.y + this.size / 2;
-        const holeCenterX = blackHoleRect.left + blackHoleRect.width / 2;
-        const holeCenterY = blackHoleRect.top + blackHoleRect.height / 2;
-
-        const distance = Math.sqrt(
-          Math.pow(ballCenterX - holeCenterX, 2) + 
-          Math.pow(ballCenterY - holeCenterY, 2)
-        );
-
-        // Magnetic attraction
-        if (distance < 100) {
-          const attraction = Math.max(0.3, (100 - distance) / 100);
-          
-          const forceX = (holeCenterX - ballCenterX) * attraction * 0.12;
-          const forceY = (holeCenterY - ballCenterY) * attraction * 0.12;
-          
-          this.vx += forceX;
-          this.vy += forceY;
-          
-          this.addMagneticEffect(holeCenterX, holeCenterY);
-        }
-
-        // Fall into hole
-        if (distance < 30) {
-          this.fallIntoHole(holeCenterX, holeCenterY);
-        }
-      }
-
-      addMagneticEffect(holeX, holeY) {
-        if (Math.random() < 0.4) {
-          const effect = document.createElement('div');
-          effect.style.cssText = `
-            position: fixed;
-            width: 25px;
-            height: 25px;
-            border: 2px solid rgba(100, 150, 255, 0.6);
-            border-radius: 50%;
-            left: ${holeX - 12.5}px;
-            top: ${holeY - 12.5}px;
-            pointer-events: none;
-            z-index: 45;
-            animation: magneticPulse 0.9s ease-out forwards;
-          `;
-          
-          document.body.appendChild(effect);
-          
-          setTimeout(() => {
-            if (effect.parentNode) {
-              document.body.removeChild(effect);
-            }
-          }, 900);
-        }
-      }
-
-      fallIntoHole(holeX, holeY) {
-        this.vx = 0;
-        this.vy = 0;
-        this.isAnimating = false;
-
-        this.changeBackgroundOnSuccess();
-        this.createSuccessEffect();
-        this.triggerAdvancedHaptic();
-
-        const ballElement = this.ball;
-        ballElement.style.transition = 'all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        ballElement.style.transform = `translate3d(${holeX - 25}px, ${holeY - 25}px, 0) scale(0.02) rotateX(720deg) rotateY(720deg)`;
-        ballElement.style.opacity = '0';
-
-        setTimeout(() => {
-          this.showContactInfo();
-        }, 800);
-
-        setTimeout(() => {
-          this.resetBall();
-        }, 6500);
-      }
-
-      changeBackgroundOnSuccess() {
-        const backgroundElement = document.getElementById('backgroundImage');
-        if (backgroundElement) {
-          const successGradients = [
-            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-            'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)'
-          ];
-          
-          const randomGradient = successGradients[Math.floor(Math.random() * successGradients.length)];
-          backgroundElement.style.background = randomGradient;
-          backgroundElement.style.transition = 'background 1.8s ease-in-out';
-        }
-      }
-
-      createSuccessEffect() {
-        const flash = document.createElement('div');
-        flash.style.cssText = `
-          position: fixed;
-          inset: 0;
-          background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-          z-index: 1000;
-          pointer-events: none;
-          opacity: 0;
-          transition: opacity 0.4s ease-out;
-        `;
-        
-        document.body.appendChild(flash);
-        
-        requestAnimationFrame(() => {
-          flash.style.opacity = '1';
-          setTimeout(() => {
-            flash.style.opacity = '0';
-            setTimeout(() => {
-              document.body.removeChild(flash);
-            }, 400);
-          }, 150);
-        });
-
-        this.createParticleEffect();
-      }
-
-      createParticleEffect() {
-        for (let i = 0; i < 12; i++) {
-          const particle = document.createElement('div');
-          const size = Math.random() * 6 + 3;
-          const angle = (i / 12) * Math.PI * 2;
-          const distance = 80 + Math.random() * 40;
-          
-          particle.style.cssText = `
-            position: fixed;
-            width: ${size}px;
-            height: ${size}px;
-            background: radial-gradient(circle, #ffffff 0%, #ffdd44 50%, #ff6b35 100%);
-            border-radius: 50%;
-            left: ${this.x + 25}px;
-            top: ${this.y + 25}px;
-            pointer-events: none;
-            z-index: 100;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            animation: particleExplosion 1.2s ease-out forwards;
-            transform-origin: center center;
-          `;
-          
-          particle.style.setProperty('--final-x', `${Math.cos(angle) * distance}px`);
-          particle.style.setProperty('--final-y', `${Math.sin(angle) * distance}px`);
-          
-          document.body.appendChild(particle);
-          
-          setTimeout(() => {
-            if (particle.parentNode) {
-              document.body.removeChild(particle);
-            }
-          }, 1200);
-        }
-      }
-
-      triggerAdvancedHaptic() {
-        if (!navigator.vibrate) return;
-        
-        const successPattern = [100, 30, 150, 50, 200, 70, 300];
-        try {
-          navigator.vibrate(successPattern);
-        } catch (error) {
-          navigator.vibrate(250);
-        }
-      }
-
-      showContactInfo() {
-        const contactGrid = document.querySelector('.contact-grid');
-        const companyAddress = document.querySelector('.company-address');
-        
-        if (contactGrid) {
-          contactGrid.classList.add('visible');
-        }
-        if (companyAddress) {
-          companyAddress.classList.add('visible');
-        }
-
-        setTimeout(() => {
-          if (contactGrid) {
-            contactGrid.classList.remove('visible');
-          }
-          if (companyAddress) {
-            companyAddress.classList.remove('visible');
-          }
-        }, 5000);
-      }
-
-      resetBall() {
-        this.x = Math.random() * (window.innerWidth - this.size);
-        this.y = 50 + Math.random() * 80;
-        this.vx = 0;
-        this.vy = 0;
-        
-        this.rotationX = 0;
-        this.rotationY = 0;
-        this.rotationZ = 0;
-        this.rotationSpeedX = 0;
-        this.rotationSpeedY = 0;
-        this.rotationSpeedZ = 0;
-        
-        this.isDeviceMoving = false;
-        this.isStationary = true;
-
-        const ballElement = this.ball;
-        ballElement.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        ballElement.style.opacity = '0';
-        ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 60}px, 0) scale(0.7)`;
-
-        setTimeout(() => {
-          ballElement.style.opacity = '1';
-          ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
-          
-          setTimeout(() => {
-            ballElement.style.transition = 'all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            this.isAnimating = true;
-            this.animate();
-          }, 800);
-        }, 200);
-      }
-
-      positionBall() {
-        const transform = `translate3d(${this.x}px, ${this.y}px, 0) 
-                         rotateX(${this.rotationX}deg) 
-                         rotateY(${this.rotationY}deg) 
-                         rotateZ(${this.rotationZ}deg)`;
-        
-        this.ball.style.transform = transform;
-        
-        const ballElement = this.ball.querySelector('.billiard-ball');
-        if (ballElement && (Math.abs(this.vx) > 1 || Math.abs(this.vy) > 1)) {
-          ballElement.classList.add('rolling');
-        } else if (ballElement) {
-          ballElement.classList.remove('rolling');
-        }
-      }
-
-      triggerHapticFeedback(intensity = 'medium') {
-        if (!navigator.vibrate) return;
-
-        const patterns = {
-          light: [15],
-          medium: [25],
-          heavy: [60],
-          double: [25, 50, 40]
-        };
-
-        try {
-          navigator.vibrate(patterns[intensity] || patterns.medium);
-        } catch (error) {
-          // Haptic feedback not supported
-        }
-      }
-
-      destroy() {
-        this.isAnimating = false;
-        if (this.animationId) {
-          cancelAnimationFrame(this.animationId);
-        }
+      async preloadImages() {
+        // No longer needed since we're using gradients only
+        console.log('Preloading disabled - using gradients only');
       }
     }
 
-    // Mobile Touch Statistics Manager
+    // Mobile Touch Statistics Manager - Enhanced with subtitle motion and 5-second timing
     class MobileTouchManager {
       constructor() {
         this.isMobile = window.innerWidth <= 768;
@@ -1607,6 +915,7 @@
         let touchTimer = null;
         let quoteTimer = null;
         
+        // Enhanced touch interactions with 5-second timing
         document.addEventListener('touchstart', (e) => {
           clearTimeout(touchTimer);
           clearTimeout(quoteTimer);
@@ -1615,30 +924,36 @@
         });
 
         document.addEventListener('touchend', () => {
+          // Keep contact elements visible for 5 seconds after touch ends
           touchTimer = setTimeout(() => {
             this.hideContactElements();
           }, 5000);
 
+          // Keep motivational quote visible for 5 seconds after touch ends
           quoteTimer = setTimeout(() => {
             this.hideMotivationalQuote();
           }, 5000);
         });
 
+        // Handle window resize
         window.addEventListener('resize', () => {
           this.isMobile = window.innerWidth <= 768;
         });
       }
 
       setupSubtitleMotion() {
+        // Enhanced device orientation for subtitle movement
         if (window.DeviceOrientationEvent) {
           window.addEventListener('deviceorientation', (e) => {
-            const gamma = e.gamma || 0;
-            const beta = e.beta || 0;
+            const gamma = e.gamma || 0; // left-to-right tilt (-90 to 90)
+            const beta = e.beta || 0;   // front-to-back tilt (-180 to 180)
             
-            const maxMove = 15;
+            // Calculate smooth motion with realistic physics
+            const maxMove = 15; // Maximum movement in pixels
             const moveX = (gamma / 90) * maxMove;
-            const moveY = (beta / 180) * (maxMove * 0.3);
+            const moveY = (beta / 180) * (maxMove * 0.3); // Less vertical movement
             
+            // Apply motion to subtitle
             const subtitle = document.querySelector('.subtitle');
             if (subtitle) {
               subtitle.style.transform = `translate(${moveX}px, ${moveY}px)`;
@@ -1648,13 +963,15 @@
       }
 
       showInitialContactInfo() {
+        // Show contact info on page load for 5 seconds
         setTimeout(() => {
           this.showContactElements();
           
+          // Hide after 5 seconds
           setTimeout(() => {
             this.hideContactElements();
           }, 5000);
-        }, 1000);
+        }, 1000); // Show after 1 second of page load
       }
 
       showContactElements() {
@@ -1700,6 +1017,683 @@
         }
         if (blackHole) {
           blackHole.classList.remove('hidden');
+        }
+      }
+    }
+
+    // Advanced Physics Golden Ball with Haptic Feedback
+    class PhysicsMoon {
+      constructor() {
+        this.moon = document.getElementById('physicsMoon');
+        this.isMobile = window.innerWidth <= 768;
+        
+        // Ultra-realistic physics properties for bowling ball #8
+        this.x = window.innerWidth / 2;
+        this.y = window.innerHeight / 4;
+        this.vx = 0;
+        this.vy = 0;
+        this.gravity = 0.6;
+        this.bounce = 0.7;
+        this.friction = 0.985;
+        this.airResistance = 0.995;
+        this.size = 50;
+        this.mass = 3.5; // Heavier like real bowling ball
+        this.rotationSpeed = 0;
+        this.maxSpeed = 25;
+        
+        // Ultra-sensitive motion detection system
+        this.motionThreshold = 0.3;
+        this.accelerationHistory = [];
+        this.maxHistoryLength = 10;
+        this.smoothingFactor = 0.85;
+        this.isDeviceMoving = false;
+        this.lastValidMotion = Date.now();
+        this.motionTimeout = 200; // ms
+        this.sensitivity = {
+          x: 0.35,
+          y: 0.35,
+          orientation: 0.15
+        };
+        
+        // Motion and haptic properties with advanced mobile optimization
+        this.lastCollisionTime = 0;
+        this.collisionCooldown = 120;
+        this.motionSensitivity = 0.18;
+        this.orientationSensitivity = 0.10;
+        this.lastOrientation = { beta: 0, gamma: 0 };
+        this.smoothingFactor = 0.75;
+        this.trailEffect = [];
+        this.maxTrailLength = 8;
+        
+        // Advanced physics properties
+        this.magneticPull = false;
+        this.holeAttraction = 0;
+        this.spinDecay = 0.985;
+        
+        // Performance optimization
+        this.isAnimating = false;
+        this.animationId = null;
+        this.lastFrameTime = 0;
+        this.targetFPS = 60;
+        this.frameInterval = 1000 / this.targetFPS;
+        
+        if (this.isMobile) {
+          this.init();
+        }
+      }
+
+      init() {
+        this.requestMotionPermissions();
+        this.setupDeviceMotion();
+        this.setupTouchInteractions();
+        this.startAnimation();
+        this.positionMoon();
+      }
+
+      async requestMotionPermissions() {
+        // Request permissions for iOS 13+
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+          try {
+            const permission = await DeviceMotionEvent.requestPermission();
+            if (permission !== 'granted') {
+              console.log('Motion permission denied');
+            }
+          } catch (error) {
+            console.log('Motion permission error:', error);
+          }
+        }
+
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+          try {
+            const permission = await DeviceOrientationEvent.requestPermission();
+            if (permission !== 'granted') {
+              console.log('Orientation permission denied');
+            }
+          } catch (error) {
+            console.log('Orientation permission error:', error);
+          }
+        }
+      }
+
+      setupDeviceMotion() {
+        // Ultra-sensitive motion system for Android and iOS
+        if (window.DeviceMotionEvent) {
+          window.addEventListener('devicemotion', (e) => {
+            const acc = e.accelerationIncludingGravity;
+            if (acc && acc.x !== null && acc.y !== null && acc.z !== null) {
+              
+              // Store acceleration history for advanced filtering
+              this.accelerationHistory.push({
+                x: acc.x || 0,
+                y: acc.y || 0,
+                z: acc.z || 0,
+                timestamp: Date.now()
+              });
+              
+              if (this.accelerationHistory.length > this.maxHistoryLength) {
+                this.accelerationHistory.shift();
+              }
+              
+              // Calculate motion intensity with advanced filtering
+              const currentAccel = this.accelerationHistory[this.accelerationHistory.length - 1];
+              
+              if (this.accelerationHistory.length >= 3) {
+                const prevAccel = this.accelerationHistory[this.accelerationHistory.length - 3];
+                
+                // Calculate delta acceleration (change in movement)
+                const deltaX = Math.abs(currentAccel.x - prevAccel.x);
+                const deltaY = Math.abs(currentAccel.y - prevAccel.y);
+                const deltaZ = Math.abs(currentAccel.z - prevAccel.z);
+                
+                const totalDelta = deltaX + deltaY + deltaZ;
+                
+                // Detect intentional movement vs gravity/vibration
+                if (totalDelta > this.motionThreshold) {
+                  this.isDeviceMoving = true;
+                  this.lastValidMotion = Date.now();
+                  
+                  // Apply ultra-precise motion with directional sensitivity
+                  const forceX = currentAccel.x * this.sensitivity.x;
+                  const forceY = -currentAccel.y * this.sensitivity.y; // Invert Y for natural feel
+                  
+                  // Apply forces with advanced physics
+                  this.vx += forceX * this.smoothingFactor;
+                  this.vy += forceY * this.smoothingFactor;
+                  
+                  // Apply realistic velocity limits
+                  this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
+                  this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
+                  
+                } else if (Date.now() - this.lastValidMotion > this.motionTimeout) {
+                  // Device is stationary - apply strong decay
+                  this.isDeviceMoving = false;
+                  this.vx *= 0.88;
+                  this.vy *= 0.88;
+                  
+                  // Complete stop for micro-movements
+                  if (Math.abs(this.vx) < 0.2) this.vx = 0;
+                  if (Math.abs(this.vy) < 0.2) this.vy = 0;
+                }
+              }
+            }
+          }, { passive: true });
+        }
+
+        // Enhanced orientation with ultra-precise tilt detection
+        if (window.DeviceOrientationEvent) {
+          let lastOrientation = { beta: 0, gamma: 0 };
+          
+          window.addEventListener('deviceorientation', (e) => {
+            const beta = e.beta || 0;
+            const gamma = e.gamma || 0;
+            
+            // Calculate orientation changes with high precision
+            const betaChange = Math.abs(beta - lastOrientation.beta);
+            const gammaChange = Math.abs(gamma - lastOrientation.gamma);
+            
+            // Only apply forces for significant orientation changes
+            if (betaChange > 0.5 || gammaChange > 0.5) {
+              // Apply smooth tilt forces
+              this.vx += gamma * this.sensitivity.orientation;
+              this.vy += beta * this.sensitivity.orientation;
+              
+              this.isDeviceMoving = true;
+              this.lastValidMotion = Date.now();
+            }
+            
+            lastOrientation = { beta, gamma };
+          }, { passive: true });
+        }
+      }
+
+      setupTouchInteractions() {
+        // Add touch interactions for manual control
+        document.addEventListener('touchstart', (e) => {
+          const touch = e.touches[0];
+          const moonRect = this.moon.getBoundingClientRect();
+          const distance = Math.sqrt(
+            Math.pow(touch.clientX - (moonRect.left + moonRect.width / 2), 2) +
+            Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
+          );
+          
+          if (distance < 50) {
+            e.preventDefault();
+            this.handleTouch(touch);
+          }
+        }, { passive: false });
+
+        document.addEventListener('touchmove', (e) => {
+          const touch = e.touches[0];
+          const moonRect = this.moon.getBoundingClientRect();
+          const distance = Math.sqrt(
+            Math.pow(touch.clientX - (moonRect.left + moonRect.width / 2), 2) +
+            Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
+          );
+          
+          if (distance < 50) {
+            e.preventDefault();
+            this.handleTouch(touch);
+          }
+        }, { passive: false });
+      }
+
+      handleTouch(touch) {
+        const rect = this.moon.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const deltaX = touch.clientX - centerX;
+        const deltaY = touch.clientY - centerY;
+        
+        // Apply touch force
+        this.vx += deltaX * 0.02;
+        this.vy += deltaY * 0.02;
+        
+        this.triggerHapticFeedback('light');
+      }
+
+      startAnimation() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        this.animate();
+      }
+
+      animate(currentTime = 0) {
+        if (!this.isMobile || !this.isAnimating) return;
+
+        // Throttle to target FPS
+        if (currentTime - this.lastFrameTime < this.frameInterval) {
+          this.animationId = requestAnimationFrame((time) => this.animate(time));
+          return;
+        }
+        this.lastFrameTime = currentTime;
+
+        const bounds = {
+          width: window.innerWidth,
+          height: window.innerHeight
+        };
+
+        // Apply realistic bowling ball physics
+        this.vy += this.gravity;
+        this.vx *= this.friction;
+        this.vy *= this.airResistance;
+
+        // Apply air resistance
+        this.vx *= this.airResistance;
+
+        // Limit maximum speed for realism
+        const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if (currentSpeed > this.maxSpeed) {
+          const ratio = this.maxSpeed / currentSpeed;
+          this.vx *= ratio;
+          this.vy *= ratio;
+        }
+
+        // Update position with enhanced precision
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Check collision with title
+        this.checkTitleCollision();
+
+        // Check black hole collision
+        this.checkBlackHoleCollision();
+
+        // Enhanced collision detection with realistic bowling ball physics
+        let hasCollision = false;
+
+        if (this.x <= 0 || this.x >= bounds.width - this.size) {
+          this.vx *= -this.bounce;
+          this.x = this.x <= 0 ? 0 : bounds.width - this.size;
+          hasCollision = true;
+          
+          // Add spin effect on wall collision
+          this.rotationSpeed += Math.abs(this.vx) * 0.1;
+        }
+
+        if (this.y <= 0 || this.y >= bounds.height - this.size) {
+          this.vy *= -this.bounce;
+          this.y = this.y <= 0 ? 0 : bounds.height - this.size;
+          hasCollision = true;
+          
+          // More realistic floor bounce with energy loss
+          if (this.y >= bounds.height - this.size) {
+            this.vy *= 0.8; // Energy loss on floor impact
+            this.vx *= 0.95; // Friction on floor
+          }
+        }
+
+        // Handle collisions with enhanced feedback
+        if (hasCollision && Date.now() - this.lastCollisionTime > this.collisionCooldown) {
+          this.handleCollision();
+          this.lastCollisionTime = Date.now();
+        }
+
+        // Apply rotation to visual element
+        this.rotationSpeed *= 0.98; // Gradual rotation decay
+        this.positionMoon();
+        this.animationId = requestAnimationFrame((time) => this.animate(time));
+      }
+
+      checkBlackHoleCollision() {
+        const blackHole = document.getElementById('blackHole');
+        if (!blackHole || blackHole.classList.contains('hidden')) return;
+
+        const blackHoleRect = blackHole.getBoundingClientRect();
+        const ballCenterX = this.x + this.size / 2;
+        const ballCenterY = this.y + this.size / 2;
+        const holeCenterX = blackHoleRect.left + blackHoleRect.width / 2;
+        const holeCenterY = blackHoleRect.top + blackHoleRect.height / 2;
+
+        const distance = Math.sqrt(
+          Math.pow(ballCenterX - holeCenterX, 2) + 
+          Math.pow(ballCenterY - holeCenterY, 2)
+        );
+
+        // Advanced magnetic attraction effect
+        if (distance < 80) {
+          this.magneticPull = true;
+          this.holeAttraction = Math.max(0.5, (80 - distance) / 80);
+          
+          // Apply magnetic force towards hole
+          const forceX = (holeCenterX - ballCenterX) * this.holeAttraction * 0.08;
+          const forceY = (holeCenterY - ballCenterY) * this.holeAttraction * 0.08;
+          
+          this.vx += forceX;
+          this.vy += forceY;
+          
+          // Add visual magnetic effect
+          this.addMagneticWave(holeCenterX, holeCenterY);
+        } else {
+          this.magneticPull = false;
+          this.holeAttraction = 0;
+        }
+
+        // If ball is close enough to the hole, it gets pulled in
+        if (distance < 25) {
+          this.fallIntoHole(holeCenterX, holeCenterY);
+        }
+      }
+
+      addMagneticWave(holeX, holeY) {
+        // Create magnetic attraction wave effect
+        if (Math.random() < 0.3) { // Limit frequency for performance
+          const wave = document.createElement('div');
+          wave.style.cssText = `
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(100, 100, 255, 0.4);
+            border-radius: 50%;
+            left: ${holeX - 15}px;
+            top: ${holeY - 15}px;
+            pointer-events: none;
+            z-index: 45;
+            animation: magneticWave 0.8s ease-out forwards;
+          `;
+          
+          // Add keyframe animation
+          if (!document.getElementById('magneticWaveStyle')) {
+            const style = document.createElement('style');
+            style.id = 'magneticWaveStyle';
+            style.textContent = `
+              @keyframes magneticWave {
+                0% { transform: scale(1); opacity: 0.6; }
+                100% { transform: scale(2.5); opacity: 0; }
+              }
+            `;
+            document.head.appendChild(style);
+          }
+          
+          document.body.appendChild(wave);
+          
+          setTimeout(() => {
+            if (wave.parentNode) {
+              document.body.removeChild(wave);
+            }
+          }, 800);
+        }
+      }
+
+      fallIntoHole(holeX, holeY) {
+        // Stop the ball and animate it falling into the hole
+        this.vx = 0;
+        this.vy = 0;
+        this.isAnimating = false;
+
+        // Change background gradient when ball falls
+        this.changeBackgroundOnSuccess();
+
+        // Animate ball shrinking and moving to hole center with advanced effects
+        const ballElement = this.moon;
+        ballElement.classList.add('falling');
+        ballElement.style.transition = 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        ballElement.style.transform = `translate3d(${holeX - 25}px, ${holeY - 25}px, 0) scale(0.05) rotate(720deg)`;
+        ballElement.style.opacity = '0';
+
+        // Advanced haptic pattern for success
+        this.triggerAdvancedHaptic();
+
+        // Add screen flash effect
+        this.createScreenFlash();
+
+        // Show contact information for 3 seconds
+        setTimeout(() => {
+          this.showContactInfo();
+        }, 600);
+
+        // Reset ball position and restart animation after contact info disappears
+        setTimeout(() => {
+          this.resetBall();
+        }, 6000); // 5 seconds for contact info + 1 second buffer
+      }
+
+      changeBackgroundOnSuccess() {
+        const backgroundElement = document.getElementById('backgroundImage');
+        if (backgroundElement) {
+          // Create a success gradient
+          const successGradients = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+            'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)'
+          ];
+          
+          const randomGradient = successGradients[Math.floor(Math.random() * successGradients.length)];
+          backgroundElement.style.background = randomGradient;
+          backgroundElement.style.transition = 'background 1.5s ease-in-out';
+          
+          // Revert to original after 5 seconds
+          setTimeout(() => {
+            const originalGradients = [
+              'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
+              'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+              'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+              'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+              'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+              'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
+              'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
+              'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
+              'linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%)',
+              'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
+              'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
+              'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)',
+              'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
+            ];
+            const originalGradient = originalGradients[Math.floor(Math.random() * originalGradients.length)];
+            backgroundElement.style.background = originalGradient;
+          }, 5000);
+        }
+      }
+
+      triggerAdvancedHaptic() {
+        if (!navigator.vibrate) return;
+        
+        // Advanced success haptic pattern
+        const successPattern = [100, 50, 100, 50, 200, 100, 300];
+        try {
+          navigator.vibrate(successPattern);
+        } catch (error) {
+          // Fallback to simple vibration
+          navigator.vibrate(200);
+        }
+      }
+
+      createScreenFlash() {
+        // Create a subtle screen flash effect
+        const flash = document.createElement('div');
+        flash.style.cssText = `
+          position: fixed;
+          inset: 0;
+          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+          z-index: 1000;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(flash);
+        
+        // Flash animation
+        requestAnimationFrame(() => {
+          flash.style.opacity = '1';
+          setTimeout(() => {
+            flash.style.opacity = '0';
+            setTimeout(() => {
+              document.body.removeChild(flash);
+            }, 300);
+          }, 100);
+        });
+      }
+
+      showContactInfo() {
+        const contactGrid = document.querySelector('.contact-grid');
+        const companyAddress = document.querySelector('.company-address');
+        
+        if (contactGrid) {
+          contactGrid.classList.add('visible');
+        }
+        if (companyAddress) {
+          companyAddress.classList.add('visible');
+        }
+
+        // Hide contact info after 5 seconds
+        setTimeout(() => {
+          if (contactGrid) {
+            contactGrid.classList.remove('visible');
+          }
+          if (companyAddress) {
+            companyAddress.classList.remove('visible');
+          }
+        }, 5000);
+      }
+
+      resetBall() {
+        // Reset ball to starting position - stationary until device moves
+        this.x = Math.random() * (window.innerWidth - this.size);
+        this.y = 30 + Math.random() * 50;
+        this.vx = 0; // Start stationary
+        this.vy = 0; // Start stationary
+        this.rotationSpeed = 0;
+        this.isDeviceMoving = false;
+
+        // Reset visual properties with smooth entrance
+        const ballElement = this.moon;
+        ballElement.classList.remove('falling');
+        ballElement.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        ballElement.style.opacity = '0';
+        ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 50}px, 0) scale(0.8)`;
+
+        // Animate entrance
+        setTimeout(() => {
+          ballElement.style.opacity = '1';
+          ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
+          
+          setTimeout(() => {
+            ballElement.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            // Restart animation
+            this.isAnimating = true;
+            this.animate();
+          }, 600);
+        }, 100);
+      }
+
+      checkTitleCollision() {
+        const titleElement = document.querySelector('.main-title');
+        if (!titleElement) return;
+
+        const titleRect = titleElement.getBoundingClientRect();
+        const ballCenterX = this.x + this.size / 2;
+        const ballCenterY = this.y + this.size / 2;
+
+        // Check if ball intersects with title
+        if (ballCenterX >= titleRect.left && 
+            ballCenterX <= titleRect.right && 
+            ballCenterY >= titleRect.top && 
+            ballCenterY <= titleRect.bottom) {
+          
+          this.pushTitle(titleElement, ballCenterX, ballCenterY, titleRect);
+          
+          // Realistic ball bounce based on collision point
+          const titleCenterX = titleRect.left + titleRect.width / 2;
+          const titleCenterY = titleRect.top + titleRect.height / 2;
+          
+          // Calculate collision angle
+          const deltaX = ballCenterX - titleCenterX;
+          const deltaY = ballCenterY - titleCenterY;
+          
+          // Apply realistic physics bounce
+          this.vy *= -this.bounce;
+          this.vx += (deltaX / titleRect.width) * 8; // Side impact effect
+          
+          // Add some randomness for realism
+          this.vx += (Math.random() - 0.5) * 2;
+          this.vy += (Math.random() - 0.5) * 1;
+        }
+      }
+
+      pushTitle(titleElement, ballX, ballY, titleRect) {
+        if (titleElement.classList.contains('pushed')) return;
+
+        // Calculate push direction based on collision point
+        const titleCenterX = titleRect.left + titleRect.width / 2;
+        const titleCenterY = titleRect.top + titleRect.height / 2;
+        
+        const deltaX = ballX - titleCenterX;
+        const deltaY = ballY - titleCenterY;
+        
+        // Normalize the push direction
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const pushX = (deltaX / distance) * 30; // Push strength
+        const pushY = (deltaY / distance) * 15; // Reduced vertical push
+        
+        // Apply realistic push motion
+        titleElement.classList.add('pushed');
+        titleElement.style.transform = `translate(${pushX}px, ${pushY}px) rotate(${pushX * 0.3}deg)`;
+        
+        // Return to original position after realistic timing
+        setTimeout(() => {
+          titleElement.style.transform = 'translate(0px, 0px) rotate(0deg)';
+          
+          setTimeout(() => {
+            titleElement.classList.remove('pushed');
+          }, 600);
+        }, 400);
+      }
+
+      handleCollision() {
+        // Visual feedback
+        this.moon.classList.add('bouncing');
+        setTimeout(() => {
+          this.moon.classList.remove('bouncing');
+        }, 120);
+
+        // Haptic feedback with intensity based on velocity
+        const velocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if (velocity > 8) {
+          this.triggerHapticFeedback('heavy');
+        } else if (velocity > 4) {
+          this.triggerHapticFeedback('medium');
+        } else {
+          this.triggerHapticFeedback('light');
+        }
+
+        // Add slight random variation to prevent predictable movement
+        this.vx += (Math.random() - 0.5) * 0.5;
+        this.vy += (Math.random() - 0.5) * 0.5;
+      }
+
+      positionMoon() {
+        // Use transform3d for hardware acceleration with rotation
+        const rotation = this.rotationSpeed * (Date.now() * 0.01);
+        this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) rotate(${rotation}deg)`;
+      }
+
+      triggerHapticFeedback(intensity = 'medium') {
+        if (!navigator.vibrate) return;
+
+        const patterns = {
+          light: [10],
+          medium: [20],
+          heavy: [50],
+          double: [20, 100, 30]
+        };
+
+        try {
+          navigator.vibrate(patterns[intensity] || patterns.medium);
+        } catch (error) {
+          // Haptic feedback not supported
+        }
+      }
+
+      destroy() {
+        this.isAnimating = false;
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
         }
       }
     }
@@ -1753,6 +1747,7 @@
           const elapsed = Date.now() - startTime;
           const progress = Math.min(elapsed / duration, 1);
           
+          // Easing function for smooth animation
           const easeOut = 1 - Math.pow(1 - progress, 3);
           const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOut);
           
@@ -1810,7 +1805,17 @@
           "Turn today's obstacle into tomorrow's achievement",
           "Success is not coincidence but the result of hard work",
           "Positive energy attracts positive results",
-          "Every attempt brings you one step closer to the goal"
+          "Every attempt brings you one step closer to the goal",
+          "Work in silence and let them see the success",
+          "Excellence is a habit, not a random act",
+          "Creativity begins when you step out of the ordinary",
+          "Big dreams need small steps to achieve",
+          "Invest in yourself, it's the best investment ever",
+          "Positive thinking creates positive reality",
+          "True strength lies in never giving up",
+          "A smile is the key to hearts and minds",
+          "Today is an opportunity to be better than yesterday",
+          "Success is a journey, not just a destination"
         ];
         
         this.currentIndex = 0;
@@ -1827,12 +1832,14 @@
       }
 
       setupClickHandler() {
+        // Only handle touch events on mobile
         if (this.isMobile) {
           this.quoteElement.addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.changeQuote();
           });
         } else {
+          // On desktop, allow click for quote changes
           this.quoteElement.addEventListener('click', () => {
             this.changeQuote();
           });
@@ -1846,9 +1853,11 @@
       }
 
       changeQuote() {
+        // Add changing animation
         this.quoteElement.classList.add('changing');
 
         setTimeout(() => {
+          // Get next quote (avoid repeating the same quote)
           let nextIndex = Math.floor(Math.random() * this.quotes.length);
           while (nextIndex === this.currentIndex && this.quotes.length > 1) {
             nextIndex = Math.floor(Math.random() * this.quotes.length);
@@ -1857,12 +1866,14 @@
           this.currentIndex = nextIndex;
           this.quoteElement.textContent = this.quotes[nextIndex];
           
+          // Remove changing animation
           this.quoteElement.classList.remove('changing');
           
+          // Auto hide after 5 seconds
           setTimeout(() => {
             this.quoteElement.classList.add('changing');
             setTimeout(() => {
-              this.quoteElement.textContent = "Success starts with one step in the right direction";
+              this.quoteElement.textContent = "Success starts with one step in the right direction"; // Default quote
               this.quoteElement.classList.remove('changing');
             }, 250);
           }, 5000);
@@ -1874,10 +1885,16 @@
     // Application initialization
     class App {
       constructor() {
+        this.backgroundManager = null;
+        this.statisticsManager = null;
+        this.searchManager = null;
         this.init();
       }
 
       async init() {
+        performance.mark('appInit');
+        
+        // Wait for DOM to be ready
         if (document.readyState === 'loading') {
           await new Promise(resolve => {
             document.addEventListener('DOMContentLoaded', resolve);
@@ -1885,12 +1902,14 @@
         }
 
         try {
+          // Initialize managers
           this.backgroundManager = new BackgroundManager();
           this.statisticsManager = new StatisticsManager();
           this.motivationalQuotes = new MotivationalQuotes();
           this.mobileTouchManager = new MobileTouchManager();
-          this.realisticBilliardBall = new RealisticBilliardBall();
+          this.physicsMoon = new PhysicsMoon();
 
+          // Hide loading overlay
           setTimeout(() => {
             const loadingOverlay = document.getElementById('loadingOverlay');
             if (loadingOverlay) {
@@ -1899,7 +1918,8 @@
             }
           }, 600);
 
-          console.log('QRBrand application with realistic billiard ball initialized successfully');
+          performance.mark('appReady');
+          console.log('QRBrand application initialized successfully');
           
         } catch (error) {
           console.error('Failed to initialize application:', error);
