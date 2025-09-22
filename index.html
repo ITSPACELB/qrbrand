@@ -1,1251 +1,16 @@
-<div class="nav-tab" data-content="address">Address</div>
-  </div>
-
-  <div class="mobile-contact-container" id="mobileContactContainer">
-    <div class="contact-tab">+974 5525 7048</div>
-    <div class="contact-tab">+961 333 8603</div>
-    <div class="contact-tab">+33 761 522 776</div>
-    <div class="contact-tab">+964 780 053 0333</div>
-    <div class="contact-tab">info@qrbrand.net</div>
-  </div>
-
-  <div class="content-modal" id="contentModal">
-    <div id="modalContent"></div>
-    <div class="close-hint">Swipe up to close</div>
-  </div>
-
-  <div class="main-container">
-    <header class="stats-section" role="banner">
-      <div class="stat-card">
-        <div class="stat-number visitors" id="visitorsCount" aria-label="Total visitors">0</div>
-        <div class="stat-label">Visitors</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-number date" id="currentDate" aria-label="Today's date">--</div>
-        <div class="stat-label">Today's Date</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-number visits" id="userVisits" aria-label="Your visits">0</div>
-        <div class="stat-label">Your Visits</div>
-      </div>
-    </header>
-
-    <main class="main-content" id="main-content">
-      <p class="subtitle">
-        Do you need software or an app to develop your business?
-      </p>
-
-      <h1 class="main-title">Welcome to QRBrand Ltd</h1>
-
-      <section class="motivational-container" role="region" aria-label="Motivational quotes">
-        <div class="black-hole" id="blackHole"></div>
-        <div class="motivational-quote" id="motivationalQuote">
-          Success starts with one step in the right direction
-        </div>
-      </section>
-
-      <section class="contact-grid" aria-label="Contact information">
-        <div class="contact-item">
-          <img src="https://flagcdn.com/w20/qa.png" alt="Qatar flag" class="flag-icon" loading="lazy">
-          <span>Qatar: <a href="tel:+97455257048" style="color: inherit; text-decoration: none;">+974 5525 7048</a></span>
-        </div>
-
-        <div class="contact-item">
-          <img src="https://flagcdn.com/w20/lb.png" alt="Lebanon flag" class="flag-icon" loading="lazy">
-          <span>Beirut: <a href="tel:+9613338603" style="color: inherit; text-decoration: none;">+961 333 8603</a></span>
-        </div>
-
-        <div class="contact-item">
-          <img src="https://flagcdn.com/w20/fr.png" alt="France flag" class="flag-icon" loading="lazy">
-          <span>France: <a href="tel:+33761522776" style="color: inherit; text-decoration: none;">+33 761 522 776</a></span>
-        </div>
-
-        <div class="contact-item">
-          <img src="https://flagcdn.com/w20/iq.png" alt="Iraq flag" class="flag-icon" loading="lazy">
-          <span>Iraq: <a href="tel:+9647800530333" style="color: inherit; text-decoration: none;">+964 780 053 0333</a></span>
-        </div>
-
-        <div class="contact-item">
-          <span>Email: <a href="mailto:info@qrbrand.net" style="color: inherit; text-decoration: none;">info@qrbrand.net</a></span>
-        </div>
-      </section>
-
-      <address class="company-address">
-        Our company address and P.O. Box in the UK: 71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ
-      </address>
-    </main>
-  </div>
-
-  <script>
-    const fallbackGradients = [
-      'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
-      'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-      'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-      'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-      'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-      'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
-      'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-      'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
-      'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
-      'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
-      'linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%)',
-      'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
-      'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
-      'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)',
-      'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
-    ];
-
-    class BackgroundManager {
-      constructor() {
-        this.backgroundElement = document.getElementById('backgroundImage');
-        this.init();
-      }
-
-      init() {
-        this.setFallbackBackground();
-      }
-
-      setFallbackBackground() {
-        const randomGradient = fallbackGradients[Math.floor(Math.random() * fallbackGradients.length)];
-        this.backgroundElement.style.background = randomGradient;
-        this.backgroundElement.classList.add('loaded');
-      }
-    }
-
-    class NavigationManager {
-      constructor() {
-        this.isMobile = window.innerWidth <= 768;
-        this.contentData = {
-          about: {
-            title: "About QRBrand Ltd",
-            content: `
-              <p>QRBrand Ltd stands as a pioneering force in the global software development landscape, delivering cutting-edge technological solutions that transform businesses across diverse industries. Since our establishment, we have consistently pushed the boundaries of innovation, creating sophisticated software architectures that drive digital transformation.</p>
-              
-              <p>Our commitment to excellence extends beyond mere code creation. We architect comprehensive digital ecosystems that seamlessly integrate with existing business infrastructures while providing scalable foundations for future growth. Each project reflects our dedication to precision engineering and user-centric design principles.</p>
-              
-              <p>With a global presence spanning Qatar, Lebanon, France, and Iraq, we bring together diverse perspectives and technical expertise to solve complex challenges. Our multicultural approach enables us to understand varied market dynamics and deliver solutions that resonate across different business environments.</p>
-              
-              <p>At QRBrand Ltd, we believe technology should empower, not complicate. Our solutions are crafted with this philosophy, ensuring that every line of code serves a strategic purpose in advancing our clients' objectives.</p>
-            `
-          },
-          why: {
-            title: "Why Choose QRBrand Ltd",
-            content: `
-              <p>In an increasingly competitive digital landscape, QRBrand Ltd distinguishes itself through unwavering commitment to technical excellence and innovative problem-solving methodologies. Our approach combines deep technical expertise with strategic business acumen.</p>
-              
-              <ul>
-                <li>Advanced Technology Stack: We leverage cutting-edge frameworks, cloud-native architectures, and emerging technologies including AI/ML, blockchain, and IoT integrations</li>
-                <li>Agile Development Methodology: Our iterative approach ensures rapid delivery while maintaining the highest quality standards through comprehensive testing protocols</li>
-                <li>Scalable Architecture Design: Every solution is engineered for growth, utilizing microservices architecture and cloud-first principles</li>
-                <li>Security-First Approach: We implement enterprise-grade security measures, ensuring data protection and compliance with international standards</li>
-                <li>24/7 Technical Support: Our dedicated support infrastructure provides continuous monitoring and rapid response capabilities</li>
-                <li>Global Delivery Model: Multi-timezone coverage ensures seamless project execution and communication</li>
-              </ul>
-              
-              <p>Our proven track record spans fortune 500 companies to innovative startups, demonstrating our versatility and adaptability across diverse project requirements and industry verticals.</p>
-            `
-          },
-          services: {
-            title: "Our Professional Services",
-            content: `
-              <p>QRBrand Ltd offers a comprehensive suite of professional services designed to address every aspect of modern digital transformation. Our service portfolio encompasses the entire software development lifecycle.</p>
-              
-              <ul>
-                <li>Custom Software Development: Bespoke applications tailored to specific business requirements using modern development frameworks</li>
-                <li>Mobile Application Development: Native and cross-platform mobile solutions for iOS and Android ecosystems</li>
-                <li>Web Application Development: Progressive web applications with responsive design and optimal performance</li>
-                <li>Cloud Migration & DevOps: Seamless transition to cloud infrastructure with automated deployment pipelines</li>
-                <li>API Development & Integration: RESTful and GraphQL APIs with comprehensive documentation and testing</li>
-                <li>Database Architecture & Optimization: High-performance database design with advanced querying capabilities</li>
-                <li>Quality Assurance & Testing: Automated testing frameworks ensuring robust and reliable software delivery</li>
-                <li>Maintenance & Support: Ongoing technical support with proactive monitoring and optimization</li>
-              </ul>
-              
-              <p>Each service is delivered through our established methodologies, ensuring consistent quality and predictable outcomes while maintaining flexibility to adapt to evolving requirements.</p>
-            `
-          },
-          tech: {
-            title: "Advanced Technologies",
-            content: `
-              <p>QRBrand Ltd maintains expertise across the most advanced and emerging technology stacks, ensuring our clients benefit from industry-leading solutions and future-ready architectures.</p>
-              
-              <ul>
-                <li>Frontend Technologies: React.js, Vue.js, Angular, Next.js, TypeScript, Progressive Web Apps</li>
-                <li>Backend Frameworks: Node.js, Python Django/Flask, Java Spring, .NET Core, Go, Rust</li>
-                <li>Mobile Development: React Native, Flutter, Swift (iOS), Kotlin (Android), Xamarin</li>
-                <li>Cloud Platforms: AWS, Microsoft Azure, Google Cloud Platform, Docker, Kubernetes</li>
-                <li>Database Systems: PostgreSQL, MongoDB, Redis, Elasticsearch, GraphQL, Apache Kafka</li>
-                <li>AI & Machine Learning: TensorFlow, PyTorch, Natural Language Processing, Computer Vision</li>
-                <li>Blockchain Technologies: Ethereum, Smart Contracts, Web3 Integration, DeFi Solutions</li>
-                <li>DevOps & CI/CD: Jenkins, GitLab CI, GitHub Actions, Terraform, Ansible</li>
-              </ul>
-              
-              <p>Our technology selection process prioritizes long-term sustainability, performance optimization, and seamless integration capabilities, ensuring that every technical decision supports strategic business objectives.</p>
-            `
-          },
-          address: {
-            title: "Global Presence",
-            content: `
-              <p>QRBrand Ltd maintains strategic offices across multiple continents, enabling us to provide localized expertise while leveraging global best practices and round-the-clock development capabilities.</p>
-              
-              <p><strong>United Kingdom Headquarters:</strong><br>
-              71-75 Shelton Street, Covent Garden<br>
-              London, United Kingdom, WC2H 9JQ</p>
-              
-              <p><strong>Qatar Operations Center:</strong><br>
-              Contact: +974 5525 7048<br>
-              Specialized in enterprise solutions for the Middle East market</p>
-              
-              <p><strong>Lebanon Development Hub:</strong><br>
-              Contact: +961 333 8603<br>
-              Regional center for fintech and blockchain solutions</p>
-              
-              <p><strong>France Innovation Lab:</strong><br>
-              Contact: +33 761 522 776<br>
-              European research and development facility</p>
-              
-              <p><strong>Iraq Regional Office:</strong><br>
-              Contact: +964 780 053 0333<br>
-              Local presence for government and enterprise projects</p>
-              
-              <p><strong>Global Communications:</strong><br>
-              Email: info@qrbrand.net<br>
-              Website: qrbrand.net</p>
-            `
-          }
-        };
-        
-        this.currentModal = null;
-        this.init();
-      }
-
-      init() {
-        if (this.isMobile) {
-          this.setupNavigationTabs();
-          this.setupModalInteractions();
-          this.showInitialElements();
-        }
-      }
-
-      setupNavigationTabs() {
-        const navTabs = document.querySelectorAll('.nav-tab');
-        navTabs.forEach(tab => {
-          tab.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            const contentType = tab.getAttribute('data-content');
-            this.showContent(contentType);
-            
-            if (navigator.vibrate) {
-              navigator.vibrate(10);
-            }
-          });
-        });
-      }
-
-      setupModalInteractions() {
-        const modal = document.getElementById('contentModal');
-        let startY = 0;
-        let currentY = 0;
-        let isDragging = false;
-
-        modal.addEventListener('touchstart', (e) => {
-          startY = e.touches[0].clientY;
-          isDragging = true;
-        }, { passive: true });
-
-        modal.addEventListener('touchmove', (e) => {
-          if (!isDragging) return;
-          
-          currentY = e.touches[0].clientY;
-          const deltaY = startY - currentY;
-          
-          if (deltaY < 0) {
-            const translateY = Math.min(0, deltaY);
-            modal.style.transform = `translateY(${translateY}px)`;
-          }
-        }, { passive: true });
-
-        modal.addEventListener('touchend', (e) => {
-          if (!isDragging) return;
-          isDragging = false;
-          
-          const deltaY = startY - currentY;
-          
-          if (deltaY < -80) {
-            this.hideContent();
-          } else {
-            modal.style.transform = 'translateY(0)';
-          }
-        });
-      }
-
-      showInitialElements() {
-        const navContainer = document.getElementById('mobileNavContainer');
-        const contactContainer = document.getElementById('mobileContactContainer');
-        
-        setTimeout(() => {
-          if (navContainer) navContainer.classList.add('visible');
-          if (contactContainer) contactContainer.classList.add('visible');
-          
-          setTimeout(() => {
-            if (navContainer) navContainer.classList.remove('visible');
-            if (contactContainer) contactContainer.classList.remove('visible');
-          }, 5000);
-        }, 1000);
-      }
-
-      showContent(contentType) {
-        const modal = document.getElementById('contentModal');
-        const modalContent = document.getElementById('modalContent');
-        
-        if (this.contentData[contentType]) {
-          const data = this.contentData[contentType];
-          modalContent.innerHTML = `
-            <h2>${data.title}</h2>
-            ${data.content}
-          `;
-          
-          modal.classList.add('visible');
-          this.currentModal = contentType;
-          
-          setTimeout(() => {
-            if (this.currentModal === contentType) {
-              this.hideContent();
-            }
-          }, 8000);
-        }
-      }
-
-      hideContent() {
-        const modal = document.getElementById('contentModal');
-        modal.classList.remove('visible');
-        modal.style.transform = 'translateY(-100%)';
-        this.currentModal = null;
-        
-        setTimeout(() => {
-          modal.style.transform = '';
-        }, 600);
-      }
-    }
-
-    class MobileTouchManager {
-      constructor() {
-        this.isMobile = window.innerWidth <= 768;
-        this.init();
-      }
-
-      init() {
-        if (this.isMobile) {
-          this.setupMobileTouchInteractions();
-          this.setupSubtitleMotion();
-          this.showInitialContactInfo();
-        }
-      }
-
-      setupMobileTouchInteractions() {
-        let touchTimer = null;
-        let quoteTimer = null;
-        
-        document.addEventListener('touchstart', (e) => {
-          if (e.target.closest('.nav-tab') || e.target.closest('.contact-tab') || e.target.closest('.content-modal')) {
-            return;
-          }
-          
-          clearTimeout(touchTimer);
-          clearTimeout(quoteTimer);
-          this.showContactElements();
-          this.showMotivationalQuote();
-        });
-
-        document.addEventListener('touchend', () => {
-          touchTimer = setTimeout(() => {
-            this.hideContactElements();
-          }, 5000);
-
-          quoteTimer = setTimeout(() => {
-            this.hideMotivationalQuote();
-          }, 5000);
-        });
-      }
-
-      setupSubtitleMotion() {
-        if (window.DeviceOrientationEvent) {
-          window.addEventListener('deviceorientation', (e) => {
-            const gamma = e.gamma || 0;
-            const beta = e.beta || 0;
-            
-            const maxMove = 12;
-            const moveX = (gamma / 90) * maxMove;
-            const moveY = (beta / 180) * (maxMove * 0.25);
-            
-            const subtitle = document.querySelector('.subtitle');
-            if (subtitle) {
-              subtitle.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            }
-          }, { passive: true });
-        }
-      }
-
-      showInitialContactInfo() {
-        setTimeout(() => {
-          this.showContactElements();
-          
-          setTimeout(() => {
-            this.hideContactElements();
-          }, 5000);
-        }, 1000);
-      }
-
-      showContactElements() {
-        const contactGrid = document.querySelector('.contact-grid');
-        const companyAddress = document.querySelector('.company-address');
-        
-        if (contactGrid) contactGrid.classList.add('visible');
-        if (companyAddress) companyAddress.classList.add('visible');
-      }
-
-      hideContactElements() {
-        const contactGrid = document.querySelector('.contact-grid');
-        const companyAddress = document.querySelector('.company-address');
-        
-        if (contactGrid) contactGrid.classList.remove('visible');
-        if (companyAddress) companyAddress.classList.remove('visible');
-      }
-
-      showMotivationalQuote() {
-        const motivationalQuote = document.querySelector('.motivational-quote');
-        const blackHole = document.querySelector('.black-hole');
-        if (motivationalQuote) motivationalQuote.classList.add('visible');
-        if (blackHole) blackHole.classList.add('hidden');
-      }
-
-      hideMotivationalQuote() {
-        const motivationalQuote = document.querySelector('.motivational-quote');
-        const blackHole = document.querySelector('.black-hole');
-        if (motivationalQuote) motivationalQuote.classList.remove('visible');
-        if (blackHole) blackHole.classList.remove('hidden');
-      }
-    }
-
-    class PhysicsMoon {
-      constructor() {
-        this.moon = document.getElementById('physicsMoon');
-        this.isMobile = window.innerWidth <= 768;
-        
-        this.x = window.innerWidth / 2;
-        this.y = window.innerHeight / 4;
-        this.vx = 0;
-        this.vy = 0;
-        this.gravity = 0.4;
-        this.bounce = 0.75;
-        this.friction = 0.988;
-        this.airResistance = 0.997;
-        this.size = 32;
-        this.maxSpeed = 20;
-        
-        this.motionThreshold = 0.25;
-        this.accelerationHistory = [];
-        this.maxHistoryLength = 8;
-        this.smoothingFactor = 0.88;
-        this.isDeviceMoving = false;
-        this.lastValidMotion = Date.now();
-        this.motionTimeout = 180;
-        this.sensitivity = {
-          x: 0.28,
-          y: 0.28,
-          orientation: 0.12
-        };
-        
-        this.lastCollisionTime = 0;
-        this.collisionCooldown = 100;
-        this.rotationSpeed = 0;
-        
-        this.magneticPull = false;
-        this.holeAttraction = 0;
-        
-        this.isAnimating = false;
-        this.animationId = null;
-        this.lastFrameTime = 0;
-        this.frameInterval = 1000 / 60;
-        
-        if (this.isMobile) {
-          this.init();
-        }
-      }
-
-      init() {
-        this.requestMotionPermissions();
-        this.setupDeviceMotion();
-        this.setupTouchInteractions();
-        this.startAnimation();
-        this.positionMoon();
-      }
-
-      async requestMotionPermissions() {
-        if (typeof DeviceMotionEvent.requestPermission === 'function') {
-          try {
-            await DeviceMotionEvent.requestPermission();
-          } catch (error) {
-            console.log('Motion permission error:', error);
-          }
-        }
-
-        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-          try {
-            await DeviceOrientationEvent.requestPermission();
-          } catch (error) {
-            console.log('Orientation permission error:', error);
-          }
-        }
-      }
-
-      setupDeviceMotion() {
-        if (window.DeviceMotionEvent) {
-          window.addEventListener('devicemotion', (e) => {
-            const acc = e.accelerationIncludingGravity;
-            if (acc && acc.x !== null && acc.y !== null && acc.z !== null) {
-              
-              this.accelerationHistory.push({
-                x: acc.x || 0,
-                y: acc.y || 0,
-                z: acc.z || 0,
-                timestamp: Date.now()
-              });
-              
-              if (this.accelerationHistory.length > this.maxHistoryLength) {
-                this.accelerationHistory.shift();
-              }
-              
-              const currentAccel = this.accelerationHistory[this.accelerationHistory.length - 1];
-              
-              if (this.accelerationHistory.length >= 3) {
-                const prevAccel = this.accelerationHistory[this.accelerationHistory.length - 3];
-                
-                const deltaX = Math.abs(currentAccel.x - prevAccel.x);
-                const deltaY = Math.abs(currentAccel.y - prevAccel.y);
-                const deltaZ = Math.abs(currentAccel.z - prevAccel.z);
-                
-                const totalDelta = deltaX + deltaY + deltaZ;
-                
-                if (totalDelta > this.motionThreshold) {
-                  this.isDeviceMoving = true;
-                  this.lastValidMotion = Date.now();
-                  
-                  const forceX = currentAccel.x * this.sensitivity.x;
-                  const forceY = -currentAccel.y * this.sensitivity.y;
-                  
-                  this.vx += forceX * this.smoothingFactor;
-                  this.vy += forceY * this.smoothingFactor;
-                  
-                  this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
-                  this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
-                  
-                } else if (Date.now() - this.lastValidMotion > this.motionTimeout) {
-                  this.isDeviceMoving = false;
-                  this.vx *= 0.92;
-                  this.vy *= 0.92;
-                  
-                  if (Math.abs(this.vx) < 0.15) this.vx = 0;
-                  if (Math.abs(this.vy) < 0.15) this.vy = 0;
-                }
-              }
-            }
-          }, { passive: true });
-        }
-
-        if (window.DeviceOrientationEvent) {
-          let lastOrientation = { beta: 0, gamma: 0 };
-          
-          window.addEventListener('deviceorientation', (e) => {
-            const beta = e.beta || 0;
-            const gamma = e.gamma || 0;
-            
-            const betaChange = Math.abs(beta - lastOrientation.beta);
-            const gammaChange = Math.abs(gamma - lastOrientation.gamma);
-            
-            if (betaChange > 0.4 || gammaChange > 0.4) {
-              this.vx += gamma * this.sensitivity.orientation;
-              this.vy += beta * this.sensitivity.orientation;
-              
-              this.isDeviceMoving = true;
-              this.lastValidMotion = Date.now();
-            }
-            
-            lastOrientation = { beta, gamma };
-          }, { passive: true });
-        }
-      }
-
-      setupTouchInteractions() {
-        document.addEventListener('touchstart', (e) => {
-          const touch = e.touches[0];
-          const moonRect = this.moon.getBoundingClientRect();
-          const distance = Math.sqrt(
-            Math.pow(touch.clientX - (moonRect.left + moonRect.width / 2), 2) +
-            Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
-          );
-          
-          if (distance < 40) {
-            e.preventDefault();
-            this.handleTouch(touch);
-          }
-        }, { passive: false });
-      }
-
-      handleTouch(touch) {
-        const rect = this.moon.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        const deltaX = touch.clientX - centerX;
-        const deltaY = touch.clientY - centerY;
-        
-        this.vx += deltaX * 0.015;
-        this.vy += deltaY * 0.015;
-        
-        this.triggerHapticFeedback('light');
-      }
-
-      startAnimation() {
-        if (this.isAnimating) return;
-        this.isAnimating = true;
-        this.animate();
-      }
-
-      animate(currentTime = 0) {
-        if (!this.isMobile || !this.isAnimating) return;
-
-        if (currentTime - this.lastFrameTime < this.frameInterval) {
-          this.animationId = requestAnimationFrame((time) => this.animate(time));
-          return;
-        }
-        this.lastFrameTime = currentTime;
-
-        const bounds = {
-          width: window.innerWidth,
-          height: window.innerHeight
-        };
-
-        this.vy += this.gravity;
-        this.vx *= this.friction;
-        this.vy *= this.airResistance;
-
-        const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-        if (currentSpeed > this.maxSpeed) {
-          const ratio = this.maxSpeed / currentSpeed;
-          this.vx *= ratio;
-          this.vy *= ratio;
-        }
-
-        this.x += this.vx;
-        this.y += this.vy;
-
-        this.checkTitleCollision();
-        this.checkBlackHoleCollision();
-
-        let hasCollision = false;
-
-        if (this.x <= 0 || this.x >= bounds.width - this.size) {
-          this.vx *= -this.bounce;
-          this.x = this.x <= 0 ? 0 : bounds.width - this.size;
-          hasCollision = true;
-          this.rotationSpeed += Math.abs(this.vx) * 0.08;
-        }
-
-        if (this.y <= 0 || this.y >= bounds.height - this.size) {
-          this.vy *= -this.bounce;
-          this.y = this.y <= 0 ? 0 : bounds.height - this.size;
-          hasCollision = true;
-          
-          if (this.y >= bounds.height - this.size) {
-            this.vy *= 0.82;
-            this.vx *= 0.96;
-          }
-        }
-
-        if (hasCollision && Date.now() - this.lastCollisionTime > this.collisionCooldown) {
-          this.handleCollision();
-          this.lastCollisionTime = Date.now();
-        }
-
-        this.rotationSpeed *= 0.985;
-        this.positionMoon();
-        this.animationId = requestAnimationFrame((time) => this.animate(time));
-      }
-
-      checkBlackHoleCollision() {
-        const blackHole = document.getElementById('blackHole');
-        if (!blackHole || blackHole.classList.contains('hidden')) return;
-
-        const blackHoleRect = blackHole.getBoundingClientRect();
-        const ballCenterX = this.x + this.size / 2;
-        const ballCenterY = this.y + this.size / 2;
-        const holeCenterX = blackHoleRect.left + blackHoleRect.width / 2;
-        const holeCenterY = blackHoleRect.top + blackHoleRect.height / 2;
-
-        const distance = Math.sqrt(
-          Math.pow(ballCenterX - holeCenterX, 2) + 
-          Math.pow(ballCenterY - holeCenterY, 2)
-        );
-
-        if (distance < 60) {
-          this.magneticPull = true;
-          this.holeAttraction = Math.max(0.4, (60 - distance) / 60);
-          
-          const forceX = (holeCenterX - ballCenterX) * this.holeAttraction * 0.06;
-          const forceY = (holeCenterY - ballCenterY) * this.holeAttraction * 0.06;
-          
-          this.vx += forceX;
-          this.vy += forceY;
-          
-          this.addMagneticWave(holeCenterX, holeCenterY);
-        } else {
-          this.magneticPull = false;
-          this.holeAttraction = 0;
-        }
-
-        if (distance < 18) {
-          this.fallIntoHole(holeCenterX, holeCenterY);
-        }
-      }
-
-      addMagneticWave(holeX, holeY) {
-        if (Math.random() < 0.25) {
-          const wave = document.createElement('div');
-          wave.style.cssText = `
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 1px solid rgba(100, 100, 255, 0.5);
-            border-radius: 50%;
-            left: ${holeX - 10}px;
-            top: ${holeY - 10}px;
-            pointer-events: none;
-            z-index: 45;
-            animation: magneticWave 0.6s ease-out forwards;
-          `;
-          
-          if (!document.getElementById('magneticWaveStyle')) {
-            const style = document.createElement('style');
-            style.id = 'magneticWaveStyle';
-            style.textContent = `
-              @keyframes magneticWave {
-                0% { transform: scale(1); opacity: 0.6; }
-                100% { transform: scale(2); opacity: 0; }
-              }
-            `;
-            document.head.appendChild(style);
-          }
-          
-          document.body.appendChild(wave);
-          
-          setTimeout(() => {
-            if (wave.parentNode) {
-              document.body.removeChild(wave);
-            }
-          }, 600);
-        }
-      }
-
-      fallIntoHole(holeX, holeY) {
-        this.vx = 0;
-        this.vy = 0;
-        this.isAnimating = false;
-
-        this.changeBackgroundOnSuccess();
-
-        const ballElement = this.moon;
-        ballElement.classList.add('falling');
-        ballElement.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        ballElement.style.transform = `translate3d(${holeX - 16}px, ${holeY - 16}px, 0) scale(0.1) rotate(540deg)`;
-        ballElement.style.opacity = '0';
-
-        this.triggerAdvancedHaptic();
-        this.createScreenFlash();
-
-        setTimeout(() => {
-          this.showNavigationElements();
-        }, 500);
-
-        setTimeout(() => {
-          this.resetBall();
-        }, 5500);
-      }
-
-      showNavigationElements() {
-        const navContainer = document.getElementById('mobileNavContainer');
-        const contactContainer = document.getElementById('mobileContactContainer');
-        const motivationalQuote = document.querySelector('.motivational-quote');
-        
-        if (navContainer) {
-          navContainer.style.transform = 'translateX(-100px)';
-          navContainer.style.opacity = '0';
-          navContainer.classList.add('visible');
-          
-          setTimeout(() => {
-            navContainer.style.transform = 'translateX(0)';
-            navContainer.style.opacity = '1';
-          }, 100);
-        }
-        
-        if (contactContainer) {
-          contactContainer.style.transform = 'translateX(100px)';
-          contactContainer.style.opacity = '0';
-          contactContainer.classList.add('visible');
-          
-          setTimeout(() => {
-            contactContainer.style.transform = 'translateX(0)';
-            contactContainer.style.opacity = '1';
-          }, 200);
-        }
-        
-        if (motivationalQuote) {
-          motivationalQuote.style.transform = 'translateY(-20px)';
-          motivationalQuote.style.opacity = '0';
-          motivationalQuote.classList.add('visible');
-          
-          setTimeout(() => {
-            motivationalQuote.style.transform = 'translateY(0)';
-            motivationalQuote.style.opacity = '1';
-          }, 300);
-        }
-
-        setTimeout(() => {
-          if (navContainer) {
-            navContainer.style.transform = 'translateX(-100px)';
-            navContainer.style.opacity = '0';
-            setTimeout(() => navContainer.classList.remove('visible'), 400);
-          }
-          
-          if (contactContainer) {
-            contactContainer.style.transform = 'translateX(100px)';
-            contactContainer.style.opacity = '0';
-            setTimeout(() => contactContainer.classList.remove('visible'), 400);
-          }
-          
-          if (motivationalQuote) {
-            motivationalQuote.style.transform = 'translateY(-20px)';
-            motivationalQuote.style.opacity = '0';
-            setTimeout(() => motivationalQuote.classList.remove('visible'), 400);
-          }
-        }, 5000);
-      }
-
-      changeBackgroundOnSuccess() {
-        const backgroundElement = document.getElementById('backgroundImage');
-        if (backgroundElement) {
-          const successGradients = [
-            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-            'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)'
-          ];
-          
-          const randomGradient = successGradients[Math.floor(Math.random() * successGradients.length)];
-          backgroundElement.style.background = randomGradient;
-          backgroundElement.style.transition = 'background 1.2s ease-in-out';
-        }
-      }
-
-      triggerAdvancedHaptic() {
-        if (!navigator.vibrate) return;
-        const successPattern = [80, 40, 80, 40, 150, 80, 250];
-        try {
-          navigator.vibrate(successPattern);
-        } catch (error) {
-          navigator.vibrate(150);
-        }
-      }
-
-      createScreenFlash() {
-        const flash = document.createElement('div');
-        flash.style.cssText = `
-          position: fixed;
-          inset: 0;
-          background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-          z-index: 1000;
-          pointer-events: none;
-          opacity: 0;
-          transition: opacity 0.25s ease-out;
-        `;
-        
-        document.body.appendChild(flash);
-        
-        requestAnimationFrame(() => {
-          flash.style.opacity = '1';
-          setTimeout(() => {
-            flash.style.opacity = '0';
-            setTimeout(() => {
-              document.body.removeChild(flash);
-            }, 250);
-          }, 80);
-        });
-      }
-
-      resetBall() {
-        this.x = Math.random() * (window.innerWidth - this.size);
-        this.y = 25 + Math.random() * 40;
-        this.vx = 0;
-        this.vy = 0;
-        this.rotationSpeed = 0;
-        this.isDeviceMoving = false;
-
-        const ballElement = this.moon;
-        ballElement.classList.remove('falling');
-        ballElement.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-        ballElement.style.opacity = '0';
-        ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 30}px, 0) scale(0.8)`;
-
-        setTimeout(() => {
-          ballElement.style.opacity = '1';
-          ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
-          
-          setTimeout(() => {
-            ballElement.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            this.isAnimating = true;
-            this.animate();
-          }, 500);
-        }, 100);
-      }
-
-      checkTitleCollision() {
-        const titleElement = document.querySelector('.main-title');
-        if (!titleElement) return;
-
-        const titleRect = titleElement.getBoundingClientRect();
-        const ballCenterX = this.x + this.size / 2;
-        const ballCenterY = this.y + this.size / 2;
-
-        if (ballCenterX >= titleRect.left && 
-            ballCenterX <= titleRect.right && 
-            ballCenterY >= titleRect.top && 
-            ballCenterY <= titleRect.bottom) {
-          
-          this.pushTitle(titleElement, ballCenterX, ballCenterY, titleRect);
-          
-          const titleCenterX = titleRect.left + titleRect.width / 2;
-          const titleCenterY = titleRect.top + titleRect.height / 2;
-          
-          const deltaX = ballCenterX - titleCenterX;
-          const deltaY = ballCenterY - titleCenterY;
-          
-          this.vy *= -this.bounce;
-          this.vx += (deltaX / titleRect.width) * 6;
-          
-          this.vx += (Math.random() - 0.5) * 1.5;
-          this.vy += (Math.random() - 0.5) * 0.8;
-        }
-      }
-
-      pushTitle(titleElement, ballX, ballY, titleRect) {
-        if (titleElement.classList.contains('pushed')) return;
-
-        const titleCenterX = titleRect.left + titleRect.width / 2;
-        const titleCenterY = titleRect.top + titleRect.height / 2;
-        
-        const deltaX = ballX - titleCenterX;
-        const deltaY = ballY - titleCenterY;
-        
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        const pushX = (deltaX / distance) * 25;
-        const pushY = (deltaY / distance) * 12;
-        
-        titleElement.classList.add('pushed');
-        titleElement.style.transform = `translate(${pushX}px, ${pushY}px) rotate(${pushX * 0.25}deg)`;
-        
-        setTimeout(() => {
-          titleElement.style.transform = 'translate(0px, 0px) rotate(0deg)';
-          
-          setTimeout(() => {
-            titleElement.classList.remove('pushed');
-          }, 500);
-        }, 350);
-      }
-
-      handleCollision() {
-        this.moon.classList.add('bouncing');
-        setTimeout(() => {
-          this.moon.classList.remove('bouncing');
-        }, 100);
-
-        const velocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-        if (velocity > 6) {
-          this.triggerHapticFeedback('heavy');
-        } else if (velocity > 3) {
-          this.triggerHapticFeedback('medium');
-        } else {
-          this.triggerHapticFeedback('light');
-        }
-
-        this.vx += (Math.random() - 0.5) * 0.4;
-        this.vy += (Math.random() - 0.5) * 0.4;
-      }
-
-      positionMoon() {
-        const rotation = this.rotationSpeed * (Date.now() * 0.008);
-        this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) rotate(${rotation}deg)`;
-      }
-
-      triggerHapticFeedback(intensity = 'medium') {
-        if (!navigator.vibrate) return;
-
-        const patterns = {
-          light: [8],
-          medium: [15],
-          heavy: [35],
-          double: [15, 80, 25]
-        };
-
-        try {
-          navigator.vibrate(patterns[intensity] || patterns.medium);
-        } catch (error) {
-          // Haptic feedback not supported
-        }
-      }
-
-      destroy() {
-        this.isAnimating = false;
-        if (this.animationId) {
-          cancelAnimationFrame(this.animationId);
-        }
-      }
-    }
-
-    class StatisticsManager {
-      constructor() {
-        this.init();
-      }
-
-      init() {
-        this.updateVisitorCount();
-        this.updateUserVisits();
-        this.updateCurrentDate();
-      }
-
-      updateVisitorCount() {
-        let globalVisitors = this.getStoredValue('global_visitors_base');
-        if (!globalVisitors) {
-          globalVisitors = 50000 + Math.floor(Math.random() * 5000);
-        }
-        globalVisitors = Number(globalVisitors) + 1;
-        
-        this.setStoredValue('global_visitors_base', globalVisitors);
-        this.animateNumber('visitorsCount', globalVisitors);
-      }
-
-      updateUserVisits() {
-        let userVisits = Number(this.getStoredValue('user_visits') || 0) + 1;
-        this.setStoredValue('user_visits', userVisits);
-        this.animateNumber('userVisits', userVisits);
-      }
-
-      updateCurrentDate() {
-        const now = new Date();
-        const formattedDate = now.toLocaleDateString('en-GB', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        });
-        
-        document.getElementById('currentDate').textContent = formattedDate;
-      }
-
-      animateNumber(elementId, targetValue) {
-        const element = document.getElementById(elementId);
-        const duration = 1200;
-        const startTime = Date.now();
-        const startValue = 0;
-        
-        const animate = () => {
-          const elapsed = Date.now() - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          
-          const easeOut = 1 - Math.pow(1 - progress, 3);
-          const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOut);
-          
-          element.textContent = this.formatNumber(currentValue);
-          
-          if (progress < 1) {
-            requestAnimationFrame(animate);
-          }
-        };
-        
-        requestAnimationFrame(animate);
-      }
-
-      formatNumber(num) {
-        return num.toLocaleString();
-      }
-
-      getStoredValue(key) {
-        try {
-          return localStorage.getItem(key);
-        } catch (e) {
-          return null;
-        }
-      }
-
-      setStoredValue(key, value) {
-        try {
-          localStorage.setItem(key, value.toString());
-        } catch (e) {
-          // Handle localStorage quota exceeded or disabled
-        }
-      }
-    }
-
-    class MotivationalQuotes {
-      constructor() {
-        this.quotes = [
-          "Success starts with one step in the right direction",
-          "Every day is a new opportunity to achieve dreams",
-          "Believing in yourself is the first step to success",
-          "Optimism is the key to solving all problems",
-          "Never give up, success is closer than you think",
-          "Ambition is the beginning of success and will is its path",
-          "Be stronger than your excuses and bigger than your fears",
-          "Self-confidence creates miracles in life",
-          "Your dream is possible, just start now",
-          "Challenges create the strong and the great"
-        ];
-        
-        this.currentIndex = 0;
-        this.quoteElement = document.getElementById('motivationalQuote');
-        this.isMobile = window.innerWidth <= 768;
-        this.init();
-      }
-
-      init() {
-        if (this.quoteElement) {
-          this.setupClickHandler();
-          this.showRandomQuote();
-        }
-      }
-
-      setupClickHandler() {
-        if (this.isMobile) {
-          this.quoteElement.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.changeQuote();
-          });
-        } else {
-          this.quoteElement.addEventListener('click', () => {
-            this.changeQuote();
-          });
-        }
-      }
-
-      showRandomQuote() {
-        const randomIndex = Math.floor(Math.random() * this.quotes.length);
-        this.currentIndex = randomIndex;
-        this.quoteElement.textContent = this.quotes[randomIndex];
-      }
-
-      changeQuote() {
-        this.quoteElement.classList.add('changing');
-
-        setTimeout(() => {
-          let nextIndex = Math.floor(Math.random() * this.quotes.length);
-          while (nextIndex === this.currentIndex && this.quotes.length > 1) {
-            nextIndex = Math.floor(Math.random() * this.quotes.length);
-          }
-          
-          this.currentIndex = nextIndex;
-          this.quoteElement.textContent = this.quotes[nextIndex];
-          this.quoteElement.classList.remove('changing');
-        }, 250);
-      }
-    }
-
-    class App {
-      constructor() {
-        this.backgroundManager = null;
-        this.statisticsManager = null;
-        this.navigationManager = null;
-        this.mobileTouchManager = null;
-        this.physicsMoon = null;
-        this.motivationalQuotes = null;
-        this.init();
-      }
-
-      async init() {
-        if (document.readyState === 'loading') {
-          await new Promise(resolve => {
-            document.addEventListener('DOMContentLoaded', resolve);
-          });
-        }
-
-        try {
-          this.backgroundManager = new BackgroundManager();
-          this.statisticsManager = new StatisticsManager();
-          this.motivationalQuotes = new MotivationalQuotes();
-          this.navigationManager = new NavigationManager();
-          this.mobileTouchManager = new MobileTouchManager();
-          this.physicsMoon = new PhysicsMoon();
-
-          setTimeout(() => {
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            if (loadingOverlay) {
-              loadingOverlay.classList.add('hidden');
-              setTimeout(() => loadingOverlay.remove(), 300);
-            }
-          }, 600);
-
-          console.log('QRBrand application initialized successfully');
-          
-        } catch (error) {
-          console.error('Failed to initialize application:', error);
-          this.handleInitError();
-        }
-      }
-
-      handleInitError() {
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        if (loadingOverlay) {
-          loadingOverlay.innerHTML = `
-            <div style="text-align: center; color: white;">
-              <p>Loading failed. Please refresh the page.</p>
-              <button onclick="location.reload()" style="
-                margin-top: 10px;
-                padding: 10px 20px;
-                background: #4a9eff;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                cursor: pointer;
-              ">Refresh</button>
-            </div>
-          `;
-        }
-      }
-    }
-
-    window.addEventListener('error', (e) => {
-      console.error('Runtime error:', e.error);
-    });
-
-    window.addEventListener('unhandledrejection', (e) => {
-      console.error('Unhandled promise rejection:', e.reason);
-    });
-
-    const app = new App();
-  </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="description" content="QRBrand Ltd - Professional software and app development services. Contact us for custom business solutions across Qatar, Lebanon, France, and Iraq.">
   <meta name="keywords" content="software development, app development, business solutions, QRBrand, custom software">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#111111">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
   
-  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="QRBrand Ltd - Software & App Development">
   <meta property="og:description" content="Professional software and app development services for your business needs.">
   <meta property="og:type" content="website">
@@ -1253,7 +18,6 @@
   
   <title>QRBrand Ltd - Software & App Development Services</title>
   
-  <!-- Load fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://flagcdn.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1296,17 +60,37 @@
       --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --safe-area-top: env(safe-area-inset-top, 0px);
+      --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-area-left: env(safe-area-inset-left, 0px);
+      --safe-area-right: env(safe-area-inset-right, 0px);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input, textarea, [contenteditable] {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
     }
 
     html {
       font-size: 16px;
       scroll-behavior: smooth;
+      height: 100%;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
 
     body {
@@ -1316,34 +100,40 @@
       color: var(--primary-text);
       background: var(--bg-primary);
       min-height: 100vh;
+      min-height: -webkit-fill-available;
       overflow-x: hidden;
       position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      -webkit-overflow-scrolling: touch;
+      padding-top: var(--safe-area-top);
+      padding-bottom: var(--safe-area-bottom);
+      padding-left: var(--safe-area-left);
+      padding-right: var(--safe-area-right);
     }
 
     .skip-link {
       position: absolute;
-      top: -40px;
-      left: 6px;
+      top: calc(-40px + var(--safe-area-top));
+      left: calc(6px + var(--safe-area-left));
       background: var(--bg-card);
       color: var(--primary-text);
       padding: var(--spacing-sm) var(--spacing-md);
       border-radius: var(--radius-sm);
       text-decoration: none;
       font-size: var(--font-size-sm);
-      z-index: 1000;
+      z-index: 9999;
       transition: top var(--transition-fast);
     }
 
     .skip-link:focus {
-      top: 6px;
+      top: calc(6px + var(--safe-area-top));
     }
 
     .background-container {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: -100;
       background: var(--bg-primary);
     }
 
@@ -1365,13 +155,14 @@
     .background-overlay {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: -50;
       background: var(--bg-overlay);
       backdrop-filter: blur(0.5px);
     }
 
     .main-container {
       min-height: 100vh;
+      min-height: -webkit-fill-available;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -1437,6 +228,7 @@
       text-align: center;
       max-width: 900px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .main-title {
@@ -1446,13 +238,13 @@
       letter-spacing: -0.02em;
       margin-bottom: var(--spacing-lg);
       text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       transform-origin: center center;
     }
 
     .main-title.pushed {
-      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .subtitle {
@@ -1585,6 +377,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
+    /* كرة البلياردو الواقعية */
     .physics-moon {
       position: fixed;
       width: 32px;
@@ -1594,7 +387,7 @@
         radial-gradient(ellipse at 20% 15%, #4a4a4a 0%, transparent 30%),
         radial-gradient(ellipse at 80% 80%, #000000 0%, transparent 50%),
         linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 30%, #0a0a0a 60%, #000000 100%);
-      z-index: 50;
+      z-index: 75;
       pointer-events: none;
       display: none;
       transition: all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1637,6 +430,7 @@
       filter: contrast(1.5) brightness(0.8);
     }
 
+    /* حفرة البلياردو الواقعية */
     .black-hole {
       position: absolute;
       width: 40px;
@@ -1647,7 +441,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) translateY(50px);
-      z-index: 1;
+      z-index: 5;
       opacity: 1;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       display: none;
@@ -1676,12 +470,13 @@
       transform: translate(-50%, -50%) translateY(50px) scale(0.3);
     }
 
+    /* التبويبات الملونة للموبايل */
     .mobile-nav-container {
       position: fixed;
-      left: var(--spacing-sm);
+      left: calc(var(--spacing-sm) + var(--safe-area-left));
       top: 50%;
       transform: translateY(-50%);
-      z-index: 100;
+      z-index: 50;
       display: none;
       flex-direction: column;
       gap: var(--spacing-xs);
@@ -1693,25 +488,8 @@
       opacity: 1;
     }
 
-    .mobile-contact-container {
-      position: fixed;
-      right: var(--spacing-sm);
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 100;
-      display: none;
-      flex-direction: column;
-      gap: var(--spacing-xs);
-      opacity: 0;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .mobile-contact-container.visible {
-      opacity: 1;
-    }
-
     .nav-tab {
-      background: rgba(0, 0, 0, 0.88);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: var(--primary-text);
       padding: var(--spacing-sm) var(--spacing-md);
       border-radius: var(--radius-sm);
@@ -1722,77 +500,79 @@
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.25);
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
       user-select: none;
       position: relative;
       overflow: hidden;
+      transform: scale(0.95);
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ألوان زاهية لكل تبويب */
+    .nav-tab:nth-child(1) {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 3px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .nav-tab:nth-child(2) {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      box-shadow: 0 3px 15px rgba(79, 172, 254, 0.3);
+    }
+
+    .nav-tab:nth-child(3) {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      box-shadow: 0 3px 15px rgba(67, 233, 123, 0.3);
+    }
+
+    .nav-tab:nth-child(4) {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      box-shadow: 0 3px 15px rgba(250, 112, 154, 0.3);
+    }
+
+    .nav-tab:nth-child(5) {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      box-shadow: 0 3px 15px rgba(255, 154, 158, 0.3);
     }
 
     .nav-tab::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
     .nav-tab:active {
-      transform: scale(0.95);
-      background: rgba(0, 0, 0, 0.95);
-      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+      transform: scale(1.02);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
     .nav-tab:active::before {
       opacity: 1;
     }
 
-    .contact-tab {
-      background: rgba(0, 0, 0, 0.88);
-      color: var(--primary-text);
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-radius: var(--radius-sm);
-      font-size: var(--font-size-xs);
-      font-weight: 500;
-      text-align: center;
-      min-width: 82px;
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-tab::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .contact-tab:hover::before {
-      opacity: 1;
-    }
-
+    /* نافذة المحتوى */
     .content-modal {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: var(--safe-area-top);
+      left: var(--safe-area-left);
+      right: var(--safe-area-right);
       background: rgba(0, 0, 0, 0.92);
       color: var(--primary-text);
       padding: var(--spacing-xl) var(--spacing-lg);
-      z-index: 200;
+      z-index: 100;
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       transform: translateY(-100%);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       max-height: 70vh;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .content-modal.visible {
@@ -1836,7 +616,7 @@
 
     .close-hint {
       position: absolute;
-      bottom: var(--spacing-lg);
+      bottom: calc(var(--spacing-lg) + var(--safe-area-bottom));
       left: 50%;
       transform: translateX(-50%);
       font-size: var(--font-size-xs);
@@ -1844,11 +624,12 @@
       text-align: center;
     }
 
+    /* شاشة التحميل */
     .loading-overlay {
       position: fixed;
       inset: 0;
       background: var(--bg-primary);
-      z-index: 1000;
+      z-index: 9998;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1875,11 +656,20 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Mobile Styles */
-    @media (max-width: 768px) {
+    /* تحسينات الموبايل */
+    @media (max-width: 768px) and (orientation: portrait),
+           (max-width: 1024px) and (orientation: landscape) {
       :root {
         --font-size-3xl: 36px;
         --font-size-4xl: 42px;
+      }
+
+      html {
+        height: -webkit-fill-available;
+      }
+
+      body {
+        min-height: -webkit-fill-available;
       }
 
       .stats-section {
@@ -1887,23 +677,20 @@
       }
 
       .black-hole {
-        display: block;
+        display: block !important;
       }
       
       .physics-moon {
-        display: block;
+        display: block !important;
       }
       
       .mobile-nav-container {
-        display: flex;
-      }
-      
-      .mobile-contact-container {
-        display: flex;
+        display: flex !important;
       }
 
       .main-content {
         padding: var(--spacing-md);
+        min-height: calc(100vh - var(--safe-area-top) - var(--safe-area-bottom));
       }
 
       .main-title {
@@ -1971,6 +758,21 @@
         backdrop-filter: blur(20px);
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         transform: scale(0.95);
+        width: fit-content;
+        margin: 0 auto;
+        border-radius: var(--radius-sm);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-item::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+        opacity: 0;
+        transition: opacity var(--transition-fast);
       }
 
       .contact-item:hover,
@@ -1978,12 +780,25 @@
         background: rgba(0, 0, 0, 0.95);
         transform: scale(1.02);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .contact-item:hover::before,
+      .contact-item:active::before {
+        opacity: 1;
       }
 
       .flag-icon {
         width: 14px;
         height: 10px;
         margin-right: var(--spacing-xs);
+      }
+
+      .nav-tab {
+        font-size: 11px;
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-height: 34px;
+        min-width: 82px;
       }
     }
 
@@ -2043,4 +858,1172 @@
     <div class="nav-tab" data-content="why">Why Us</div>
     <div class="nav-tab" data-content="services">Services</div>
     <div class="nav-tab" data-content="tech">Technologies</div>
-    <div class="nav-tab" data-content="
+    <div class="nav-tab" data-content="address">Address</div>
+  </div>
+
+  <div class="content-modal" id="contentModal">
+    <div id="modalContent"></div>
+    <div class="close-hint">Swipe up to close</div>
+  </div>
+
+  <div class="main-container">
+    <header class="stats-section" role="banner">
+      <div class="stat-card">
+        <div class="stat-number visitors" id="visitorsCount" aria-label="Total visitors">0</div>
+        <div class="stat-label">Visitors</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number date" id="currentDate" aria-label="Today's date">--</div>
+        <div class="stat-label">Today's Date</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number visits" id="userVisits" aria-label="Your visits">0</div>
+        <div class="stat-label">Your Visits</div>
+      </div>
+    </header>
+
+    <main class="main-content" id="main-content">
+      <p class="subtitle">
+        Do you need software or an app to develop your business?
+      </p>
+
+      <h1 class="main-title">Welcome to QRBrand Ltd</h1>
+
+      <section class="motivational-container" role="region" aria-label="Motivational quotes">
+        <div class="black-hole" id="blackHole"></div>
+        <div class="motivational-quote" id="motivationalQuote">
+          Success starts with one step in the right direction
+        </div>
+      </section>
+
+      <section class="contact-grid" aria-label="Contact information">
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/qa.png" alt="Qatar flag" class="flag-icon" loading="lazy">
+          <span>Qatar: <a href="tel:+97455257048" style="color: inherit; text-decoration: none;">+974 5525 7048</a></span>
+        </div>
+
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/lb.png" alt="Lebanon flag" class="flag-icon" loading="lazy">
+          <span>Beirut: <a href="tel:+9613338603" style="color: inherit; text-decoration: none;">+961 333 8603</a></span>
+        </div>
+
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/fr.png" alt="France flag" class="flag-icon" loading="lazy">
+          <span>France: <a href="tel:+33761522776" style="color: inherit; text-decoration: none;">+33 761 522 776</a></span>
+        </div>
+
+        <div class="contact-item">
+          <img src="https://flagcdn.com/w20/iq.png" alt="Iraq flag" class="flag-icon" loading="lazy">
+          <span>Iraq: <a href="tel:+9647800530333" style="color: inherit; text-decoration: none;">+964 780 053 0333</a></span>
+        </div>
+
+        <div class="contact-item">
+          <span>Email: <a href="mailto:info@qrbrand.net" style="color: inherit; text-decoration: none;">info@qrbrand.net</a></span>
+        </div>
+      </section>
+
+      <address class="company-address">
+        Our company address and P.O. Box in the UK: 71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ
+      </address>
+    </main>
+  </div>
+
+  <script>
+    'use strict';
+
+    const APP_CONFIG = {
+      DEBUG: false,
+      MAX_FPS: 60,
+      PHYSICS_ENABLED: true,
+      HAPTICS_ENABLED: true
+    };
+
+    const fallbackGradients = [
+      'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
+      'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+      'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+      'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+      'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+      'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+      'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+      'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
+      'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)'
+    ];
+
+    class PerformanceMonitor {
+      constructor() {
+        this.frameCount = 0;
+        this.lastTime = 0;
+        this.fps = 0;
+      }
+
+      update(currentTime) {
+        this.frameCount++;
+        if (currentTime - this.lastTime >= 1000) {
+          this.fps = this.frameCount;
+          this.frameCount = 0;
+          this.lastTime = currentTime;
+          
+          if (APP_CONFIG.DEBUG) {
+            console.log(`FPS: ${this.fps}`);
+          }
+        }
+      }
+
+      getFPS() {
+        return this.fps;
+      }
+    }
+
+    class BackgroundManager {
+      constructor() {
+        this.backgroundElement = document.getElementById('backgroundImage');
+        this.init();
+      }
+
+      init() {
+        this.setFallbackBackground();
+      }
+
+      setFallbackBackground() {
+        const randomGradient = fallbackGradients[Math.floor(Math.random() * fallbackGradients.length)];
+        this.backgroundElement.style.background = randomGradient;
+        this.backgroundElement.classList.add('loaded');
+      }
+
+      destroy() {
+        // Cleanup if needed
+      }
+    }
+
+    class NavigationManager {
+      constructor() {
+        this.isMobile = this.detectMobile();
+        this.contentData = {
+          about: {
+            title: "About QRBrand Ltd",
+            content: `
+              <p>QRBrand Ltd stands as a pioneering force in the global software development landscape, delivering cutting-edge technological solutions that transform businesses across diverse industries. Since our establishment, we have consistently pushed the boundaries of innovation, creating sophisticated software architectures that drive digital transformation.</p>
+              
+              <p>Our commitment to excellence extends beyond mere code creation. We architect comprehensive digital ecosystems that seamlessly integrate with existing business infrastructures while providing scalable foundations for future growth. Each project reflects our dedication to precision engineering and user-centric design principles.</p>
+              
+              <p>With a global presence spanning Qatar, Lebanon, France, and Iraq, we bring together diverse perspectives and technical expertise to solve complex challenges. Our multicultural approach enables us to understand varied market dynamics and deliver solutions that resonate across different business environments.</p>
+              
+              <p>At QRBrand Ltd, we believe technology should empower, not complicate. Our solutions are crafted with this philosophy, ensuring that every line of code serves a strategic purpose in advancing our clients' objectives.</p>
+            `
+          },
+          why: {
+            title: "Why Choose QRBrand Ltd",
+            content: `
+              <p>In an increasingly competitive digital landscape, QRBrand Ltd distinguishes itself through unwavering commitment to technical excellence and innovative problem-solving methodologies. Our approach combines deep technical expertise with strategic business acumen.</p>
+              
+              <ul>
+                <li>Advanced Technology Stack: We leverage cutting-edge frameworks, cloud-native architectures, and emerging technologies including AI/ML, blockchain, and IoT integrations</li>
+                <li>Agile Development Methodology: Our iterative approach ensures rapid delivery while maintaining the highest quality standards through comprehensive testing protocols</li>
+                <li>Scalable Architecture Design: Every solution is engineered for growth, utilizing microservices architecture and cloud-first principles</li>
+                <li>Security-First Approach: We implement enterprise-grade security measures, ensuring data protection and compliance with international standards</li>
+                <li>24/7 Technical Support: Our dedicated support infrastructure provides continuous monitoring and rapid response capabilities</li>
+                <li>Global Delivery Model: Multi-timezone coverage ensures seamless project execution and communication</li>
+              </ul>
+              
+              <p>Our proven track record spans fortune 500 companies to innovative startups, demonstrating our versatility and adaptability across diverse project requirements and industry verticals.</p>
+            `
+          },
+          services: {
+            title: "Our Professional Services",
+            content: `
+              <p>QRBrand Ltd offers a comprehensive suite of professional services designed to address every aspect of modern digital transformation. Our service portfolio encompasses the entire software development lifecycle.</p>
+              
+              <ul>
+                <li>Custom Software Development: Bespoke applications tailored to specific business requirements using modern development frameworks</li>
+                <li>Mobile Application Development: Native and cross-platform mobile solutions for iOS and Android ecosystems</li>
+                <li>Web Application Development: Progressive web applications with responsive design and optimal performance</li>
+                <li>Cloud Migration & DevOps: Seamless transition to cloud infrastructure with automated deployment pipelines</li>
+                <li>API Development & Integration: RESTful and GraphQL APIs with comprehensive documentation and testing</li>
+                <li>Database Architecture & Optimization: High-performance database design with advanced querying capabilities</li>
+                <li>Quality Assurance & Testing: Automated testing frameworks ensuring robust and reliable software delivery</li>
+                <li>Maintenance & Support: Ongoing technical support with proactive monitoring and optimization</li>
+              </ul>
+              
+              <p>Each service is delivered through our established methodologies, ensuring consistent quality and predictable outcomes while maintaining flexibility to adapt to evolving requirements.</p>
+            `
+          },
+          tech: {
+            title: "Advanced Technologies",
+            content: `
+              <p>QRBrand Ltd maintains expertise across the most advanced and emerging technology stacks, ensuring our clients benefit from industry-leading solutions and future-ready architectures.</p>
+              
+              <ul>
+                <li>Frontend Technologies: React.js, Vue.js, Angular, Next.js, TypeScript, Progressive Web Apps</li>
+                <li>Backend Frameworks: Node.js, Python Django/Flask, Java Spring, .NET Core, Go, Rust</li>
+                <li>Mobile Development: React Native, Flutter, Swift (iOS), Kotlin (Android), Xamarin</li>
+                <li>Cloud Platforms: AWS, Microsoft Azure, Google Cloud Platform, Docker, Kubernetes</li>
+                <li>Database Systems: PostgreSQL, MongoDB, Redis, Elasticsearch, GraphQL, Apache Kafka</li>
+                <li>AI & Machine Learning: TensorFlow, PyTorch, Natural Language Processing, Computer Vision</li>
+                <li>Blockchain Technologies: Ethereum, Smart Contracts, Web3 Integration, DeFi Solutions</li>
+                <li>DevOps & CI/CD: Jenkins, GitLab CI, GitHub Actions, Terraform, Ansible</li>
+              </ul>
+              
+              <p>Our technology selection process prioritizes long-term sustainability, performance optimization, and seamless integration capabilities, ensuring that every technical decision supports strategic business objectives.</p>
+            `
+          },
+          address: {
+            title: "Global Presence",
+            content: `
+              <p>QRBrand Ltd maintains strategic offices across multiple continents, enabling us to provide localized expertise while leveraging global best practices and round-the-clock development capabilities.</p>
+              
+              <p><strong>United Kingdom Headquarters:</strong><br>
+              71-75 Shelton Street, Covent Garden<br>
+              London, United Kingdom, WC2H 9JQ</p>
+              
+              <p><strong>Qatar Operations Center:</strong><br>
+              Contact: +974 5525 7048<br>
+              Specialized in enterprise solutions for the Middle East market</p>
+              
+              <p><strong>Lebanon Development Hub:</strong><br>
+              Contact: +961 333 8603<br>
+              Regional center for fintech and blockchain solutions</p>
+              
+              <p><strong>France Innovation Lab:</strong><br>
+              Contact: +33 761 522 776<br>
+              European research and development facility</p>
+              
+              <p><strong>Iraq Regional Office:</strong><br>
+              Contact: +964 780 053 0333<br>
+              Local presence for government and enterprise projects</p>
+              
+              <p><strong>Global Communications:</strong><br>
+              Email: info@qrbrand.net<br>
+              Website: qrbrand.net</p>
+            `
+          }
+        };
+        
+        this.currentModal = null;
+        this.touchHandlers = new Map();
+        this.init();
+      }
+
+      detectMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               (window.innerWidth <= 768) ||
+               ('ontouchstart' in window);
+      }
+
+      init() {
+        if (this.isMobile) {
+          this.setupNavigationTabs();
+          this.setupModalInteractions();
+          this.showInitialElements();
+        }
+      }
+
+      setupNavigationTabs() {
+        const navTabs = document.querySelectorAll('.nav-tab');
+        navTabs.forEach(tab => {
+          const touchHandler = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const contentType = tab.getAttribute('data-content');
+            this.showContent(contentType);
+            
+            if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+              navigator.vibrate(10);
+            }
+          };
+
+          this.touchHandlers.set(tab, touchHandler);
+          tab.addEventListener('touchend', touchHandler, { passive: false });
+        });
+      }
+
+      setupModalInteractions() {
+        const modal = document.getElementById('contentModal');
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+
+        const touchStart = (e) => {
+          startY = e.touches[0].clientY;
+          isDragging = true;
+        };
+
+        const touchMove = (e) => {
+          if (!isDragging) return;
+          
+          currentY = e.touches[0].clientY;
+          const deltaY = startY - currentY;
+          
+          if (deltaY < 0) {
+            const translateY = Math.min(0, deltaY);
+            modal.style.transform = `translateY(${translateY}px)`;
+          }
+        };
+
+        const touchEnd = () => {
+          if (!isDragging) return;
+          isDragging = false;
+          
+          const deltaY = startY - currentY;
+          
+          if (deltaY < -80) {
+            this.hideContent();
+          } else {
+            modal.style.transform = 'translateY(0)';
+          }
+        };
+
+        modal.addEventListener('touchstart', touchStart, { passive: true });
+        modal.addEventListener('touchmove', touchMove, { passive: true });
+        modal.addEventListener('touchend', touchEnd, { passive: true });
+      }
+
+      showInitialElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactGrid = document.querySelector('.contact-grid');
+        
+        setTimeout(() => {
+          if (navContainer) navContainer.classList.add('visible');
+          if (contactGrid) contactGrid.classList.add('visible');
+          
+          setTimeout(() => {
+            if (navContainer) navContainer.classList.remove('visible');
+            if (contactGrid) contactGrid.classList.remove('visible');
+          }, 5000);
+        }, 1000);
+      }
+
+      showContent(contentType) {
+        const modal = document.getElementById('contentModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        if (this.contentData[contentType]) {
+          const data = this.contentData[contentType];
+          modalContent.innerHTML = `
+            <h2>${data.title}</h2>
+            ${data.content}
+          `;
+          
+          modal.classList.add('visible');
+          this.currentModal = contentType;
+          
+          setTimeout(() => {
+            if (this.currentModal === contentType) {
+              this.hideContent();
+            }
+          }, 8000);
+        }
+      }
+
+      hideContent() {
+        const modal = document.getElementById('contentModal');
+        modal.classList.remove('visible');
+        modal.style.transform = 'translateY(-100%)';
+        this.currentModal = null;
+        
+        setTimeout(() => {
+          modal.style.transform = '';
+        }, 600);
+      }
+
+      destroy() {
+        this.touchHandlers.forEach((handler, element) => {
+          element.removeEventListener('touchend', handler);
+        });
+        this.touchHandlers.clear();
+      }
+    }
+
+    class MobileTouchManager {
+      constructor() {
+        this.isMobile = this.detectMobile();
+        this.touchTimers = new Map();
+        this.init();
+      }
+
+      detectMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               (window.innerWidth <= 768) ||
+               ('ontouchstart' in window);
+      }
+
+      init() {
+        if (this.isMobile) {
+          this.setupMobileTouchInteractions();
+          this.setupSubtitleMotion();
+          this.showInitialContactInfo();
+        }
+      }
+
+      setupMobileTouchInteractions() {
+        const touchStart = (e) => {
+          if (e.target.closest('.nav-tab') || 
+              e.target.closest('.contact-item') || 
+              e.target.closest('.content-modal')) {
+            return;
+          }
+          
+          this.clearTimers();
+          this.showContactElements();
+          this.showMotivationalQuote();
+        };
+
+        const touchEnd = () => {
+          this.touchTimers.set('contact', setTimeout(() => {
+            this.hideContactElements();
+          }, 5000));
+
+          this.touchTimers.set('quote', setTimeout(() => {
+            this.hideMotivationalQuote();
+          }, 5000));
+        };
+
+        document.addEventListener('touchstart', touchStart, { passive: true });
+        document.addEventListener('touchend', touchEnd, { passive: true });
+
+        window.addEventListener('resize', () => {
+          this.isMobile = this.detectMobile();
+        });
+      }
+
+      setupSubtitleMotion() {
+        if (window.DeviceOrientationEvent && this.isMobile) {
+          window.addEventListener('deviceorientation', (e) => {
+            const gamma = e.gamma || 0;
+            const beta = e.beta || 0;
+            
+            const maxMove = 12;
+            const moveX = (gamma / 90) * maxMove;
+            const moveY = (beta / 180) * (maxMove * 0.25);
+            
+            const subtitle = document.querySelector('.subtitle');
+            if (subtitle) {
+              subtitle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+          }, { passive: true });
+        }
+      }
+
+      clearTimers() {
+        this.touchTimers.forEach(timer => clearTimeout(timer));
+        this.touchTimers.clear();
+      }
+
+      showInitialContactInfo() {
+        setTimeout(() => {
+          this.showContactElements();
+          this.showMotivationalQuote();
+          
+          setTimeout(() => {
+            this.hideContactElements();
+            this.hideMotivationalQuote();
+          }, 5000);
+        }, 1000);
+      }
+
+      showContactElements() {
+        const contactGrid = document.querySelector('.contact-grid');
+        const companyAddress = document.querySelector('.company-address');
+        
+        if (contactGrid) contactGrid.classList.add('visible');
+        if (companyAddress) companyAddress.classList.add('visible');
+      }
+
+      hideContactElements() {
+        const contactGrid = document.querySelector('.contact-grid');
+        const companyAddress = document.querySelector('.company-address');
+        
+        if (contactGrid) contactGrid.classList.remove('visible');
+        if (companyAddress) companyAddress.classList.remove('visible');
+      }
+
+      showMotivationalQuote() {
+        const motivationalQuote = document.querySelector('.motivational-quote');
+        const blackHole = document.querySelector('.black-hole');
+        if (motivationalQuote) motivationalQuote.classList.add('visible');
+        if (blackHole) blackHole.classList.add('hidden');
+      }
+
+      hideMotivationalQuote() {
+        const motivationalQuote = document.querySelector('.motivational-quote');
+        const blackHole = document.querySelector('.black-hole');
+        if (motivationalQuote) motivationalQuote.classList.remove('visible');
+        if (blackHole) blackHole.classList.remove('hidden');
+      }
+
+      destroy() {
+        this.clearTimers();
+      }
+    }
+
+    class PhysicsMoon {
+      constructor() {
+        this.moon = document.getElementById('physicsMoon');
+        this.isMobile = this.detectMobile();
+        this.performanceMonitor = new PerformanceMonitor();
+        
+        this.resetPhysics();
+        
+        this.lastFrameTime = 0;
+        this.frameInterval = 1000 / APP_CONFIG.MAX_FPS;
+        
+        if (this.isMobile && APP_CONFIG.PHYSICS_ENABLED) {
+          this.init();
+        }
+      }
+
+      detectMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               (window.innerWidth <= 768) ||
+               ('ontouchstart' in window);
+      }
+
+      resetPhysics() {
+        this.x = window.innerWidth / 2;
+        this.y = window.innerHeight / 4;
+        this.vx = 0;
+        this.vy = 0;
+        this.gravity = 0.4;
+        this.bounce = 0.75;
+        this.friction = 0.988;
+        this.airResistance = 0.997;
+        this.size = 32;
+        this.maxSpeed = 20;
+        this.rotationSpeed = 0;
+        this.isAnimating = false;
+        this.animationId = null;
+      }
+
+      async init() {
+        await this.requestMotionPermissions();
+        this.setupDeviceMotion();
+        this.setupTouchInteractions();
+        this.startAnimation();
+        this.positionMoon();
+      }
+
+      async requestMotionPermissions() {
+        if (typeof DeviceMotionEvent !== 'undefined' && 
+            typeof DeviceMotionEvent.requestPermission === 'function') {
+          try {
+            const permission = await DeviceMotionEvent.requestPermission();
+            if (permission !== 'granted') {
+              console.log('Motion permission denied');
+            }
+          } catch (error) {
+            console.log('Motion permission error:', error);
+          }
+        }
+
+        if (typeof DeviceOrientationEvent !== 'undefined' && 
+            typeof DeviceOrientationEvent.requestPermission === 'function') {
+          try {
+            const permission = await DeviceOrientationEvent.requestPermission();
+            if (permission !== 'granted') {
+              console.log('Orientation permission denied');
+            }
+          } catch (error) {
+            console.log('Orientation permission error:', error);
+          }
+        }
+      }
+
+      setupDeviceMotion() {
+        if (!window.DeviceMotionEvent) return;
+
+        window.addEventListener('devicemotion', (e) => {
+          const acc = e.accelerationIncludingGravity;
+          if (acc && acc.x !== null && acc.y !== null) {
+            const sensitivity = 0.25;
+            const forceX = acc.x * sensitivity;
+            const forceY = -acc.y * sensitivity;
+            
+            this.vx += forceX;
+            this.vy += forceY;
+            
+            this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
+            this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
+          }
+        }, { passive: true });
+
+        if (window.DeviceOrientationEvent) {
+          window.addEventListener('deviceorientation', (e) => {
+            const beta = e.beta || 0;
+            const gamma = e.gamma || 0;
+            
+            this.vx += gamma * 0.1;
+            this.vy += beta * 0.1;
+          }, { passive: true });
+        }
+      }
+
+      setupTouchInteractions() {
+        const touchHandler = (e) => {
+          const touch = e.touches[0];
+          const moonRect = this.moon.getBoundingClientRect();
+          const distance = Math.sqrt(
+            Math.pow(touch.clientX - (moonRect.left + moonRect.width / 2), 2) +
+            Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
+          );
+          
+          if (distance < 50) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.handleTouch(touch, moonRect);
+          }
+        };
+
+        document.addEventListener('touchstart', touchHandler, { passive: false });
+      }
+
+      handleTouch(touch, rect) {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const deltaX = touch.clientX - centerX;
+        const deltaY = touch.clientY - centerY;
+        
+        this.vx += deltaX * 0.02;
+        this.vy += deltaY * 0.02;
+        
+        if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+          navigator.vibrate(15);
+        }
+      }
+
+      startAnimation() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        this.animate();
+      }
+
+      animate(currentTime = 0) {
+        if (!this.isMobile || !this.isAnimating || !APP_CONFIG.PHYSICS_ENABLED) return;
+
+        this.performanceMonitor.update(currentTime);
+
+        if (currentTime - this.lastFrameTime < this.frameInterval) {
+          this.animationId = requestAnimationFrame((time) => this.animate(time));
+          return;
+        }
+        this.lastFrameTime = currentTime;
+
+        const bounds = {
+          width: window.innerWidth,
+          height: window.innerHeight
+        };
+
+        this.vy += this.gravity;
+        this.vx *= this.friction;
+        this.vy *= this.airResistance;
+
+        const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if (currentSpeed > this.maxSpeed) {
+          const ratio = this.maxSpeed / currentSpeed;
+          this.vx *= ratio;
+          this.vy *= ratio;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        this.checkBoundaryCollisions(bounds);
+        this.checkBlackHoleCollision();
+
+        this.rotationSpeed *= 0.985;
+        this.positionMoon();
+
+        this.animationId = requestAnimationFrame((time) => this.animate(time));
+      }
+
+      checkBoundaryCollisions(bounds) {
+        let hasCollision = false;
+
+        if (this.x <= 0 || this.x >= bounds.width - this.size) {
+          this.vx *= -this.bounce;
+          this.x = this.x <= 0 ? 0 : bounds.width - this.size;
+          hasCollision = true;
+          this.rotationSpeed += Math.abs(this.vx) * 0.1;
+        }
+
+        if (this.y <= 0 || this.y >= bounds.height - this.size) {
+          this.vy *= -this.bounce;
+          this.y = this.y <= 0 ? 0 : bounds.height - this.size;
+          hasCollision = true;
+          
+          if (this.y >= bounds.height - this.size) {
+            this.vy *= 0.8;
+            this.vx *= 0.95;
+          }
+        }
+
+        if (hasCollision) {
+          this.handleCollision();
+        }
+      }
+
+      checkBlackHoleCollision() {
+        const blackHole = document.getElementById('blackHole');
+        if (!blackHole || blackHole.classList.contains('hidden')) return;
+
+        const blackHoleRect = blackHole.getBoundingClientRect();
+        const ballCenterX = this.x + this.size / 2;
+        const ballCenterY = this.y + this.size / 2;
+        const holeCenterX = blackHoleRect.left + blackHoleRect.width / 2;
+        const holeCenterY = blackHoleRect.top + blackHoleRect.height / 2;
+
+        const distance = Math.sqrt(
+          Math.pow(ballCenterX - holeCenterX, 2) + 
+          Math.pow(ballCenterY - holeCenterY, 2)
+        );
+
+        if (distance < 80) {
+          const attraction = (80 - distance) / 80;
+          const forceX = (holeCenterX - ballCenterX) * attraction * 0.05;
+          const forceY = (holeCenterY - ballCenterY) * attraction * 0.05;
+          
+          this.vx += forceX;
+          this.vy += forceY;
+        }
+
+        if (distance < 20) {
+          this.fallIntoHole(holeCenterX, holeCenterY);
+        }
+      }
+
+      fallIntoHole(holeX, holeY) {
+        this.vx = 0;
+        this.vy = 0;
+        this.isAnimating = false;
+
+        const ballElement = this.moon;
+        ballElement.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        ballElement.style.transform = `translate3d(${holeX - 16}px, ${holeY - 16}px, 0) scale(0.1) rotate(540deg)`;
+        ballElement.style.opacity = '0';
+
+        if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+          navigator.vibrate([80, 40, 80, 40, 150]);
+        }
+
+        this.createScreenFlash();
+
+        setTimeout(() => {
+          this.showNavigationElements();
+        }, 500);
+
+        setTimeout(() => {
+          this.resetBall();
+        }, 5500);
+      }
+
+      showNavigationElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactGrid = document.querySelector('.contact-grid');
+        const motivationalQuote = document.querySelector('.motivational-quote');
+        
+        if (navContainer) {
+          navContainer.style.transform = 'translateX(-100px)';
+          navContainer.style.opacity = '0';
+          navContainer.classList.add('visible');
+          
+          requestAnimationFrame(() => {
+            navContainer.style.transform = 'translateX(0)';
+            navContainer.style.opacity = '1';
+          });
+        }
+        
+        if (contactGrid) {
+          contactGrid.style.transform = 'translateX(100px)';
+          contactGrid.style.opacity = '0';
+          contactGrid.classList.add('visible');
+          
+          setTimeout(() => {
+            contactGrid.style.transform = 'translateX(0)';
+            contactGrid.style.opacity = '1';
+          }, 100);
+        }
+        
+        if (motivationalQuote) {
+          motivationalQuote.classList.add('visible');
+        }
+
+        setTimeout(() => {
+          if (navContainer) {
+            navContainer.style.transform = 'translateX(-100px)';
+            navContainer.style.opacity = '0';
+            setTimeout(() => navContainer.classList.remove('visible'), 400);
+          }
+          
+          if (contactGrid) {
+            contactGrid.style.transform = 'translateX(100px)';
+            contactGrid.style.opacity = '0';
+            setTimeout(() => contactGrid.classList.remove('visible'), 400);
+          }
+          
+          if (motivationalQuote) {
+            motivationalQuote.classList.remove('visible');
+          }
+        }, 5000);
+      }
+
+      createScreenFlash() {
+        const flash = document.createElement('div');
+        flash.style.cssText = `
+          position: fixed;
+          inset: 0;
+          background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+          z-index: 9999;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.2s ease-out;
+        `;
+        
+        document.body.appendChild(flash);
+        
+        requestAnimationFrame(() => {
+          flash.style.opacity = '1';
+          setTimeout(() => {
+            flash.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(flash)) {
+                document.body.removeChild(flash);
+              }
+            }, 200);
+          }, 100);
+        });
+      }
+
+      resetBall() {
+        this.x = Math.random() * (window.innerWidth - this.size);
+        this.y = 50 + Math.random() * 100;
+        this.vx = 0;
+        this.vy = 0;
+        this.rotationSpeed = 0;
+
+        const ballElement = this.moon;
+        ballElement.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        ballElement.style.opacity = '0';
+        ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 50}px, 0) scale(0.8)`;
+
+        setTimeout(() => {
+          ballElement.style.opacity = '1';
+          ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
+          
+          setTimeout(() => {
+            ballElement.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            this.isAnimating = true;
+            this.animate();
+          }, 500);
+        }, 100);
+      }
+
+      handleCollision() {
+        this.moon.classList.add('bouncing');
+        setTimeout(() => {
+          this.moon.classList.remove('bouncing');
+        }, 100);
+
+        if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+          const velocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+          if (velocity > 8) {
+            navigator.vibrate(25);
+          } else if (velocity > 4) {
+            navigator.vibrate(15);
+          } else {
+            navigator.vibrate(8);
+          }
+        }
+
+        this.vx += (Math.random() - 0.5) * 0.5;
+        this.vy += (Math.random() - 0.5) * 0.5;
+      }
+
+      positionMoon() {
+        const rotation = this.rotationSpeed * (Date.now() * 0.01);
+        this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) rotate(${rotation}deg)`;
+      }
+
+      destroy() {
+        this.isAnimating = false;
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+          this.animationId = null;
+        }
+      }
+    }
+
+    class StatisticsManager {
+      constructor() {
+        this.init();
+      }
+
+      init() {
+        this.updateVisitorCount();
+        this.updateUserVisits();
+        this.updateCurrentDate();
+      }
+
+      updateVisitorCount() {
+        let globalVisitors = this.getStoredValue('global_visitors_base');
+        if (!globalVisitors) {
+          globalVisitors = 50000 + Math.floor(Math.random() * 5000);
+        }
+        globalVisitors = Number(globalVisitors) + 1;
+        
+        this.setStoredValue('global_visitors_base', globalVisitors);
+        this.animateNumber('visitorsCount', globalVisitors);
+      }
+
+      updateUserVisits() {
+        let userVisits = Number(this.getStoredValue('user_visits') || 0) + 1;
+        this.setStoredValue('user_visits', userVisits);
+        this.animateNumber('userVisits', userVisits);
+      }
+
+      updateCurrentDate() {
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        });
+        
+        const dateElement = document.getElementById('currentDate');
+        if (dateElement) {
+          dateElement.textContent = formattedDate;
+        }
+      }
+
+      animateNumber(elementId, targetValue) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+
+        const duration = 1200;
+        const startTime = performance.now();
+        const startValue = 0;
+        
+        const animate = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOut);
+          
+          element.textContent = this.formatNumber(currentValue);
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        };
+        
+        requestAnimationFrame(animate);
+      }
+
+      formatNumber(num) {
+        return num.toLocaleString();
+      }
+
+      getStoredValue(key) {
+        try {
+          return localStorage.getItem(key);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      setStoredValue(key, value) {
+        try {
+          localStorage.setItem(key, value.toString());
+        } catch (e) {
+          // Storage not available
+        }
+      }
+
+      destroy() {
+        // Cleanup if needed
+      }
+    }
+
+    class MotivationalQuotes {
+      constructor() {
+        this.quotes = [
+          "Success starts with one step in the right direction",
+          "Every day is a new opportunity to achieve dreams",
+          "Believing in yourself is the first step to success",
+          "Optimism is the key to solving all problems",
+          "Never give up, success is closer than you think",
+          "Ambition is the beginning of success and will is its path",
+          "Be stronger than your excuses and bigger than your fears",
+          "Self-confidence creates miracles in life",
+          "Your dream is possible, just start now",
+          "Challenges create the strong and the great",
+          "Failure is a lesson, not the end of the story",
+          "Remember, you are stronger than you think",
+          "Patience and persistence are the path to every success",
+          "Change your thinking, change your life for the better",
+          "A new beginning needs only one moment of courage"
+        ];
+        
+        this.currentIndex = 0;
+        this.quoteElement = document.getElementById('motivationalQuote');
+        this.isMobile = this.detectMobile();
+        this.init();
+      }
+
+      detectMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               (window.innerWidth <= 768);
+      }
+
+      init() {
+        if (this.quoteElement) {
+          this.setupClickHandler();
+          this.showRandomQuote();
+        }
+      }
+
+      setupClickHandler() {
+        if (this.isMobile) {
+          this.quoteElement.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.changeQuote();
+          }, { passive: false });
+        } else {
+          this.quoteElement.addEventListener('click', () => {
+            this.changeQuote();
+          });
+        }
+      }
+
+      showRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * this.quotes.length);
+        this.currentIndex = randomIndex;
+        this.quoteElement.textContent = this.quotes[randomIndex];
+      }
+
+      changeQuote() {
+        this.quoteElement.classList.add('changing');
+
+        setTimeout(() => {
+          let nextIndex = Math.floor(Math.random() * this.quotes.length);
+          while (nextIndex === this.currentIndex && this.quotes.length > 1) {
+            nextIndex = Math.floor(Math.random() * this.quotes.length);
+          }
+          
+          this.currentIndex = nextIndex;
+          this.quoteElement.textContent = this.quotes[nextIndex];
+          this.quoteElement.classList.remove('changing');
+        }, 250);
+      }
+
+      destroy() {
+        // Cleanup if needed
+      }
+    }
+
+    class App {
+      constructor() {
+        this.components = new Map();
+        this.isInitialized = false;
+        this.init();
+      }
+
+      async init() {
+        if (document.readyState === 'loading') {
+          await new Promise(resolve => {
+            document.addEventListener('DOMContentLoaded', resolve);
+          });
+        }
+
+        try {
+          this.components.set('background', new BackgroundManager());
+          this.components.set('statistics', new StatisticsManager());
+          this.components.set('quotes', new MotivationalQuotes());
+          this.components.set('navigation', new NavigationManager());
+          this.components.set('touch', new MobileTouchManager());
+          this.components.set('physics', new PhysicsMoon());
+
+          this.hideLoadingOverlay();
+          
+          this.isInitialized = true;
+          
+          if (APP_CONFIG.DEBUG) {
+            console.log('QRBrand application initialized successfully');
+          }
+          
+        } catch (error) {
+          console.error('Application initialization failed:', error);
+          this.handleInitError();
+        }
+      }
+
+      hideLoadingOverlay() {
+        setTimeout(() => {
+          const loadingOverlay = document.getElementById('loadingOverlay');
+          if (loadingOverlay) {
+            loadingOverlay.classList.add('hidden');
+            setTimeout(() => {
+              if (document.body.contains(loadingOverlay)) {
+                loadingOverlay.remove();
+              }
+            }, 300);
+          }
+        }, 600);
+      }
+
+      handleInitError() {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+          loadingOverlay.innerHTML = `
+            <div style="text-align: center; color: white;">
+              <p>Loading failed. Please refresh the page.</p>
+              <button onclick="location.reload()" style="
+                margin-top: 10px;
+                padding: 10px 20px;
+                background: #4a9eff;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-family: inherit;
+              ">Refresh</button>
+            </div>
+          `;
+        }
+      }
+
+      destroy() {
+        this.components.forEach((component) => {
+          if (component && typeof component.destroy === 'function') {
+            component.destroy();
+          }
+        });
+        this.components.clear();
+        this.isInitialized = false;
+      }
+    }
+
+    // معالج الأخطاء العامة
+    window.addEventListener('error', (e) => {
+      console.error('Runtime error:', e.error);
+    });
+
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('Unhandled promise rejection:', e.reason);
+    });
+
+    // دورة حياة الصفحة
+    window.addEventListener('beforeunload', () => {
+      if (window.app && window.app.destroy) {
+        window.app.destroy();
+      }
+    });
+
+    // تهيئة التطبيق
+    window.app = new App();
+  </script>
+</body>
+</html>
