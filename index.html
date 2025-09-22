@@ -1,714 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="QRBrand Ltd - Professional software and app development services. Contact us for custom business solutions across Qatar, Lebanon, France, and Iraq.">
-  <meta name="keywords" content="software development, app development, business solutions, QRBrand, custom software">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#111111">
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="QRBrand Ltd - Software & App Development">
-  <meta property="og:description" content="Professional software and app development services for your business needs.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://qrbrand.net">
-  
-  <title>QRBrand Ltd - Software & App Development Services</title>
-  
-  <!-- Preload critical resources -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link rel="preconnect" href="https://flagcdn.com" crossorigin>
-  
-  <!-- Load fonts with font-display: swap for better performance -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      /* Color system */
-      --primary-text: #ffffff;
-      --secondary-text: rgba(255, 255, 255, 0.85);
-      --tertiary-text: rgba(255, 255, 255, 0.65);
-      --accent-orange: #ff6b35;
-      --accent-blue: #4a9eff;
-      --accent-success: #00d4aa;
-      
-      /* Background system */
-      --bg-primary: #0a0a0a;
-      --bg-overlay: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.05) 100%);
-      --bg-glass: rgba(0, 0, 0, 0.4);
-      --bg-glass-light: rgba(255, 255, 255, 0.95);
-      --bg-card: rgba(0, 0, 0, 0.8);
-      --bg-transparent: rgba(0, 0, 0, 0.1);
-      
-      /* Spacing system */
-      --spacing-xs: 4px;
-      --spacing-sm: 8px;
-      --spacing-md: 16px;
-      --spacing-lg: 24px;
-      --spacing-xl: 32px;
-      --spacing-2xl: 48px;
-      --spacing-3xl: 64px;
-      
-      /* Typography system */
-      --font-size-xs: 12px;
-      --font-size-sm: 14px;
-      --font-size-base: 16px;
-      --font-size-lg: 18px;
-      --font-size-xl: 24px;
-      --font-size-2xl: 32px;
-      --font-size-3xl: 48px;
-      --font-size-4xl: 64px;
-      
-      /* Border radius */
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --radius-full: 9999px;
-      
-      /* Shadows */
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.25);
-      --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.3);
-      
-      /* Transitions */
-      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Reset and base styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      color: var(--primary-text);
-      background: var(--bg-primary);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* Skip link for accessibility */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 6px;
-      background: var(--bg-card);
-      color: var(--primary-text);
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      font-size: var(--font-size-sm);
-      z-index: 1000;
-      transition: top var(--transition-fast);
-    }
-
-    .skip-link:focus {
-      top: 6px;
-    }
-
-    /* Background and overlay system */
-    .background-container {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background: var(--bg-primary);
-    }
-
-    .background-image {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0;
-      transition: opacity 0.4s ease-in-out;
-      filter: brightness(1.1) contrast(1.05) saturate(1.1);
-    }
-
-    .background-image.loaded {
-      opacity: 1;
-    }
-
-    .background-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: var(--bg-overlay);
-      backdrop-filter: blur(0.5px);
-    }
-
-    /* Layout containers */
-    .main-container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Statistics section - hidden completely on mobile */
-    .stats-section {
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: var(--spacing-3xl);
-      padding: var(--spacing-2xl) var(--spacing-3xl) 0;
-      flex-wrap: wrap;
-      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    }
-
-    @media (max-width: 768px) {
-      .stats-section {
-        display: none !important;
-      }
-    }
-
-    .stat-card {
-      min-width: 160px;
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-xs);
-    }
-
-    .stat-number {
-      font-weight: 600;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
-      font-feature-settings: 'tnum' 1;
-    }
-
-    .stat-number.visitors {
-      font-size: 40px;
-      color: var(--accent-orange);
-    }
-
-    .stat-number.date {
-      font-size: 40px;
-      color: var(--accent-blue);
-      white-space: nowrap;
-    }
-
-    .stat-number.visits {
-      font-size: 40px;
-      color: var(--accent-success);
-    }
-
-    .stat-label {
-      font-size: var(--font-size-sm);
-      color: var(--secondary-text);
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Main content section */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: var(--spacing-lg);
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .main-title {
-      font-size: var(--font-size-4xl);
-      font-weight: 500;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: var(--spacing-lg);
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      transform-origin: center center;
-    }
-
-    .main-title.pushed {
-      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    /* Mobile responsive subtitle with motion */
-    .subtitle {
-      display: inline-block;
-      background: var(--bg-card);
-      color: var(--primary-text);
-      padding: var(--spacing-md) var(--spacing-xl);
-      border-radius: var(--radius-lg);
-      font-size: var(--font-size-base);
-      margin-bottom: var(--spacing-xl);
-      box-shadow: var(--shadow-md);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      max-width: min(760px, 86vw);
-      line-height: 1.5;
-      transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform;
-    }
-
-    @media (max-width: 768px) {
-      .subtitle {
-        transform-origin: center center;
-      }
-    }
-
-    /* Motivational quotes section - Mobile touch interaction */
-    .motivational-container {
-      width: 100%;
-      max-width: 760px;
-      margin-bottom: var(--spacing-lg);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .motivational-quote {
-      display: inline-block;
-      background: var(--bg-card);
-      color: var(--primary-text);
-      padding: var(--spacing-md) var(--spacing-xl);
-      border-radius: var(--radius-lg);
-      font-size: var(--font-size-base);
-      box-shadow: var(--shadow-md);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      max-width: min(760px, 86vw);
-      line-height: 1.5;
-      text-align: center;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      position: relative;
-      z-index: 2;
-    }
-
-    @media (max-width: 768px) {
-      .motivational-quote {
-        opacity: 0;
-        transform: translateY(20px) scale(0.9);
-        pointer-events: none;
-      }
-
-      .motivational-quote.visible {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        pointer-events: auto;
-      }
-    }
-
-    .motivational-quote.changing {
-      opacity: 0;
-      transform: translateY(-10px) scale(0.95);
-    }
-
-    /* Company address - smaller on mobile */
-    .company-address {
-      display: inline-block;
-      max-width: min(760px, 86vw);
-      background: var(--bg-transparent);
-      color: var(--primary-text);
-      padding: var(--spacing-md) var(--spacing-xl);
-      border-radius: var(--radius-lg);
-      margin-bottom: var(--spacing-xl);
-      font-size: var(--font-size-base);
-      line-height: 1.6;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @media (max-width: 768px) {
-      .company-address {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      .company-address.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Contact information - enhanced mobile interactions */
-    .contact-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: var(--spacing-sm);
-      width: 100%;
-      max-width: 720px;
-      margin-top: var(--spacing-xl);
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @media (max-width: 768px) {
-      .contact-grid {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      .contact-grid.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.6);
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-radius: var(--radius-sm);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: var(--font-size-xs);
-      color: var(--primary-text);
-      transition: all var(--transition-fast);
-      min-height: 38px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
-      width: fit-content;
-      margin: 0 auto;
-    }
-
-    .contact-item::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
-      opacity: 0;
-      transition: opacity var(--transition-fast);
-    }
-
-    .contact-item:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: var(--primary-text);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .contact-item:hover::before {
-      opacity: 1;
-    }
-
-    .flag-icon {
-      width: 16px;
-      height: 12px;
-      margin-right: var(--spacing-xs);
-      border-radius: 2px;
-      object-fit: cover;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Footer */
-    .footer {
-      position: fixed;
-      left: var(--spacing-3xl);
-      bottom: var(--spacing-lg);
-      z-index: 5;
-      background: var(--bg-glass);
-      color: var(--tertiary-text);
-      font-size: var(--font-size-xs);
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-radius: var(--radius-sm);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Physics Ultra-Realistic Black Bowling Ball - Enhanced for Mobile */
-    .physics-moon {
-      position: fixed;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: 
-        radial-gradient(ellipse at 25% 15%, #3a3a3a 0%, transparent 25%),
-        radial-gradient(ellipse at 30% 20%, #1a1a1a 0%, transparent 35%),
-        radial-gradient(ellipse at 70% 80%, #000000 0%, transparent 45%),
-        linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 20%, #050505 40%, #000000 60%, #000000 100%);
-      z-index: 50;
-      pointer-events: none;
-      display: none;
-      transition: all 0.06s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform;
-      filter: contrast(1.3) brightness(0.8);
-    }
-
-    .physics-moon::before {
-      content: '';
-      position: absolute;
-      top: 8px;
-      left: 12px;
-      width: 12px;
-      height: 12px;
-      background: 
-        radial-gradient(ellipse at 40% 30%, rgba(80, 80, 80, 0.3) 0%, rgba(40, 40, 40, 0.15) 50%, transparent 80%);
-      border-radius: 50%;
-      filter: blur(1px);
-      transform: rotate(-10deg);
-    }
-
-    .physics-moon::after {
-      content: '';
-      position: absolute;
-      top: 20px;
-      left: 18px;
-      width: 3px;
-      height: 3px;
-      background: #000000;
-      border-radius: 50%;
-      box-shadow: 
-        0 8px 0 #000000,
-        0 16px 0 #000000;
-    }
-
-    .physics-moon.bouncing {
-      transform: scale(1.2);
-      filter: contrast(1.4) brightness(0.9);
-    }
-
-    /* Black Hole for bowling ball - Mobile Only - Positioned higher */
-    .black-hole {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: 
-        radial-gradient(circle at center, #000000 0%, #0a0a0a 20%, #1a1a1a 40%, #2a2a2a 70%, transparent 100%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) translateY(60px);
-      z-index: 1;
-      opacity: 1;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      display: none;
-      box-shadow: 
-        inset 0 0 20px rgba(0, 0, 0, 0.8),
-        0 0 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .black-hole.hidden {
-      opacity: 0;
-      transform: translate(-50%, -50%) translateY(60px) scale(0.5);
-    }
-
-    @media (max-width: 768px) {
-      .black-hole {
-        display: block;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .physics-moon {
-        display: block;
-      }
-    }
-
-    /* Responsive design - محسن للموبايل */
-    @media (max-width: 768px) {
-      :root {
-        --font-size-3xl: 36px;
-        --font-size-4xl: 42px;
-      }
-
-      .main-content {
-        padding: var(--spacing-md);
-      }
-
-      .main-title {
-        font-size: var(--font-size-3xl);
-        margin-bottom: var(--spacing-md);
-      }
-
-      .subtitle {
-        font-size: var(--font-size-sm);
-        padding: var(--spacing-md) var(--spacing-lg);
-        max-width: 94vw;
-      }
-
-      .company-address {
-        font-size: 11px;
-        max-width: 94vw;
-        padding: var(--spacing-sm) var(--spacing-md);
-        line-height: 1.4;
-      }
-
-      .motivational-quote {
-        font-size: var(--font-size-sm);
-        padding: var(--spacing-md) var(--spacing-lg);
-        max-width: 94vw;
-      }
-
-      /* Enhanced touch interactions for contact information */
-      .contact-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-xs);
-        max-width: 92vw;
-      }
-
-      .contact-item {
-        font-size: 11px;
-        padding: var(--spacing-sm) var(--spacing-md);
-        min-height: 34px;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(20px);
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        transform: scale(0.95);
-      }
-
-      .contact-item:hover,
-      .contact-item:active {
-        background: rgba(0, 0, 0, 0.95);
-        transform: scale(1.02);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-      }
-
-      .contact-item:last-child {
-        grid-column: 1;
-      }
-
-      .flag-icon {
-        width: 14px;
-        height: 10px;
-        margin-right: var(--spacing-xs);
-      }
-
-      .footer {
-        position: fixed;
-        right: var(--spacing-md);
-        left: auto;
-        bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom, 0px));
-        font-size: 11px;
-        padding: var(--spacing-xs) var(--spacing-sm);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .main-title {
-        font-size: var(--font-size-2xl);
-      }
-
-      .search-input-container {
-        padding: var(--spacing-md);
-      }
-
-      .contact-item {
-        padding: var(--spacing-sm);
-        min-height: 32px;
-        font-size: 10px;
-        background: rgba(0, 0, 0, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-    }
-
-    /* High contrast mode support */
-    @media (prefers-contrast: high) {
-      :root {
-        --bg-glass: rgba(0, 0, 0, 0.9);
-        --bg-card: rgba(0, 0, 0, 0.95);
-        --bg-transparent: rgba(0, 0, 0, 0.3);
-      }
-    }
-
-    /* Reduced motion support */
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    /* Focus styles for keyboard navigation */
-    *:focus {
-      outline: 2px solid var(--accent-blue);
-      outline-offset: 2px;
-    }
-
-    /* Loading state */
-    .loading-overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--bg-primary);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      transition: opacity 0.3s ease-out;
-    }
-
-    .loading-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-top: 3px solid var(--accent-blue);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Skip link for screen readers -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <!-- Loading overlay -->
-  <div class="loading-overlay" id="loadingOverlay">
-    <div class="loading-spinner" aria-label="Loading"></div>
+<div class="nav-tab" data-content="address">Address</div>
   </div>
 
-  <!-- Background system -->
-  <div class="background-container">
-    <div class="background-image" id="backgroundImage" role="img" aria-label="Scenic landscape background"></div>
+  <div class="mobile-contact-container" id="mobileContactContainer">
+    <div class="contact-tab">+974 5525 7048</div>
+    <div class="contact-tab">+961 333 8603</div>
+    <div class="contact-tab">+33 761 522 776</div>
+    <div class="contact-tab">+964 780 053 0333</div>
+    <div class="contact-tab">info@qrbrand.net</div>
   </div>
-  <div class="background-overlay"></div>
 
-  <!-- Physics Golden Ball for Mobile -->
-  <div class="physics-moon" id="physicsMoon"></div>
+  <div class="content-modal" id="contentModal">
+    <div id="modalContent"></div>
+    <div class="close-hint">Swipe up to close</div>
+  </div>
 
   <div class="main-container">
-    <!-- Statistics section -->
     <header class="stats-section" role="banner">
       <div class="stat-card">
         <div class="stat-number visitors" id="visitorsCount" aria-label="Total visitors">0</div>
@@ -726,7 +32,6 @@
       </div>
     </header>
 
-    <!-- Main content -->
     <main class="main-content" id="main-content">
       <p class="subtitle">
         Do you need software or an app to develop your business?
@@ -734,16 +39,13 @@
 
       <h1 class="main-title">Welcome to QRBrand Ltd</h1>
 
-      <!-- Motivational quotes section -->
       <section class="motivational-container" role="region" aria-label="Motivational quotes">
-        <!-- Black hole for bowling ball (mobile only) -->
         <div class="black-hole" id="blackHole"></div>
         <div class="motivational-quote" id="motivationalQuote">
           Success starts with one step in the right direction
         </div>
       </section>
 
-      <!-- Contact information -->
       <section class="contact-grid" aria-label="Contact information">
         <div class="contact-item">
           <img src="https://flagcdn.com/w20/qa.png" alt="Qatar flag" class="flag-icon" loading="lazy">
@@ -770,7 +72,6 @@
         </div>
       </section>
 
-      <!-- Company address -->
       <address class="company-address">
         Our company address and P.O. Box in the UK: 71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ
       </address>
@@ -778,21 +79,6 @@
   </div>
 
   <script>
-    // Performance monitoring
-    const performance = {
-      start: Date.now(),
-      marks: {},
-      mark(name) {
-        this.marks[name] = Date.now() - this.start;
-      },
-      measure(name, startMark, endMark) {
-        const start = this.marks[startMark] || 0;
-        const end = this.marks[endMark] || Date.now() - this.start;
-        console.log(`${name}: ${end - start}ms`);
-      }
-    };
-
-    // Enhanced gradient backgrounds - no external images needed
     const fallbackGradients = [
       'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
@@ -812,75 +98,14 @@
       'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
     ];
 
-    // Optimized background image loading with enhanced performance
     class BackgroundManager {
       constructor() {
-        this.currentImageIndex = 0;
-        this.loadedImages = new Map();
-        this.isLoading = false;
         this.backgroundElement = document.getElementById('backgroundImage');
-        this.preloadQueue = [];
         this.init();
       }
 
       init() {
-        performance.mark('backgroundInit');
-        this.loadRandomBackground();
-        
-        // Preload next few images for smooth transitions
-        setTimeout(() => this.preloadImages(), 500);
-      }
-
-      async loadRandomBackground() {
-        if (this.isLoading) return;
-        this.isLoading = true;
-
-        // Skip external images entirely and use gradients directly
-        console.log('Using beautiful gradient background');
         this.setFallbackBackground();
-        performance.mark('backgroundLoaded');
-        this.isLoading = false;
-      }
-
-      async getOptimizedImageUrl(imageId) {
-        // Not needed - using gradients only
-        return null;
-      }
-
-      loadImage(url) {
-        return new Promise((resolve, reject) => {
-          if (this.loadedImages.has(url)) {
-            resolve(this.loadedImages.get(url));
-            return;
-          }
-
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          
-          const timeout = setTimeout(() => {
-            img.onload = null;
-            img.onerror = null;
-            reject(new Error('Image load timeout'));
-          }, 5000); // Reduced timeout
-
-          img.onload = () => {
-            clearTimeout(timeout);
-            this.loadedImages.set(url, img);
-            resolve(img);
-          };
-
-          img.onerror = () => {
-            clearTimeout(timeout);
-            reject(new Error('Image load failed'));
-          };
-
-          img.src = url;
-        });
-      }
-
-      setBackground(url) {
-        this.backgroundElement.style.backgroundImage = `url('${url}')`;
-        this.backgroundElement.classList.add('loaded');
       }
 
       setFallbackBackground() {
@@ -888,18 +113,227 @@
         this.backgroundElement.style.background = randomGradient;
         this.backgroundElement.classList.add('loaded');
       }
+    }
 
-      async preloadImages() {
-        // No longer needed since we're using gradients only
-        console.log('Preloading disabled - using gradients only');
+    class NavigationManager {
+      constructor() {
+        this.isMobile = window.innerWidth <= 768;
+        this.contentData = {
+          about: {
+            title: "About QRBrand Ltd",
+            content: `
+              <p>QRBrand Ltd stands as a pioneering force in the global software development landscape, delivering cutting-edge technological solutions that transform businesses across diverse industries. Since our establishment, we have consistently pushed the boundaries of innovation, creating sophisticated software architectures that drive digital transformation.</p>
+              
+              <p>Our commitment to excellence extends beyond mere code creation. We architect comprehensive digital ecosystems that seamlessly integrate with existing business infrastructures while providing scalable foundations for future growth. Each project reflects our dedication to precision engineering and user-centric design principles.</p>
+              
+              <p>With a global presence spanning Qatar, Lebanon, France, and Iraq, we bring together diverse perspectives and technical expertise to solve complex challenges. Our multicultural approach enables us to understand varied market dynamics and deliver solutions that resonate across different business environments.</p>
+              
+              <p>At QRBrand Ltd, we believe technology should empower, not complicate. Our solutions are crafted with this philosophy, ensuring that every line of code serves a strategic purpose in advancing our clients' objectives.</p>
+            `
+          },
+          why: {
+            title: "Why Choose QRBrand Ltd",
+            content: `
+              <p>In an increasingly competitive digital landscape, QRBrand Ltd distinguishes itself through unwavering commitment to technical excellence and innovative problem-solving methodologies. Our approach combines deep technical expertise with strategic business acumen.</p>
+              
+              <ul>
+                <li>Advanced Technology Stack: We leverage cutting-edge frameworks, cloud-native architectures, and emerging technologies including AI/ML, blockchain, and IoT integrations</li>
+                <li>Agile Development Methodology: Our iterative approach ensures rapid delivery while maintaining the highest quality standards through comprehensive testing protocols</li>
+                <li>Scalable Architecture Design: Every solution is engineered for growth, utilizing microservices architecture and cloud-first principles</li>
+                <li>Security-First Approach: We implement enterprise-grade security measures, ensuring data protection and compliance with international standards</li>
+                <li>24/7 Technical Support: Our dedicated support infrastructure provides continuous monitoring and rapid response capabilities</li>
+                <li>Global Delivery Model: Multi-timezone coverage ensures seamless project execution and communication</li>
+              </ul>
+              
+              <p>Our proven track record spans fortune 500 companies to innovative startups, demonstrating our versatility and adaptability across diverse project requirements and industry verticals.</p>
+            `
+          },
+          services: {
+            title: "Our Professional Services",
+            content: `
+              <p>QRBrand Ltd offers a comprehensive suite of professional services designed to address every aspect of modern digital transformation. Our service portfolio encompasses the entire software development lifecycle.</p>
+              
+              <ul>
+                <li>Custom Software Development: Bespoke applications tailored to specific business requirements using modern development frameworks</li>
+                <li>Mobile Application Development: Native and cross-platform mobile solutions for iOS and Android ecosystems</li>
+                <li>Web Application Development: Progressive web applications with responsive design and optimal performance</li>
+                <li>Cloud Migration & DevOps: Seamless transition to cloud infrastructure with automated deployment pipelines</li>
+                <li>API Development & Integration: RESTful and GraphQL APIs with comprehensive documentation and testing</li>
+                <li>Database Architecture & Optimization: High-performance database design with advanced querying capabilities</li>
+                <li>Quality Assurance & Testing: Automated testing frameworks ensuring robust and reliable software delivery</li>
+                <li>Maintenance & Support: Ongoing technical support with proactive monitoring and optimization</li>
+              </ul>
+              
+              <p>Each service is delivered through our established methodologies, ensuring consistent quality and predictable outcomes while maintaining flexibility to adapt to evolving requirements.</p>
+            `
+          },
+          tech: {
+            title: "Advanced Technologies",
+            content: `
+              <p>QRBrand Ltd maintains expertise across the most advanced and emerging technology stacks, ensuring our clients benefit from industry-leading solutions and future-ready architectures.</p>
+              
+              <ul>
+                <li>Frontend Technologies: React.js, Vue.js, Angular, Next.js, TypeScript, Progressive Web Apps</li>
+                <li>Backend Frameworks: Node.js, Python Django/Flask, Java Spring, .NET Core, Go, Rust</li>
+                <li>Mobile Development: React Native, Flutter, Swift (iOS), Kotlin (Android), Xamarin</li>
+                <li>Cloud Platforms: AWS, Microsoft Azure, Google Cloud Platform, Docker, Kubernetes</li>
+                <li>Database Systems: PostgreSQL, MongoDB, Redis, Elasticsearch, GraphQL, Apache Kafka</li>
+                <li>AI & Machine Learning: TensorFlow, PyTorch, Natural Language Processing, Computer Vision</li>
+                <li>Blockchain Technologies: Ethereum, Smart Contracts, Web3 Integration, DeFi Solutions</li>
+                <li>DevOps & CI/CD: Jenkins, GitLab CI, GitHub Actions, Terraform, Ansible</li>
+              </ul>
+              
+              <p>Our technology selection process prioritizes long-term sustainability, performance optimization, and seamless integration capabilities, ensuring that every technical decision supports strategic business objectives.</p>
+            `
+          },
+          address: {
+            title: "Global Presence",
+            content: `
+              <p>QRBrand Ltd maintains strategic offices across multiple continents, enabling us to provide localized expertise while leveraging global best practices and round-the-clock development capabilities.</p>
+              
+              <p><strong>United Kingdom Headquarters:</strong><br>
+              71-75 Shelton Street, Covent Garden<br>
+              London, United Kingdom, WC2H 9JQ</p>
+              
+              <p><strong>Qatar Operations Center:</strong><br>
+              Contact: +974 5525 7048<br>
+              Specialized in enterprise solutions for the Middle East market</p>
+              
+              <p><strong>Lebanon Development Hub:</strong><br>
+              Contact: +961 333 8603<br>
+              Regional center for fintech and blockchain solutions</p>
+              
+              <p><strong>France Innovation Lab:</strong><br>
+              Contact: +33 761 522 776<br>
+              European research and development facility</p>
+              
+              <p><strong>Iraq Regional Office:</strong><br>
+              Contact: +964 780 053 0333<br>
+              Local presence for government and enterprise projects</p>
+              
+              <p><strong>Global Communications:</strong><br>
+              Email: info@qrbrand.net<br>
+              Website: qrbrand.net</p>
+            `
+          }
+        };
+        
+        this.currentModal = null;
+        this.init();
+      }
+
+      init() {
+        if (this.isMobile) {
+          this.setupNavigationTabs();
+          this.setupModalInteractions();
+          this.showInitialElements();
+        }
+      }
+
+      setupNavigationTabs() {
+        const navTabs = document.querySelectorAll('.nav-tab');
+        navTabs.forEach(tab => {
+          tab.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const contentType = tab.getAttribute('data-content');
+            this.showContent(contentType);
+            
+            if (navigator.vibrate) {
+              navigator.vibrate(10);
+            }
+          });
+        });
+      }
+
+      setupModalInteractions() {
+        const modal = document.getElementById('contentModal');
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+
+        modal.addEventListener('touchstart', (e) => {
+          startY = e.touches[0].clientY;
+          isDragging = true;
+        }, { passive: true });
+
+        modal.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          
+          currentY = e.touches[0].clientY;
+          const deltaY = startY - currentY;
+          
+          if (deltaY < 0) {
+            const translateY = Math.min(0, deltaY);
+            modal.style.transform = `translateY(${translateY}px)`;
+          }
+        }, { passive: true });
+
+        modal.addEventListener('touchend', (e) => {
+          if (!isDragging) return;
+          isDragging = false;
+          
+          const deltaY = startY - currentY;
+          
+          if (deltaY < -80) {
+            this.hideContent();
+          } else {
+            modal.style.transform = 'translateY(0)';
+          }
+        });
+      }
+
+      showInitialElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactContainer = document.getElementById('mobileContactContainer');
+        
+        setTimeout(() => {
+          if (navContainer) navContainer.classList.add('visible');
+          if (contactContainer) contactContainer.classList.add('visible');
+          
+          setTimeout(() => {
+            if (navContainer) navContainer.classList.remove('visible');
+            if (contactContainer) contactContainer.classList.remove('visible');
+          }, 5000);
+        }, 1000);
+      }
+
+      showContent(contentType) {
+        const modal = document.getElementById('contentModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        if (this.contentData[contentType]) {
+          const data = this.contentData[contentType];
+          modalContent.innerHTML = `
+            <h2>${data.title}</h2>
+            ${data.content}
+          `;
+          
+          modal.classList.add('visible');
+          this.currentModal = contentType;
+          
+          setTimeout(() => {
+            if (this.currentModal === contentType) {
+              this.hideContent();
+            }
+          }, 8000);
+        }
+      }
+
+      hideContent() {
+        const modal = document.getElementById('contentModal');
+        modal.classList.remove('visible');
+        modal.style.transform = 'translateY(-100%)';
+        this.currentModal = null;
+        
+        setTimeout(() => {
+          modal.style.transform = '';
+        }, 600);
       }
     }
 
-    // Mobile Touch Statistics Manager - Enhanced with subtitle motion and 5-second timing
     class MobileTouchManager {
       constructor() {
         this.isMobile = window.innerWidth <= 768;
-        this.subtitleMotion = { x: 0, y: 0 };
         this.init();
       }
 
@@ -915,8 +349,11 @@
         let touchTimer = null;
         let quoteTimer = null;
         
-        // Enhanced touch interactions with 5-second timing
         document.addEventListener('touchstart', (e) => {
+          if (e.target.closest('.nav-tab') || e.target.closest('.contact-tab') || e.target.closest('.content-modal')) {
+            return;
+          }
+          
           clearTimeout(touchTimer);
           clearTimeout(quoteTimer);
           this.showContactElements();
@@ -924,36 +361,26 @@
         });
 
         document.addEventListener('touchend', () => {
-          // Keep contact elements visible for 5 seconds after touch ends
           touchTimer = setTimeout(() => {
             this.hideContactElements();
           }, 5000);
 
-          // Keep motivational quote visible for 5 seconds after touch ends
           quoteTimer = setTimeout(() => {
             this.hideMotivationalQuote();
           }, 5000);
         });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-          this.isMobile = window.innerWidth <= 768;
-        });
       }
 
       setupSubtitleMotion() {
-        // Enhanced device orientation for subtitle movement
         if (window.DeviceOrientationEvent) {
           window.addEventListener('deviceorientation', (e) => {
-            const gamma = e.gamma || 0; // left-to-right tilt (-90 to 90)
-            const beta = e.beta || 0;   // front-to-back tilt (-180 to 180)
+            const gamma = e.gamma || 0;
+            const beta = e.beta || 0;
             
-            // Calculate smooth motion with realistic physics
-            const maxMove = 15; // Maximum movement in pixels
+            const maxMove = 12;
             const moveX = (gamma / 90) * maxMove;
-            const moveY = (beta / 180) * (maxMove * 0.3); // Less vertical movement
+            const moveY = (beta / 180) * (maxMove * 0.25);
             
-            // Apply motion to subtitle
             const subtitle = document.querySelector('.subtitle');
             if (subtitle) {
               subtitle.style.transform = `translate(${moveX}px, ${moveY}px)`;
@@ -963,119 +390,86 @@
       }
 
       showInitialContactInfo() {
-        // Show contact info on page load for 5 seconds
         setTimeout(() => {
           this.showContactElements();
           
-          // Hide after 5 seconds
           setTimeout(() => {
             this.hideContactElements();
           }, 5000);
-        }, 1000); // Show after 1 second of page load
+        }, 1000);
       }
 
       showContactElements() {
         const contactGrid = document.querySelector('.contact-grid');
         const companyAddress = document.querySelector('.company-address');
         
-        if (contactGrid) {
-          contactGrid.classList.add('visible');
-        }
-        if (companyAddress) {
-          companyAddress.classList.add('visible');
-        }
+        if (contactGrid) contactGrid.classList.add('visible');
+        if (companyAddress) companyAddress.classList.add('visible');
       }
 
       hideContactElements() {
         const contactGrid = document.querySelector('.contact-grid');
         const companyAddress = document.querySelector('.company-address');
         
-        if (contactGrid) {
-          contactGrid.classList.remove('visible');
-        }
-        if (companyAddress) {
-          companyAddress.classList.remove('visible');
-        }
+        if (contactGrid) contactGrid.classList.remove('visible');
+        if (companyAddress) companyAddress.classList.remove('visible');
       }
 
       showMotivationalQuote() {
         const motivationalQuote = document.querySelector('.motivational-quote');
         const blackHole = document.querySelector('.black-hole');
-        if (motivationalQuote) {
-          motivationalQuote.classList.add('visible');
-        }
-        if (blackHole) {
-          blackHole.classList.add('hidden');
-        }
+        if (motivationalQuote) motivationalQuote.classList.add('visible');
+        if (blackHole) blackHole.classList.add('hidden');
       }
 
       hideMotivationalQuote() {
         const motivationalQuote = document.querySelector('.motivational-quote');
         const blackHole = document.querySelector('.black-hole');
-        if (motivationalQuote) {
-          motivationalQuote.classList.remove('visible');
-        }
-        if (blackHole) {
-          blackHole.classList.remove('hidden');
-        }
+        if (motivationalQuote) motivationalQuote.classList.remove('visible');
+        if (blackHole) blackHole.classList.remove('hidden');
       }
     }
 
-    // Advanced Physics Golden Ball with Haptic Feedback
     class PhysicsMoon {
       constructor() {
         this.moon = document.getElementById('physicsMoon');
         this.isMobile = window.innerWidth <= 768;
         
-        // Ultra-realistic physics properties for bowling ball #8
         this.x = window.innerWidth / 2;
         this.y = window.innerHeight / 4;
         this.vx = 0;
         this.vy = 0;
-        this.gravity = 0.6;
-        this.bounce = 0.7;
-        this.friction = 0.985;
-        this.airResistance = 0.995;
-        this.size = 50;
-        this.mass = 3.5; // Heavier like real bowling ball
-        this.rotationSpeed = 0;
-        this.maxSpeed = 25;
+        this.gravity = 0.4;
+        this.bounce = 0.75;
+        this.friction = 0.988;
+        this.airResistance = 0.997;
+        this.size = 32;
+        this.maxSpeed = 20;
         
-        // Ultra-sensitive motion detection system
-        this.motionThreshold = 0.3;
+        this.motionThreshold = 0.25;
         this.accelerationHistory = [];
-        this.maxHistoryLength = 10;
-        this.smoothingFactor = 0.85;
+        this.maxHistoryLength = 8;
+        this.smoothingFactor = 0.88;
         this.isDeviceMoving = false;
         this.lastValidMotion = Date.now();
-        this.motionTimeout = 200; // ms
+        this.motionTimeout = 180;
         this.sensitivity = {
-          x: 0.35,
-          y: 0.35,
-          orientation: 0.15
+          x: 0.28,
+          y: 0.28,
+          orientation: 0.12
         };
         
-        // Motion and haptic properties with advanced mobile optimization
         this.lastCollisionTime = 0;
-        this.collisionCooldown = 120;
-        this.motionSensitivity = 0.18;
-        this.orientationSensitivity = 0.10;
-        this.lastOrientation = { beta: 0, gamma: 0 };
-        this.smoothingFactor = 0.75;
-        this.trailEffect = [];
-        this.maxTrailLength = 8;
+        this.collisionCooldown = 100;
+        this.rotationSpeed = 0;
         
-        // Advanced physics properties
         this.magneticPull = false;
         this.holeAttraction = 0;
-        this.spinDecay = 0.985;
         
-        // Performance optimization
         this.isAnimating = false;
         this.animationId = null;
         this.lastFrameTime = 0;
-        this.targetFPS = 60;
-        this.frameInterval = 1000 / this.targetFPS;
+        this.frameInterval = 1000 / 60;
         
         if (this.isMobile) {
           this.init();
@@ -1091,13 +485,9 @@
       }
 
       async requestMotionPermissions() {
-        // Request permissions for iOS 13+
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
           try {
-            const permission = await DeviceMotionEvent.requestPermission();
-            if (permission !== 'granted') {
-              console.log('Motion permission denied');
-            }
+            await DeviceMotionEvent.requestPermission();
           } catch (error) {
             console.log('Motion permission error:', error);
           }
@@ -1105,10 +495,7 @@
 
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
           try {
-            const permission = await DeviceOrientationEvent.requestPermission();
-            if (permission !== 'granted') {
-              console.log('Orientation permission denied');
-            }
+            await DeviceOrientationEvent.requestPermission();
           } catch (error) {
             console.log('Orientation permission error:', error);
           }
@@ -1116,13 +503,11 @@
       }
 
       setupDeviceMotion() {
-        // Ultra-sensitive motion system for Android and iOS
         if (window.DeviceMotionEvent) {
           window.addEventListener('devicemotion', (e) => {
             const acc = e.accelerationIncludingGravity;
             if (acc && acc.x !== null && acc.y !== null && acc.z !== null) {
               
-              // Store acceleration history for advanced filtering
               this.accelerationHistory.push({
                 x: acc.x || 0,
                 y: acc.y || 0,
@@ -1134,52 +519,43 @@
                 this.accelerationHistory.shift();
               }
               
-              // Calculate motion intensity with advanced filtering
               const currentAccel = this.accelerationHistory[this.accelerationHistory.length - 1];
               
               if (this.accelerationHistory.length >= 3) {
                 const prevAccel = this.accelerationHistory[this.accelerationHistory.length - 3];
                 
-                // Calculate delta acceleration (change in movement)
                 const deltaX = Math.abs(currentAccel.x - prevAccel.x);
                 const deltaY = Math.abs(currentAccel.y - prevAccel.y);
                 const deltaZ = Math.abs(currentAccel.z - prevAccel.z);
                 
                 const totalDelta = deltaX + deltaY + deltaZ;
                 
-                // Detect intentional movement vs gravity/vibration
                 if (totalDelta > this.motionThreshold) {
                   this.isDeviceMoving = true;
                   this.lastValidMotion = Date.now();
                   
-                  // Apply ultra-precise motion with directional sensitivity
                   const forceX = currentAccel.x * this.sensitivity.x;
-                  const forceY = -currentAccel.y * this.sensitivity.y; // Invert Y for natural feel
+                  const forceY = -currentAccel.y * this.sensitivity.y;
                   
-                  // Apply forces with advanced physics
                   this.vx += forceX * this.smoothingFactor;
                   this.vy += forceY * this.smoothingFactor;
                   
-                  // Apply realistic velocity limits
                   this.vx = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vx));
                   this.vy = Math.max(-this.maxSpeed, Math.min(this.maxSpeed, this.vy));
                   
                 } else if (Date.now() - this.lastValidMotion > this.motionTimeout) {
-                  // Device is stationary - apply strong decay
                   this.isDeviceMoving = false;
-                  this.vx *= 0.88;
-                  this.vy *= 0.88;
+                  this.vx *= 0.92;
+                  this.vy *= 0.92;
                   
-                  // Complete stop for micro-movements
-                  if (Math.abs(this.vx) < 0.2) this.vx = 0;
-                  if (Math.abs(this.vy) < 0.2) this.vy = 0;
+                  if (Math.abs(this.vx) < 0.15) this.vx = 0;
+                  if (Math.abs(this.vy) < 0.15) this.vy = 0;
                 }
               }
             }
           }, { passive: true });
         }
 
-        // Enhanced orientation with ultra-precise tilt detection
         if (window.DeviceOrientationEvent) {
           let lastOrientation = { beta: 0, gamma: 0 };
           
@@ -1187,13 +563,10 @@
             const beta = e.beta || 0;
             const gamma = e.gamma || 0;
             
-            // Calculate orientation changes with high precision
             const betaChange = Math.abs(beta - lastOrientation.beta);
             const gammaChange = Math.abs(gamma - lastOrientation.gamma);
             
-            // Only apply forces for significant orientation changes
-            if (betaChange > 0.5 || gammaChange > 0.5) {
-              // Apply smooth tilt forces
+            if (betaChange > 0.4 || gammaChange > 0.4) {
               this.vx += gamma * this.sensitivity.orientation;
               this.vy += beta * this.sensitivity.orientation;
               
@@ -1207,7 +580,6 @@
       }
 
       setupTouchInteractions() {
-        // Add touch interactions for manual control
         document.addEventListener('touchstart', (e) => {
           const touch = e.touches[0];
           const moonRect = this.moon.getBoundingClientRect();
@@ -1216,21 +588,7 @@
             Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
           );
           
-          if (distance < 50) {
-            e.preventDefault();
-            this.handleTouch(touch);
-          }
-        }, { passive: false });
-
-        document.addEventListener('touchmove', (e) => {
-          const touch = e.touches[0];
-          const moonRect = this.moon.getBoundingClientRect();
-          const distance = Math.sqrt(
-            Math.pow(touch.clientX - (moonRect.left + moonRect.width / 2), 2) +
-            Math.pow(touch.clientY - (moonRect.top + moonRect.height / 2), 2)
-          );
-          
-          if (distance < 50) {
+          if (distance < 40) {
             e.preventDefault();
             this.handleTouch(touch);
           }
@@ -1245,9 +603,8 @@
         const deltaX = touch.clientX - centerX;
         const deltaY = touch.clientY - centerY;
         
-        // Apply touch force
-        this.vx += deltaX * 0.02;
-        this.vy += deltaY * 0.02;
+        this.vx += deltaX * 0.015;
+        this.vy += deltaY * 0.015;
         
         this.triggerHapticFeedback('light');
       }
@@ -1261,7 +618,6 @@
       animate(currentTime = 0) {
         if (!this.isMobile || !this.isAnimating) return;
 
-        // Throttle to target FPS
         if (currentTime - this.lastFrameTime < this.frameInterval) {
           this.animationId = requestAnimationFrame((time) => this.animate(time));
           return;
@@ -1273,15 +629,10 @@
           height: window.innerHeight
         };
 
-        // Apply realistic bowling ball physics
         this.vy += this.gravity;
         this.vx *= this.friction;
         this.vy *= this.airResistance;
 
-        // Apply air resistance
-        this.vx *= this.airResistance;
-
-        // Limit maximum speed for realism
         const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
         if (currentSpeed > this.maxSpeed) {
           const ratio = this.maxSpeed / currentSpeed;
@@ -1289,26 +640,19 @@
           this.vy *= ratio;
         }
 
-        // Update position with enhanced precision
         this.x += this.vx;
         this.y += this.vy;
 
-        // Check collision with title
         this.checkTitleCollision();
-
-        // Check black hole collision
         this.checkBlackHoleCollision();
 
-        // Enhanced collision detection with realistic bowling ball physics
         let hasCollision = false;
 
         if (this.x <= 0 || this.x >= bounds.width - this.size) {
           this.vx *= -this.bounce;
           this.x = this.x <= 0 ? 0 : bounds.width - this.size;
           hasCollision = true;
-          
-          // Add spin effect on wall collision
-          this.rotationSpeed += Math.abs(this.vx) * 0.1;
+          this.rotationSpeed += Math.abs(this.vx) * 0.08;
         }
 
         if (this.y <= 0 || this.y >= bounds.height - this.size) {
@@ -1316,21 +660,18 @@
           this.y = this.y <= 0 ? 0 : bounds.height - this.size;
           hasCollision = true;
           
-          // More realistic floor bounce with energy loss
           if (this.y >= bounds.height - this.size) {
-            this.vy *= 0.8; // Energy loss on floor impact
-            this.vx *= 0.95; // Friction on floor
+            this.vy *= 0.82;
+            this.vx *= 0.96;
           }
         }
 
-        // Handle collisions with enhanced feedback
         if (hasCollision && Date.now() - this.lastCollisionTime > this.collisionCooldown) {
           this.handleCollision();
           this.lastCollisionTime = Date.now();
         }
 
-        // Apply rotation to visual element
-        this.rotationSpeed *= 0.98; // Gradual rotation decay
+        this.rotationSpeed *= 0.985;
         this.positionMoon();
         this.animationId = requestAnimationFrame((time) => this.animate(time));
       }
@@ -1350,56 +691,50 @@
           Math.pow(ballCenterY - holeCenterY, 2)
         );
 
-        // Advanced magnetic attraction effect
-        if (distance < 80) {
+        if (distance < 60) {
           this.magneticPull = true;
-          this.holeAttraction = Math.max(0.5, (80 - distance) / 80);
+          this.holeAttraction = Math.max(0.4, (60 - distance) / 60);
           
-          // Apply magnetic force towards hole
-          const forceX = (holeCenterX - ballCenterX) * this.holeAttraction * 0.08;
-          const forceY = (holeCenterY - ballCenterY) * this.holeAttraction * 0.08;
+          const forceX = (holeCenterX - ballCenterX) * this.holeAttraction * 0.06;
+          const forceY = (holeCenterY - ballCenterY) * this.holeAttraction * 0.06;
           
           this.vx += forceX;
           this.vy += forceY;
           
-          // Add visual magnetic effect
           this.addMagneticWave(holeCenterX, holeCenterY);
         } else {
           this.magneticPull = false;
           this.holeAttraction = 0;
         }
 
-        // If ball is close enough to the hole, it gets pulled in
-        if (distance < 25) {
+        if (distance < 18) {
           this.fallIntoHole(holeCenterX, holeCenterY);
         }
       }
 
       addMagneticWave(holeX, holeY) {
-        // Create magnetic attraction wave effect
-        if (Math.random() < 0.3) { // Limit frequency for performance
+        if (Math.random() < 0.25) {
           const wave = document.createElement('div');
           wave.style.cssText = `
             position: fixed;
-            width: 30px;
-            height: 30px;
-            border: 2px solid rgba(100, 100, 255, 0.4);
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(100, 100, 255, 0.5);
             border-radius: 50%;
-            left: ${holeX - 15}px;
-            top: ${holeY - 15}px;
+            left: ${holeX - 10}px;
+            top: ${holeY - 10}px;
             pointer-events: none;
             z-index: 45;
-            animation: magneticWave 0.8s ease-out forwards;
+            animation: magneticWave 0.6s ease-out forwards;
           `;
           
-          // Add keyframe animation
           if (!document.getElementById('magneticWaveStyle')) {
             const style = document.createElement('style');
             style.id = 'magneticWaveStyle';
             style.textContent = `
               @keyframes magneticWave {
                 0% { transform: scale(1); opacity: 0.6; }
-                100% { transform: scale(2.5); opacity: 0; }
+                100% { transform: scale(2); opacity: 0; }
               }
             `;
             document.head.appendChild(style);
@@ -1411,47 +746,97 @@
             if (wave.parentNode) {
               document.body.removeChild(wave);
             }
-          }, 800);
+          }, 600);
         }
       }
 
       fallIntoHole(holeX, holeY) {
-        // Stop the ball and animate it falling into the hole
         this.vx = 0;
         this.vy = 0;
         this.isAnimating = false;
 
-        // Change background gradient when ball falls
         this.changeBackgroundOnSuccess();
 
-        // Animate ball shrinking and moving to hole center with advanced effects
         const ballElement = this.moon;
         ballElement.classList.add('falling');
-        ballElement.style.transition = 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        ballElement.style.transform = `translate3d(${holeX - 25}px, ${holeY - 25}px, 0) scale(0.05) rotate(720deg)`;
+        ballElement.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        ballElement.style.transform = `translate3d(${holeX - 16}px, ${holeY - 16}px, 0) scale(0.1) rotate(540deg)`;
         ballElement.style.opacity = '0';
 
-        // Advanced haptic pattern for success
         this.triggerAdvancedHaptic();
-
-        // Add screen flash effect
         this.createScreenFlash();
 
-        // Show contact information for 3 seconds
         setTimeout(() => {
-          this.showContactInfo();
-        }, 600);
+          this.showNavigationElements();
+        }, 500);
 
-        // Reset ball position and restart animation after contact info disappears
         setTimeout(() => {
           this.resetBall();
-        }, 6000); // 5 seconds for contact info + 1 second buffer
+        }, 5500);
+      }
+
+      showNavigationElements() {
+        const navContainer = document.getElementById('mobileNavContainer');
+        const contactContainer = document.getElementById('mobileContactContainer');
+        const motivationalQuote = document.querySelector('.motivational-quote');
+        
+        if (navContainer) {
+          navContainer.style.transform = 'translateX(-100px)';
+          navContainer.style.opacity = '0';
+          navContainer.classList.add('visible');
+          
+          setTimeout(() => {
+            navContainer.style.transform = 'translateX(0)';
+            navContainer.style.opacity = '1';
+          }, 100);
+        }
+        
+        if (contactContainer) {
+          contactContainer.style.transform = 'translateX(100px)';
+          contactContainer.style.opacity = '0';
+          contactContainer.classList.add('visible');
+          
+          setTimeout(() => {
+            contactContainer.style.transform = 'translateX(0)';
+            contactContainer.style.opacity = '1';
+          }, 200);
+        }
+        
+        if (motivationalQuote) {
+          motivationalQuote.style.transform = 'translateY(-20px)';
+          motivationalQuote.style.opacity = '0';
+          motivationalQuote.classList.add('visible');
+          
+          setTimeout(() => {
+            motivationalQuote.style.transform = 'translateY(0)';
+            motivationalQuote.style.opacity = '1';
+          }, 300);
+        }
+
+        setTimeout(() => {
+          if (navContainer) {
+            navContainer.style.transform = 'translateX(-100px)';
+            navContainer.style.opacity = '0';
+            setTimeout(() => navContainer.classList.remove('visible'), 400);
+          }
+          
+          if (contactContainer) {
+            contactContainer.style.transform = 'translateX(100px)';
+            contactContainer.style.opacity = '0';
+            setTimeout(() => contactContainer.classList.remove('visible'), 400);
+          }
+          
+          if (motivationalQuote) {
+            motivationalQuote.style.transform = 'translateY(-20px)';
+            motivationalQuote.style.opacity = '0';
+            setTimeout(() => motivationalQuote.classList.remove('visible'), 400);
+          }
+        }, 5000);
       }
 
       changeBackgroundOnSuccess() {
         const backgroundElement = document.getElementById('backgroundImage');
         if (backgroundElement) {
-          // Create a success gradient
           const successGradients = [
             'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
@@ -1462,123 +847,68 @@
           
           const randomGradient = successGradients[Math.floor(Math.random() * successGradients.length)];
           backgroundElement.style.background = randomGradient;
-          backgroundElement.style.transition = 'background 1.5s ease-in-out';
-          
-          // Revert to original after 5 seconds
-          setTimeout(() => {
-            const originalGradients = [
-              'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
-              'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-              'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-              'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-              'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-              'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
-              'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-              'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
-              'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
-              'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)',
-              'linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%)',
-              'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
-              'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
-              'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)',
-              'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
-            ];
-            const originalGradient = originalGradients[Math.floor(Math.random() * originalGradients.length)];
-            backgroundElement.style.background = originalGradient;
-          }, 5000);
+          backgroundElement.style.transition = 'background 1.2s ease-in-out';
         }
       }
 
       triggerAdvancedHaptic() {
         if (!navigator.vibrate) return;
-        
-        // Advanced success haptic pattern
-        const successPattern = [100, 50, 100, 50, 200, 100, 300];
+        const successPattern = [80, 40, 80, 40, 150, 80, 250];
         try {
           navigator.vibrate(successPattern);
         } catch (error) {
-          // Fallback to simple vibration
-          navigator.vibrate(200);
+          navigator.vibrate(150);
         }
       }
 
       createScreenFlash() {
-        // Create a subtle screen flash effect
         const flash = document.createElement('div');
         flash.style.cssText = `
           position: fixed;
           inset: 0;
-          background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
           z-index: 1000;
           pointer-events: none;
           opacity: 0;
-          transition: opacity 0.3s ease-out;
+          transition: opacity 0.25s ease-out;
         `;
         
         document.body.appendChild(flash);
         
-        // Flash animation
         requestAnimationFrame(() => {
           flash.style.opacity = '1';
           setTimeout(() => {
             flash.style.opacity = '0';
             setTimeout(() => {
               document.body.removeChild(flash);
-            }, 300);
-          }, 100);
+            }, 250);
+          }, 80);
         });
       }
 
-      showContactInfo() {
-        const contactGrid = document.querySelector('.contact-grid');
-        const companyAddress = document.querySelector('.company-address');
-        
-        if (contactGrid) {
-          contactGrid.classList.add('visible');
-        }
-        if (companyAddress) {
-          companyAddress.classList.add('visible');
-        }
-
-        // Hide contact info after 5 seconds
-        setTimeout(() => {
-          if (contactGrid) {
-            contactGrid.classList.remove('visible');
-          }
-          if (companyAddress) {
-            companyAddress.classList.remove('visible');
-          }
-        }, 5000);
-      }
-
       resetBall() {
-        // Reset ball to starting position - stationary until device moves
         this.x = Math.random() * (window.innerWidth - this.size);
-        this.y = 30 + Math.random() * 50;
-        this.vx = 0; // Start stationary
-        this.vy = 0; // Start stationary
+        this.y = 25 + Math.random() * 40;
+        this.vx = 0;
+        this.vy = 0;
         this.rotationSpeed = 0;
         this.isDeviceMoving = false;
 
-        // Reset visual properties with smooth entrance
         const ballElement = this.moon;
         ballElement.classList.remove('falling');
-        ballElement.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        ballElement.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
         ballElement.style.opacity = '0';
-        ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 50}px, 0) scale(0.8)`;
+        ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 30}px, 0) scale(0.8)`;
 
-        // Animate entrance
         setTimeout(() => {
           ballElement.style.opacity = '1';
           ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
           
           setTimeout(() => {
             ballElement.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            // Restart animation
             this.isAnimating = true;
             this.animate();
-          }, 600);
+          }, 500);
         }, 100);
       }
 
@@ -1590,7 +920,6 @@
         const ballCenterX = this.x + this.size / 2;
         const ballCenterY = this.y + this.size / 2;
 
-        // Check if ball intersects with title
         if (ballCenterX >= titleRect.left && 
             ballCenterX <= titleRect.right && 
             ballCenterY >= titleRect.top && 
@@ -1598,78 +927,66 @@
           
           this.pushTitle(titleElement, ballCenterX, ballCenterY, titleRect);
           
-          // Realistic ball bounce based on collision point
           const titleCenterX = titleRect.left + titleRect.width / 2;
           const titleCenterY = titleRect.top + titleRect.height / 2;
           
-          // Calculate collision angle
           const deltaX = ballCenterX - titleCenterX;
           const deltaY = ballCenterY - titleCenterY;
           
-          // Apply realistic physics bounce
           this.vy *= -this.bounce;
-          this.vx += (deltaX / titleRect.width) * 8; // Side impact effect
+          this.vx += (deltaX / titleRect.width) * 6;
           
-          // Add some randomness for realism
-          this.vx += (Math.random() - 0.5) * 2;
-          this.vy += (Math.random() - 0.5) * 1;
+          this.vx += (Math.random() - 0.5) * 1.5;
+          this.vy += (Math.random() - 0.5) * 0.8;
         }
       }
 
       pushTitle(titleElement, ballX, ballY, titleRect) {
         if (titleElement.classList.contains('pushed')) return;
 
-        // Calculate push direction based on collision point
         const titleCenterX = titleRect.left + titleRect.width / 2;
         const titleCenterY = titleRect.top + titleRect.height / 2;
         
         const deltaX = ballX - titleCenterX;
         const deltaY = ballY - titleCenterY;
         
-        // Normalize the push direction
         const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        const pushX = (deltaX / distance) * 30; // Push strength
-        const pushY = (deltaY / distance) * 15; // Reduced vertical push
+        const pushX = (deltaX / distance) * 25;
+        const pushY = (deltaY / distance) * 12;
         
-        // Apply realistic push motion
         titleElement.classList.add('pushed');
-        titleElement.style.transform = `translate(${pushX}px, ${pushY}px) rotate(${pushX * 0.3}deg)`;
+        titleElement.style.transform = `translate(${pushX}px, ${pushY}px) rotate(${pushX * 0.25}deg)`;
         
-        // Return to original position after realistic timing
         setTimeout(() => {
           titleElement.style.transform = 'translate(0px, 0px) rotate(0deg)';
           
           setTimeout(() => {
             titleElement.classList.remove('pushed');
-          }, 600);
-        }, 400);
+          }, 500);
+        }, 350);
       }
 
       handleCollision() {
-        // Visual feedback
         this.moon.classList.add('bouncing');
         setTimeout(() => {
           this.moon.classList.remove('bouncing');
-        }, 120);
+        }, 100);
 
-        // Haptic feedback with intensity based on velocity
         const velocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-        if (velocity > 8) {
+        if (velocity > 6) {
           this.triggerHapticFeedback('heavy');
-        } else if (velocity > 4) {
+        } else if (velocity > 3) {
           this.triggerHapticFeedback('medium');
         } else {
           this.triggerHapticFeedback('light');
         }
 
-        // Add slight random variation to prevent predictable movement
-        this.vx += (Math.random() - 0.5) * 0.5;
-        this.vy += (Math.random() - 0.5) * 0.5;
+        this.vx += (Math.random() - 0.5) * 0.4;
+        this.vy += (Math.random() - 0.5) * 0.4;
       }
 
       positionMoon() {
-        // Use transform3d for hardware acceleration with rotation
-        const rotation = this.rotationSpeed * (Date.now() * 0.01);
+        const rotation = this.rotationSpeed * (Date.now() * 0.008);
         this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) rotate(${rotation}deg)`;
       }
 
@@ -1677,10 +994,10 @@
         if (!navigator.vibrate) return;
 
         const patterns = {
-          light: [10],
-          medium: [20],
-          heavy: [50],
-          double: [20, 100, 30]
+          light: [8],
+          medium: [15],
+          heavy: [35],
+          double: [15, 80, 25]
         };
 
         try {
@@ -1747,7 +1064,6 @@
           const elapsed = Date.now() - startTime;
           const progress = Math.min(elapsed / duration, 1);
           
-          // Easing function for smooth animation
           const easeOut = 1 - Math.pow(1 - progress, 3);
           const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOut);
           
@@ -1782,7 +1098,6 @@
       }
     }
 
-    // Motivational Quotes Manager
     class MotivationalQuotes {
       constructor() {
         this.quotes = [
@@ -1795,27 +1110,7 @@
           "Be stronger than your excuses and bigger than your fears",
           "Self-confidence creates miracles in life",
           "Your dream is possible, just start now",
-          "Challenges create the strong and the great",
-          "Failure is a lesson, not the end of the story",
-          "Remember, you are stronger than you think",
-          "Patience and persistence are the path to every success",
-          "Change your thinking, change your life for the better",
-          "A new beginning needs only one moment of courage",
-          "Hope is the light that illuminates the path to success",
-          "Turn today's obstacle into tomorrow's achievement",
-          "Success is not coincidence but the result of hard work",
-          "Positive energy attracts positive results",
-          "Every attempt brings you one step closer to the goal",
-          "Work in silence and let them see the success",
-          "Excellence is a habit, not a random act",
-          "Creativity begins when you step out of the ordinary",
-          "Big dreams need small steps to achieve",
-          "Invest in yourself, it's the best investment ever",
-          "Positive thinking creates positive reality",
-          "True strength lies in never giving up",
-          "A smile is the key to hearts and minds",
-          "Today is an opportunity to be better than yesterday",
-          "Success is a journey, not just a destination"
+          "Challenges create the strong and the great"
         ];
         
         this.currentIndex = 0;
@@ -1832,14 +1127,12 @@
       }
 
       setupClickHandler() {
-        // Only handle touch events on mobile
         if (this.isMobile) {
           this.quoteElement.addEventListener('touchstart', (e) => {
             e.preventDefault();
             this.changeQuote();
           });
         } else {
-          // On desktop, allow click for quote changes
           this.quoteElement.addEventListener('click', () => {
             this.changeQuote();
           });
@@ -1853,11 +1146,9 @@
       }
 
       changeQuote() {
-        // Add changing animation
         this.quoteElement.classList.add('changing');
 
         setTimeout(() => {
-          // Get next quote (avoid repeating the same quote)
           let nextIndex = Math.floor(Math.random() * this.quotes.length);
           while (nextIndex === this.currentIndex && this.quotes.length > 1) {
             nextIndex = Math.floor(Math.random() * this.quotes.length);
@@ -1865,36 +1156,23 @@
           
           this.currentIndex = nextIndex;
           this.quoteElement.textContent = this.quotes[nextIndex];
-          
-          // Remove changing animation
           this.quoteElement.classList.remove('changing');
-          
-          // Auto hide after 5 seconds
-          setTimeout(() => {
-            this.quoteElement.classList.add('changing');
-            setTimeout(() => {
-              this.quoteElement.textContent = "Success starts with one step in the right direction"; // Default quote
-              this.quoteElement.classList.remove('changing');
-            }, 250);
-          }, 5000);
-          
         }, 250);
       }
     }
 
-    // Application initialization
     class App {
       constructor() {
         this.backgroundManager = null;
         this.statisticsManager = null;
-        this.searchManager = null;
+        this.navigationManager = null;
+        this.mobileTouchManager = null;
+        this.physicsMoon = null;
+        this.motivationalQuotes = null;
         this.init();
       }
 
       async init() {
-        performance.mark('appInit');
-        
-        // Wait for DOM to be ready
         if (document.readyState === 'loading') {
           await new Promise(resolve => {
             document.addEventListener('DOMContentLoaded', resolve);
@@ -1902,14 +1180,13 @@
         }
 
         try {
-          // Initialize managers
           this.backgroundManager = new BackgroundManager();
           this.statisticsManager = new StatisticsManager();
           this.motivationalQuotes = new MotivationalQuotes();
+          this.navigationManager = new NavigationManager();
           this.mobileTouchManager = new MobileTouchManager();
           this.physicsMoon = new PhysicsMoon();
 
-          // Hide loading overlay
           setTimeout(() => {
             const loadingOverlay = document.getElementById('loadingOverlay');
             if (loadingOverlay) {
@@ -1918,7 +1195,6 @@
             }
           }, 600);
 
-          performance.mark('appReady');
           console.log('QRBrand application initialized successfully');
           
         } catch (error) {
@@ -1936,7 +1212,7 @@
               <button onclick="location.reload()" style="
                 margin-top: 10px;
                 padding: 10px 20px;
-                background: var(--accent-blue);
+                background: #4a9eff;
                 color: white;
                 border: none;
                 border-radius: 6px;
@@ -1948,7 +1224,6 @@
       }
     }
 
-    // Error handling
     window.addEventListener('error', (e) => {
       console.error('Runtime error:', e.error);
     });
@@ -1957,8 +1232,815 @@
       console.error('Unhandled promise rejection:', e.reason);
     });
 
-    // Initialize application
     const app = new App();
   </script>
 </body>
-</html>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="QRBrand Ltd - Professional software and app development services. Contact us for custom business solutions across Qatar, Lebanon, France, and Iraq.">
+  <meta name="keywords" content="software development, app development, business solutions, QRBrand, custom software">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#111111">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="QRBrand Ltd - Software & App Development">
+  <meta property="og:description" content="Professional software and app development services for your business needs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrbrand.net">
+  
+  <title>QRBrand Ltd - Software & App Development Services</title>
+  
+  <!-- Load fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://flagcdn.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-text: #ffffff;
+      --secondary-text: rgba(255, 255, 255, 0.85);
+      --tertiary-text: rgba(255, 255, 255, 0.65);
+      --accent-orange: #ff6b35;
+      --accent-blue: #4a9eff;
+      --accent-success: #00d4aa;
+      --bg-primary: #0a0a0a;
+      --bg-overlay: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.05) 100%);
+      --bg-glass: rgba(0, 0, 0, 0.4);
+      --bg-card: rgba(0, 0, 0, 0.8);
+      --bg-transparent: rgba(0, 0, 0, 0.1);
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-2xl: 48px;
+      --spacing-3xl: 64px;
+      --font-size-xs: 12px;
+      --font-size-sm: 14px;
+      --font-size-base: 16px;
+      --font-size-lg: 18px;
+      --font-size-xl: 24px;
+      --font-size-2xl: 32px;
+      --font-size-3xl: 48px;
+      --font-size-4xl: 64px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.25);
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--primary-text);
+      background: var(--bg-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: var(--bg-card);
+      color: var(--primary-text);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      z-index: 1000;
+      transition: top var(--transition-fast);
+    }
+
+    .skip-link:focus {
+      top: 6px;
+    }
+
+    .background-container {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: var(--bg-primary);
+    }
+
+    .background-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+      filter: brightness(1.1) contrast(1.05) saturate(1.1);
+    }
+
+    .background-image.loaded {
+      opacity: 1;
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: var(--bg-overlay);
+      backdrop-filter: blur(0.5px);
+    }
+
+    .main-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-section {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: var(--spacing-3xl);
+      padding: var(--spacing-2xl) var(--spacing-3xl) 0;
+      flex-wrap: wrap;
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
+    .stat-card {
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .stat-number {
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+      font-feature-settings: 'tnum' 1;
+    }
+
+    .stat-number.visitors {
+      font-size: 40px;
+      color: var(--accent-orange);
+    }
+
+    .stat-number.date {
+      font-size: 40px;
+      color: var(--accent-blue);
+      white-space: nowrap;
+    }
+
+    .stat-number.visits {
+      font-size: 40px;
+      color: var(--accent-success);
+    }
+
+    .stat-label {
+      font-size: var(--font-size-sm);
+      color: var(--secondary-text);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg);
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .main-title {
+      font-size: var(--font-size-4xl);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--spacing-lg);
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      transform-origin: center center;
+    }
+
+    .main-title.pushed {
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .subtitle {
+      display: inline-block;
+      background: var(--bg-card);
+      color: var(--primary-text);
+      padding: var(--spacing-md) var(--spacing-xl);
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-base);
+      margin-bottom: var(--spacing-xl);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: min(760px, 86vw);
+      line-height: 1.5;
+      transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    .motivational-container {
+      width: 100%;
+      max-width: 760px;
+      margin-bottom: var(--spacing-lg);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .motivational-quote {
+      display: inline-block;
+      background: var(--bg-card);
+      color: var(--primary-text);
+      padding: var(--spacing-md) var(--spacing-xl);
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-base);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: min(760px, 86vw);
+      line-height: 1.5;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .motivational-quote.changing {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+    }
+
+    .company-address {
+      display: inline-block;
+      max-width: min(760px, 86vw);
+      background: var(--bg-transparent);
+      color: var(--primary-text);
+      padding: var(--spacing-md) var(--spacing-xl);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--spacing-xl);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      width: 100%;
+      max-width: 720px;
+      margin-top: var(--spacing-xl);
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: var(--font-size-xs);
+      color: var(--primary-text);
+      transition: all var(--transition-fast);
+      min-height: 38px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--primary-text);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .contact-item:hover::before {
+      opacity: 1;
+    }
+
+    .flag-icon {
+      width: 16px;
+      height: 12px;
+      margin-right: var(--spacing-xs);
+      border-radius: 2px;
+      object-fit: cover;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .physics-moon {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: 
+        radial-gradient(ellipse at 20% 15%, #4a4a4a 0%, transparent 30%),
+        radial-gradient(ellipse at 80% 80%, #000000 0%, transparent 50%),
+        linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 30%, #0a0a0a 60%, #000000 100%);
+      z-index: 50;
+      pointer-events: none;
+      display: none;
+      transition: all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+      filter: contrast(1.4) brightness(0.7);
+      box-shadow: 
+        inset 2px 2px 8px rgba(255, 255, 255, 0.1),
+        inset -2px -2px 8px rgba(0, 0, 0, 0.8),
+        0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .physics-moon::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      width: 8px;
+      height: 8px;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(120, 120, 120, 0.4) 0%, rgba(60, 60, 60, 0.2) 60%, transparent 90%);
+      border-radius: 50%;
+      filter: blur(0.5px);
+    }
+
+    .physics-moon::after {
+      content: '8';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 8px;
+      font-weight: bold;
+      font-family: 'Inter', sans-serif;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .physics-moon.bouncing {
+      transform: scale(1.15);
+      filter: contrast(1.5) brightness(0.8);
+    }
+
+    .black-hole {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: 
+        radial-gradient(circle at center, #000000 0%, #0a0a0a 15%, #1a1a1a 35%, #2a2a2a 60%, rgba(42, 42, 42, 0.3) 85%, transparent 100%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translateY(50px);
+      z-index: 1;
+      opacity: 1;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: none;
+      box-shadow: 
+        inset 0 0 15px rgba(0, 0, 0, 0.9),
+        inset 0 0 25px rgba(0, 0, 0, 0.7),
+        0 0 20px rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(0, 0, 0, 0.8);
+    }
+
+    .black-hole::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+      border-radius: 50%;
+      background: 
+        radial-gradient(circle at center, #000000 0%, transparent 70%);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
+    }
+
+    .black-hole.hidden {
+      opacity: 0;
+      transform: translate(-50%, -50%) translateY(50px) scale(0.3);
+    }
+
+    .mobile-nav-container {
+      position: fixed;
+      left: var(--spacing-sm);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-nav-container.visible {
+      opacity: 1;
+    }
+
+    .mobile-contact-container {
+      position: fixed;
+      right: var(--spacing-sm);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-contact-container.visible {
+      opacity: 1;
+    }
+
+    .nav-tab {
+      background: rgba(0, 0, 0, 0.88);
+      color: var(--primary-text);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      text-align: center;
+      min-width: 82px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-tab::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-tab:active {
+      transform: scale(0.95);
+      background: rgba(0, 0, 0, 0.95);
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .nav-tab:active::before {
+      opacity: 1;
+    }
+
+    .contact-tab {
+      background: rgba(0, 0, 0, 0.88);
+      color: var(--primary-text);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+      text-align: center;
+      min-width: 82px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-tab::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .contact-tab:hover::before {
+      opacity: 1;
+    }
+
+    .content-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.92);
+      color: var(--primary-text);
+      padding: var(--spacing-xl) var(--spacing-lg);
+      z-index: 200;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateY(-100%);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .content-modal.visible {
+      transform: translateY(0);
+    }
+
+    .content-modal h2 {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      margin-bottom: var(--spacing-lg);
+      color: var(--accent-blue);
+      text-align: center;
+    }
+
+    .content-modal p {
+      line-height: 1.6;
+      margin-bottom: var(--spacing-md);
+      font-size: var(--font-size-sm);
+    }
+
+    .content-modal ul {
+      list-style: none;
+      padding: 0;
+      margin: var(--spacing-md) 0;
+    }
+
+    .content-modal li {
+      padding: var(--spacing-xs) 0;
+      padding-left: var(--spacing-md);
+      position: relative;
+      font-size: var(--font-size-sm);
+    }
+
+    .content-modal li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-orange);
+      font-weight: bold;
+    }
+
+    .close-hint {
+      position: absolute;
+      bottom: var(--spacing-lg);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: var(--font-size-xs);
+      color: var(--tertiary-text);
+      text-align: center;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.3s ease-out;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid var(--accent-blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      :root {
+        --font-size-3xl: 36px;
+        --font-size-4xl: 42px;
+      }
+
+      .stats-section {
+        display: none !important;
+      }
+
+      .black-hole {
+        display: block;
+      }
+      
+      .physics-moon {
+        display: block;
+      }
+      
+      .mobile-nav-container {
+        display: flex;
+      }
+      
+      .mobile-contact-container {
+        display: flex;
+      }
+
+      .main-content {
+        padding: var(--spacing-md);
+      }
+
+      .main-title {
+        font-size: var(--font-size-3xl);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .subtitle {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+        max-width: 94vw;
+        transform-origin: center center;
+      }
+
+      .company-address {
+        font-size: 11px;
+        max-width: 94vw;
+        padding: var(--spacing-sm) var(--spacing-md);
+        line-height: 1.4;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .company-address.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .motivational-quote {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+        max-width: 94vw;
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+        pointer-events: none;
+      }
+
+      .motivational-quote.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+
+      .contact-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-xs);
+        max-width: 92vw;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .contact-grid.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .contact-item {
+        font-size: 11px;
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-height: 34px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(20px);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: scale(0.95);
+      }
+
+      .contact-item:hover,
+      .contact-item:active {
+        background: rgba(0, 0, 0, 0.95);
+        transform: scale(1.02);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      }
+
+      .flag-icon {
+        width: 14px;
+        height: 10px;
+        margin-right: var(--spacing-xs);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-title {
+        font-size: var(--font-size-2xl);
+      }
+
+      .contact-item {
+        padding: var(--spacing-sm);
+        min-height: 32px;
+        font-size: 10px;
+        background: rgba(0, 0, 0, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    @media (prefers-contrast: high) {
+      :root {
+        --bg-glass: rgba(0, 0, 0, 0.9);
+        --bg-card: rgba(0, 0, 0, 0.95);
+        --bg-transparent: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    *:focus {
+      outline: 2px solid var(--accent-blue);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner" aria-label="Loading"></div>
+  </div>
+
+  <div class="background-container">
+    <div class="background-image" id="backgroundImage" role="img" aria-label="Background"></div>
+  </div>
+  <div class="background-overlay"></div>
+
+  <div class="physics-moon" id="physicsMoon"></div>
+
+  <div class="mobile-nav-container" id="mobileNavContainer">
+    <div class="nav-tab" data-content="about">About Us</div>
+    <div class="nav-tab" data-content="why">Why Us</div>
+    <div class="nav-tab" data-content="services">Services</div>
+    <div class="nav-tab" data-content="tech">Technologies</div>
+    <div class="nav-tab" data-content="
