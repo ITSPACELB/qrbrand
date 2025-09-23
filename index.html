@@ -278,16 +278,11 @@
       font-weight: 500;
       line-height: 1.1;
       letter-spacing: -0.02em;
-      margin-bottom: var(--spacing-xl);
-      margin-top: calc(-1 * var(--spacing-3xl));
+      margin-bottom: var(--spacing-lg);
       text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       transform-origin: center center;
-    }
-
-    .main-title br {
-      display: none;
     }
 
     .main-title .letter {
@@ -844,15 +839,9 @@
         min-height: calc(100vh - var(--safe-area-top) - var(--safe-area-bottom) - 60px);
       }
 
-      .main-title br {
-        display: block;
-      }
-
       .main-title {
         font-size: var(--font-size-3xl);
         margin-bottom: var(--spacing-md);
-        margin-top: calc(-1 * var(--spacing-2xl));
-        line-height: 1.3;
       }
 
       .nav-tab {
@@ -895,10 +884,6 @@
 
     /* Desktop - show all elements */
     @media (min-width: 769px) {
-      .main-title br {
-        display: none;
-      }
-
       .physics-moon {
         pointer-events: auto;
         cursor: grab;
@@ -1009,7 +994,7 @@
     </header>
 
     <main class="main-content" id="main-content">
-      <h1 class="main-title" id="mainTitle">Welcome to<br>QRBrand Ltd</h1>
+      <h1 class="main-title" id="mainTitle">Welcome to QRBrand Ltd</h1>
 
       <!-- CTA Black Banner -->
       <div class="cta-banner">
@@ -1062,7 +1047,7 @@
       DEBUG: false,
       MAX_FPS: 60,
       PHYSICS_ENABLED: true,
-      HAPTICS_ENABLED: false // Disabled to prevent console errors
+      HAPTICS_ENABLED: true
     };
 
     const fallbackGradients = [
@@ -1238,14 +1223,9 @@
             const email = item.getAttribute('data-email');
             
             if (phone) {
-              // Prevent app from breaking when returning from phone call
-              setTimeout(() => {
-                window.location.href = `tel:${phone}`;
-              }, 100);
+              window.location.href = `tel:${phone}`;
             } else if (email) {
-              setTimeout(() => {
-                window.location.href = `mailto:${email}`;
-              }, 100);
+              window.location.href = `mailto:${email}`;
             }
             
             if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
@@ -2234,37 +2214,14 @@
       console.error('Unhandled promise rejection:', e.reason);
     });
 
-    // App lifecycle and focus management
+    // دورة حياة الصفحة
     window.addEventListener('beforeunload', () => {
       if (window.app && window.app.destroy) {
         window.app.destroy();
       }
     });
 
-    // Handle page visibility changes (when returning from phone call)
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && window.app && window.app.isInitialized) {
-        // Restart physics when page becomes visible again
-        const physicsComponent = window.app.components.get('physics');
-        if (physicsComponent && !physicsComponent.isAnimating) {
-          physicsComponent.resetPhysics();
-          physicsComponent.startAnimation();
-        }
-      }
-    });
-
-    // Handle focus/blur events for better mobile support
-    window.addEventListener('focus', () => {
-      if (window.app && window.app.isInitialized) {
-        const physicsComponent = window.app.components.get('physics');
-        if (physicsComponent && !physicsComponent.isAnimating) {
-          physicsComponent.resetPhysics();
-          physicsComponent.startAnimation();
-        }
-      }
-    });
-
-    // Initialize app
+    // تهيئة التطبيق
     window.app = new App();
   </script>
 </body>
