@@ -265,12 +265,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: var(--spacing-lg);
       text-align: center;
       max-width: 900px;
       margin: 0 auto;
       width: 100%;
+      position: relative;
+      z-index: 20;
     }
 
     .main-title {
@@ -283,6 +285,7 @@
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       transform-origin: center center;
+      z-index: 25;
     }
 
     .main-title .letter {
@@ -487,7 +490,7 @@
         radial-gradient(circle at center, #000000 0%, #0a0a0a 15%, #1a1a1a 35%, #2a2a2a 60%, rgba(42, 42, 42, 0.3) 85%, transparent 100%);
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) translateY(-30px);
+      transform: translate(-50%, -50%) translateY(200px);
       z-index: 5;
       opacity: 1;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -508,7 +511,7 @@
           0 0 20px rgba(0, 0, 0, 0.4),
           0 0 40px rgba(77, 172, 254, 0.2),
           0 0 60px rgba(77, 172, 254, 0.1);
-        transform: translate(-50%, -50%) translateY(-30px) scale(1);
+        transform: translate(-50%, -50%) translateY(200px) scale(1);
       }
       50% {
         box-shadow: 
@@ -518,7 +521,7 @@
           0 0 60px rgba(77, 172, 254, 0.4),
           0 0 90px rgba(77, 172, 254, 0.3),
           0 0 120px rgba(77, 172, 254, 0.2);
-        transform: translate(-50%, -50%) translateY(-30px) scale(1.05);
+        transform: translate(-50%, -50%) translateY(200px) scale(1.05);
       }
     }
 
@@ -537,7 +540,7 @@
 
     .black-hole.hidden {
       opacity: 0;
-      transform: translate(-50%, -50%) translateY(-30px) scale(0.3);
+      transform: translate(-50%, -50%) translateY(200px) scale(0.3);
     }
 
     /* التبويبات أسفل اليسار */
@@ -579,6 +582,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      touch-action: manipulation;
     }
 
     /* أرقام الهاتف أسفل اليمين */
@@ -621,6 +625,7 @@
       justify-content: center;
       gap: 2px;
       cursor: pointer;
+      touch-action: manipulation;
     }
 
     .mobile-contact-flag {
@@ -815,6 +820,34 @@
 
       .black-hole {
         display: block !important;
+        transform: translate(-50%, -50%) translateY(160px) !important;
+      }
+
+      @keyframes modernHolePulse {
+        0%, 100% {
+          box-shadow: 
+            inset 0 0 15px rgba(0, 0, 0, 0.9),
+            inset 0 0 25px rgba(0, 0, 0, 0.7),
+            0 0 20px rgba(0, 0, 0, 0.4),
+            0 0 40px rgba(77, 172, 254, 0.2),
+            0 0 60px rgba(77, 172, 254, 0.1);
+          transform: translate(-50%, -50%) translateY(160px) scale(1);
+        }
+        50% {
+          box-shadow: 
+            inset 0 0 15px rgba(0, 0, 0, 0.9),
+            inset 0 0 25px rgba(0, 0, 0, 0.7),
+            0 0 20px rgba(0, 0, 0, 0.4),
+            0 0 60px rgba(77, 172, 254, 0.4),
+            0 0 90px rgba(77, 172, 254, 0.3),
+            0 0 120px rgba(77, 172, 254, 0.2);
+          transform: translate(-50%, -50%) translateY(160px) scale(1.05);
+        }
+      }
+
+      .black-hole.hidden {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(160px) scale(0.3);
       }
       
       .physics-moon {
@@ -837,11 +870,14 @@
       .main-content {
         padding: var(--spacing-md);
         min-height: calc(100vh - var(--safe-area-top) - var(--safe-area-bottom) - 60px);
+        justify-content: flex-start;
+        padding-top: var(--spacing-3xl);
       }
 
       .main-title {
         font-size: var(--font-size-3xl);
-        margin-bottom: var(--spacing-md);
+        margin-bottom: var(--spacing-3xl);
+        margin-top: var(--spacing-xl);
       }
 
       .nav-tab {
@@ -868,6 +904,12 @@
     @media (max-width: 480px) {
       .main-title {
         font-size: var(--font-size-2xl);
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-2xl);
+      }
+
+      .main-content {
+        padding-top: var(--spacing-2xl);
       }
 
       .nav-tab, .mobile-contact-item {
@@ -879,6 +921,24 @@
 
       .top-banner-text {
         font-size: var(--font-size-xs);
+      }
+
+      .black-hole {
+        transform: translate(-50%, -50%) translateY(140px) !important;
+      }
+
+      @keyframes modernHolePulse {
+        0%, 100% {
+          transform: translate(-50%, -50%) translateY(140px) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) translateY(140px) scale(1.05);
+        }
+      }
+
+      .black-hole.hidden {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(140px) scale(0.3);
       }
     }
 
@@ -895,6 +955,11 @@
 
       .mobile-nav-container, .mobile-contact-container {
         display: none !important;
+      }
+      
+      .main-content {
+        justify-content: center;
+        padding-top: var(--spacing-lg);
       }
     }
 
@@ -1177,6 +1242,7 @@
         
         this.currentModal = null;
         this.touchHandlers = new Map();
+        this.isPageVisible = true;
         this.init();
       }
 
@@ -1190,6 +1256,58 @@
         this.setupNavigationTabs();
         this.setupContactItems();
         this.setupModalInteractions();
+        this.setupPageVisibilityHandling();
+      }
+
+      setupPageVisibilityHandling() {
+        const handleVisibilityChange = () => {
+          this.isPageVisible = !document.hidden;
+          
+          if (this.isPageVisible) {
+            setTimeout(() => {
+              this.reinitializeEventListeners();
+            }, 500);
+          }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange, { passive: true });
+        
+        window.addEventListener('focus', () => {
+          this.isPageVisible = true;
+          setTimeout(() => {
+            this.reinitializeEventListeners();
+          }, 300);
+        }, { passive: true });
+        
+        window.addEventListener('blur', () => {
+          this.isPageVisible = false;
+        }, { passive: true });
+
+        window.addEventListener('pageshow', (e) => {
+          if (e.persisted) {
+            this.isPageVisible = true;
+            setTimeout(() => {
+              this.reinitializeEventListeners();
+            }, 100);
+          }
+        }, { passive: true });
+      }
+
+      reinitializeEventListeners() {
+        if (!this.isPageVisible) return;
+        
+        this.touchHandlers.forEach((handler, element) => {
+          element.removeEventListener('touchend', handler);
+          element.removeEventListener('click', handler);
+        });
+        this.touchHandlers.clear();
+        
+        this.setupNavigationTabs();
+        this.setupContactItems();
+        
+        if (APP_CONFIG.DEBUG) {
+          console.log('Event listeners reinitialized');
+        }
       }
 
       setupNavigationTabs() {
@@ -1198,6 +1316,9 @@
           const handler = (e) => {
             e.preventDefault();
             e.stopPropagation();
+            
+            if (!this.isPageVisible) return;
+            
             const contentType = tab.getAttribute('data-content');
             this.showContent(contentType);
             
@@ -1208,7 +1329,7 @@
 
           this.touchHandlers.set(tab, handler);
           tab.addEventListener('touchend', handler, { passive: false });
-          tab.addEventListener('click', handler);
+          tab.addEventListener('click', handler, { passive: false });
         });
       }
 
@@ -1219,14 +1340,18 @@
             e.preventDefault();
             e.stopPropagation();
             
+            if (!this.isPageVisible) return;
+            
             const phone = item.getAttribute('data-phone');
             const email = item.getAttribute('data-email');
             
-            if (phone) {
-              window.location.href = `tel:${phone}`;
-            } else if (email) {
-              window.location.href = `mailto:${email}`;
-            }
+            setTimeout(() => {
+              if (phone) {
+                window.location.href = `tel:${phone}`;
+              } else if (email) {
+                window.location.href = `mailto:${email}`;
+              }
+            }, 100);
             
             if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
               navigator.vibrate(15);
@@ -1235,7 +1360,7 @@
 
           this.touchHandlers.set(item, handler);
           item.addEventListener('touchend', handler, { passive: false });
-          item.addEventListener('click', handler);
+          item.addEventListener('click', handler, { passive: false });
         });
       }
 
@@ -1281,6 +1406,8 @@
       }
 
       showContent(contentType) {
+        if (!this.isPageVisible) return;
+        
         const modal = document.getElementById('contentModal');
         const modalContent = document.getElementById('modalContent');
         
@@ -1298,7 +1425,7 @@
             if (this.currentModal === contentType) {
               this.hideContent();
             }
-          }, 10000); // 10 seconds
+          }, 10000);
         }
       }
 
@@ -1326,6 +1453,7 @@
       constructor() {
         this.isMobile = this.detectMobile();
         this.touchTimers = new Map();
+        this.isPageVisible = true;
         this.init();
       }
 
@@ -1338,11 +1466,28 @@
       init() {
         this.setupMobileTouchInteractions();
         this.setupBannerMotion();
+        this.setupPageVisibilityHandling();
         this.showInitialElements();
+      }
+
+      setupPageVisibilityHandling() {
+        document.addEventListener('visibilitychange', () => {
+          this.isPageVisible = !document.hidden;
+        }, { passive: true });
+        
+        window.addEventListener('focus', () => {
+          this.isPageVisible = true;
+        }, { passive: true });
+        
+        window.addEventListener('blur', () => {
+          this.isPageVisible = false;
+        }, { passive: true });
       }
 
       setupMobileTouchInteractions() {
         const touchStart = (e) => {
+          if (!this.isPageVisible) return;
+          
           if (e.target.closest('.nav-tab') || 
               e.target.closest('.mobile-contact-item') || 
               e.target.closest('.content-modal') ||
@@ -1355,6 +1500,8 @@
         };
 
         const touchEnd = () => {
+          if (!this.isPageVisible) return;
+          
           this.touchTimers.set('elements', setTimeout(() => {
             this.hideElements();
           }, 5000));
@@ -1371,6 +1518,8 @@
       setupBannerMotion() {
         if (window.DeviceOrientationEvent && this.isMobile) {
           window.addEventListener('deviceorientation', (e) => {
+            if (!this.isPageVisible) return;
+            
             const gamma = e.gamma || 0;
             const beta = e.beta || 0;
             
@@ -1394,16 +1543,20 @@
       showInitialElements() {
         if (this.isMobile) {
           setTimeout(() => {
-            this.showElements();
-            
-            setTimeout(() => {
-              this.hideElements();
-            }, 5000);
+            if (this.isPageVisible) {
+              this.showElements();
+              
+              setTimeout(() => {
+                this.hideElements();
+              }, 5000);
+            }
           }, 1000);
         }
       }
 
       showElements() {
+        if (!this.isPageVisible) return;
+        
         const navContainer = document.getElementById('mobileNavContainer');
         const contactContainer = document.getElementById('mobileContactContainer');
         
@@ -1473,6 +1626,7 @@
         this.isMobile = this.detectMobile();
         this.performanceMonitor = new PerformanceMonitor();
         this.titleShakeManager = new TitleShakeManager();
+        this.isPageVisible = true;
         
         this.resetPhysics();
         
@@ -1509,6 +1663,8 @@
       }
 
       async init() {
+        this.setupPageVisibilityHandling();
+        
         if (this.isMobile) {
           await this.requestMotionPermissions();
           this.setupDeviceMotion();
@@ -1518,6 +1674,48 @@
         this.startAnimation();
         this.positionMoon();
         this.updateObstacles();
+      }
+
+      setupPageVisibilityHandling() {
+        const handleVisibilityChange = () => {
+          this.isPageVisible = !document.hidden;
+          
+          if (this.isPageVisible && !this.isAnimating) {
+            setTimeout(() => {
+              this.startAnimation();
+            }, 300);
+          } else if (!this.isPageVisible && this.isAnimating) {
+            this.isAnimating = false;
+            if (this.animationId) {
+              cancelAnimationFrame(this.animationId);
+              this.animationId = null;
+            }
+          }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange, { passive: true });
+        
+        window.addEventListener('focus', () => {
+          this.isPageVisible = true;
+          if (!this.isAnimating) {
+            setTimeout(() => {
+              this.startAnimation();
+            }, 200);
+          }
+        }, { passive: true });
+        
+        window.addEventListener('blur', () => {
+          this.isPageVisible = false;
+        }, { passive: true });
+
+        window.addEventListener('pageshow', (e) => {
+          if (e.persisted) {
+            this.isPageVisible = true;
+            setTimeout(() => {
+              this.startAnimation();
+            }, 100);
+          }
+        }, { passive: true });
       }
 
       async requestMotionPermissions() {
@@ -1550,12 +1748,12 @@
         if (!window.DeviceMotionEvent) return;
 
         window.addEventListener('devicemotion', (e) => {
+          if (!this.isPageVisible || !this.isAnimating) return;
+          
           const acc = e.accelerationIncludingGravity;
           if (acc && acc.x !== null && acc.y !== null) {
             const sensitivity = 0.2;
-            // Opposite movement: device right -> ball left, device left -> ball right
             const forceX = -acc.x * sensitivity;
-            // Opposite movement: device up -> ball down, device down -> ball up
             const forceY = acc.y * sensitivity;
             
             this.vx += forceX;
@@ -1569,6 +1767,8 @@
 
       setupMouseInteractions() {
         const mouseDown = (e) => {
+          if (!this.isPageVisible) return;
+          
           e.preventDefault();
           this.isDragging = true;
           const rect = this.moon.getBoundingClientRect();
@@ -1578,6 +1778,8 @@
         };
 
         const mouseMove = (e) => {
+          if (!this.isPageVisible) return;
+          
           if (this.isDragging) {
             this.x = e.clientX - this.dragOffset.x - this.size / 2;
             this.y = e.clientY - this.dragOffset.y - this.size / 2;
@@ -1587,11 +1789,12 @@
         };
 
         const mouseUp = (e) => {
+          if (!this.isPageVisible) return;
+          
           if (this.isDragging) {
             this.isDragging = false;
             this.moon.style.cursor = 'grab';
             
-            // Add some velocity based on mouse movement
             const rect = this.moon.getBoundingClientRect();
             const deltaX = e.clientX - rect.left - this.size / 2;
             const deltaY = e.clientY - rect.top - this.size / 2;
@@ -1602,17 +1805,17 @@
         };
 
         const click = (e) => {
-          if (!this.isDragging) {
-            const rect = this.moon.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            const deltaX = e.clientX - centerX;
-            const deltaY = e.clientY - centerY;
-            
-            this.vx += deltaX * 0.02;
-            this.vy += deltaY * 0.02;
-          }
+          if (!this.isPageVisible || this.isDragging) return;
+          
+          const rect = this.moon.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          
+          const deltaX = e.clientX - centerX;
+          const deltaY = e.clientY - centerY;
+          
+          this.vx += deltaX * 0.02;
+          this.vy += deltaY * 0.02;
         };
 
         this.moon.addEventListener('mousedown', mouseDown);
@@ -1624,7 +1827,6 @@
       updateObstacles() {
         this.obstacles = [];
         
-        // Add main title as obstacle
         const mainTitle = document.querySelector('.main-title');
         if (mainTitle) {
           const rect = mainTitle.getBoundingClientRect();
@@ -1638,7 +1840,6 @@
           });
         }
 
-        // Add banners as obstacles
         const topBanner = document.querySelector('.top-banner');
         if (topBanner) {
           const rect = topBanner.getBoundingClientRect();
@@ -1665,7 +1866,6 @@
           });
         }
 
-        // Add navigation tabs and contact items as obstacles when visible
         const navTabs = document.querySelectorAll('.nav-tab');
         const contactItems = document.querySelectorAll('.mobile-contact-item');
         
@@ -1685,13 +1885,15 @@
       }
 
       startAnimation() {
-        if (this.isAnimating) return;
+        if (this.isAnimating || !this.isPageVisible) return;
         this.isAnimating = true;
         this.animate();
       }
 
       animate(currentTime = 0) {
-        if (!this.isAnimating || !APP_CONFIG.PHYSICS_ENABLED) return;
+        if (!this.isAnimating || !APP_CONFIG.PHYSICS_ENABLED || !this.isPageVisible) {
+          return;
+        }
 
         this.performanceMonitor.update(currentTime);
 
@@ -1842,15 +2044,21 @@
         this.createScreenFlash();
 
         setTimeout(() => {
-          this.showNavigationElements();
+          if (this.isPageVisible) {
+            this.showNavigationElements();
+          }
         }, 500);
 
         setTimeout(() => {
-          this.resetBall();
+          if (this.isPageVisible) {
+            this.resetBall();
+          }
         }, 5500);
       }
 
       showNavigationElements() {
+        if (!this.isPageVisible) return;
+        
         const navContainer = document.getElementById('mobileNavContainer');
         const contactContainer = document.getElementById('mobileContactContainer');
         
@@ -1919,6 +2127,8 @@
       }
 
       resetBall() {
+        if (!this.isPageVisible) return;
+        
         this.x = Math.random() * (window.innerWidth - this.size);
         this.y = 50 + Math.random() * 100;
         this.vx = 0;
@@ -1930,14 +2140,18 @@
         ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 50}px, 0) scale(0.8)`;
 
         setTimeout(() => {
-          ballElement.style.opacity = '1';
-          ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
-          
-          setTimeout(() => {
-            ballElement.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            this.isAnimating = true;
-            this.animate();
-          }, 500);
+          if (this.isPageVisible) {
+            ballElement.style.opacity = '1';
+            ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
+            
+            setTimeout(() => {
+              if (this.isPageVisible) {
+                ballElement.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                this.isAnimating = true;
+                this.animate();
+              }
+            }, 500);
+          }
         }, 100);
       }
 
@@ -2127,6 +2341,7 @@
       constructor() {
         this.components = new Map();
         this.isInitialized = false;
+        this.isPageVisible = true;
         this.init();
       }
 
@@ -2138,6 +2353,8 @@
         }
 
         try {
+          this.setupPageVisibilityHandling();
+          
           this.components.set('background', new BackgroundManager());
           this.components.set('statistics', new StatisticsManager());
           this.components.set('quotes', new MotivationalQuotes());
@@ -2156,6 +2373,47 @@
         } catch (error) {
           console.error('Application initialization failed:', error);
           this.handleInitError();
+        }
+      }
+
+      setupPageVisibilityHandling() {
+        document.addEventListener('visibilitychange', () => {
+          this.isPageVisible = !document.hidden;
+          
+          if (this.isPageVisible) {
+            setTimeout(() => {
+              this.reinitializeComponents();
+            }, 300);
+          }
+        }, { passive: true });
+        
+        window.addEventListener('focus', () => {
+          this.isPageVisible = true;
+          setTimeout(() => {
+            this.reinitializeComponents();
+          }, 200);
+        }, { passive: true });
+        
+        window.addEventListener('blur', () => {
+          this.isPageVisible = false;
+        }, { passive: true });
+      }
+
+      reinitializeComponents() {
+        if (!this.isPageVisible || !this.isInitialized) return;
+        
+        const navigation = this.components.get('navigation');
+        if (navigation && typeof navigation.reinitializeEventListeners === 'function') {
+          navigation.reinitializeEventListeners();
+        }
+        
+        const physics = this.components.get('physics');
+        if (physics && !physics.isAnimating) {
+          physics.startAnimation();
+        }
+        
+        if (APP_CONFIG.DEBUG) {
+          console.log('Components reinitialized');
         }
       }
 
