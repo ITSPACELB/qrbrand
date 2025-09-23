@@ -4,7 +4,9 @@ const APP_CONFIG = {
   DEBUG: false,
   MAX_FPS: 60,
   PHYSICS_ENABLED: true,
-  HAPTICS_ENABLED: true
+  HAPTICS_ENABLED: true,
+  DISPLAY_DURATION: 15000, // 15 seconds
+  BALL_EXIT_DURATION: 15000 // 15 seconds
 };
 
 const fallbackGradients = [
@@ -72,6 +74,7 @@ class NavigationManager {
     this.contentData = {
       about: {
         title: "About QRBrand Ltd",
+        colorClass: "about-color",
         content: `
           <p>QRBrand Ltd is a leading software development company specializing in custom business solutions. We deliver innovative technology solutions that transform businesses across diverse industries.</p>
           
@@ -80,6 +83,7 @@ class NavigationManager {
       },
       why: {
         title: "Why Choose QRBrand Ltd",
+        colorClass: "why-color",
         content: `
           <p>We distinguish ourselves through technical excellence and innovative problem-solving methodologies.</p>
           
@@ -94,6 +98,7 @@ class NavigationManager {
       },
       services: {
         title: "Our Professional Services",
+        colorClass: "services-color",
         content: `
           <p>Comprehensive software development services for modern businesses:</p>
           
@@ -109,6 +114,7 @@ class NavigationManager {
       },
       tech: {
         title: "Advanced Technologies",
+        colorClass: "tech-color",
         content: `
           <p>We leverage the latest technology stacks:</p>
           
@@ -124,6 +130,7 @@ class NavigationManager {
       },
       address: {
         title: "Our Address",
+        colorClass: "address-color",
         content: `
           <p><strong>United Kingdom Headquarters:</strong><br>
           71-75 Shelton Street, Covent Garden<br>
@@ -228,7 +235,7 @@ class NavigationManager {
   setupContactItems() {
     const contactItems = document.querySelectorAll('.mobile-contact-item');
     contactItems.forEach(item => {
-      const handler = (e) => {
+      const handler = async (e) => {
         e.preventDefault();
         e.stopPropagation();
         
@@ -237,16 +244,32 @@ class NavigationManager {
         const phone = item.getAttribute('data-phone');
         const email = item.getAttribute('data-email');
         
-        setTimeout(() => {
-          if (phone) {
-            window.location.href = `tel:${phone}`;
-          } else if (email) {
-            window.location.href = `mailto:${email}`;
-          }
-        }, 100);
+        // Copy to clipboard instead of calling
+        let textToCopy = '';
+        if (phone) {
+          textToCopy = phone;
+        } else if (email) {
+          textToCopy = email;
+        }
         
-        if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
-          navigator.vibrate(15);
+        if (textToCopy) {
+          try {
+            await navigator.clipboard.writeText(textToCopy);
+            // Visual feedback for successful copy
+            item.style.transform = 'scale(0.95)';
+            item.style.background = 'rgba(0, 212, 170, 0.8)';
+            
+            setTimeout(() => {
+              item.style.transform = '';
+              item.style.background = '';
+            }, 300);
+            
+            if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+              navigator.vibrate(15);
+            }
+          } catch (err) {
+            console.log('Failed to copy text');
+          }
         }
       };
 
@@ -257,44 +280,18 @@ class NavigationManager {
   }
 
   setupModalInteractions() {
-    const modal = document.getElementById('contentModal');
-    let startY = 0;
-    let currentY = 0;
-    let isDragging = false;
-
-    const touchStart = (e) => {
-      startY = e.touches[0].clientY;
-      isDragging = true;
-    };
-
-    const touchMove = (e) => {
-      if (!isDragging) return;
-      
-      currentY = e.touches[0].clientY;
-      const deltaY = startY - currentY;
-      
-      if (deltaY < 0) {
-        const translateY = Math.min(0, deltaY);
-        modal.style.transform = `translateY(${translateY}px)`;
-      }
-    };
-
-    const touchEnd = () => {
-      if (!isDragging) return;
-      isDragging = false;
-      
-      const deltaY = startY - currentY;
-      
-      if (Math.abs(deltaY) > 50) {
+    // Setup close button instead of swipe
+    const closeBtn = document.getElementById('modalCloseBtn');
+    if (closeBtn) {
+      const closeHandler = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         this.hideContent();
-      } else {
-        modal.style.transform = 'translateY(0)';
-      }
-    };
-
-    modal.addEventListener('touchstart', touchStart, { passive: true });
-    modal.addEventListener('touchmove', touchMove, { passive: true });
-    modal.addEventListener('touchend', touchEnd, { passive: true });
+      };
+      
+      closeBtn.addEventListener('touchend', closeHandler, { passive: false });
+      closeBtn.addEventListener('click', closeHandler, { passive: false });
+    }
   }
 
   showContent(contentType) {
@@ -306,18 +303,19 @@ class NavigationManager {
     if (this.contentData[contentType]) {
       const data = this.contentData[contentType];
       modalContent.innerHTML = `
-        <h2>${data.title}</h2>
+        <h2 class="${data.colorClass}">${data.title}</h2>
         ${data.content}
       `;
       
       modal.classList.add('visible');
       this.currentModal = contentType;
       
+      // Auto close after 15 seconds
       setTimeout(() => {
         if (this.currentModal === contentType) {
           this.hideContent();
         }
-      }, 10000);
+      }, APP_CONFIG.DISPLAY_DURATION);
     }
   }
 
@@ -377,13 +375,15 @@ class MobileTouchManager {
   }
 
   setupMobileTouchInteractions() {
+    // Enhanced touch detection for better mobile responsiveness
     const touchStart = (e) => {
       if (!this.isPageVisible) return;
       
       if (e.target.closest('.nav-tab') || 
           e.target.closest('.mobile-contact-item') || 
           e.target.closest('.content-modal') ||
-          e.target.closest('.physics-moon')) {
+          e.target.closest('.physics-moon') ||
+          e.target.closest('.modal-close-btn')) {
         return;
       }
       
@@ -396,11 +396,23 @@ class MobileTouchManager {
       
       this.touchTimers.set('elements', setTimeout(() => {
         this.hideElements();
-      }, 5000));
+      }, APP_CONFIG.DISPLAY_DURATION));
     };
 
+    // Multiple touch event listeners for better compatibility
     document.addEventListener('touchstart', touchStart, { passive: true });
     document.addEventListener('touchend', touchEnd, { passive: true });
+    
+    // Additional events for different devices
+    document.addEventListener('pointerdown', touchStart, { passive: true });
+    document.addEventListener('pointerup', touchEnd, { passive: true });
+    
+    // Click events as fallback
+    document.addEventListener('click', (e) => {
+      if (!this.isMobile) return;
+      touchStart(e);
+      setTimeout(() => touchEnd(), 50);
+    }, { passive: true });
 
     window.addEventListener('resize', () => {
       this.isMobile = this.detectMobile();
@@ -440,7 +452,7 @@ class MobileTouchManager {
           
           setTimeout(() => {
             this.hideElements();
-          }, 5000);
+          }, APP_CONFIG.DISPLAY_DURATION);
         }
       }, 1000);
     }
@@ -466,6 +478,224 @@ class MobileTouchManager {
 
   destroy() {
     this.clearTimers();
+  }
+}
+
+class AnimatedTextManager {
+  constructor() {
+    this.container = document.getElementById('animatedTextContainer');
+    this.line1 = document.getElementById('animatedTextLine1');
+    this.line2 = document.getElementById('animatedTextLine2');
+    this.text1 = "Professional software development solutions";
+    this.text2 = "for modern businesses";
+    this.isAnimating = false;
+    this.letters = [];
+  }
+
+  async showText() {
+    if (this.isAnimating || !this.container) return;
+    
+    this.isAnimating = true;
+    this.container.classList.add('visible');
+    
+    // Clear previous content
+    this.line1.innerHTML = '';
+    this.line2.innerHTML = '';
+    this.letters = [];
+    
+    // Create letter elements for both lines
+    this.createLetterElements(this.text1, this.line1, 0);
+    this.createLetterElements(this.text2, this.line2, this.text1.length);
+    
+    // Animate letters from random directions
+    await this.animateLettersFromDirections();
+  }
+
+  createLetterElements(text, container, startIndex) {
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      const span = document.createElement('span');
+      span.className = 'animated-letter';
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.opacity = '0';
+      
+      // Store final position
+      const letterData = {
+        element: span,
+        finalX: 0,
+        finalY: 0,
+        index: startIndex + i,
+        char: char
+      };
+      
+      this.letters.push(letterData);
+      container.appendChild(span);
+    }
+  }
+
+  async animateLettersFromDirections() {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    
+    // Get container position for final destinations
+    const containerRect = this.container.getBoundingClientRect();
+    
+    for (let i = 0; i < this.letters.length; i++) {
+      const letter = this.letters[i];
+      const element = letter.element;
+      
+      // Skip spaces for animation but keep them in place
+      if (letter.char === ' ') {
+        setTimeout(() => {
+          element.style.opacity = '1';
+        }, i * 30);
+        continue;
+      }
+      
+      // Calculate final position
+      const elementRect = element.getBoundingClientRect();
+      letter.finalX = elementRect.left;
+      letter.finalY = elementRect.top;
+      
+      // Generate random starting position from screen edges
+      const direction = Math.floor(Math.random() * 8); // 8 directions
+      let startX, startY;
+      
+      switch (direction) {
+        case 0: // Top
+          startX = Math.random() * screenWidth;
+          startY = -50;
+          break;
+        case 1: // Bottom
+          startX = Math.random() * screenWidth;
+          startY = screenHeight + 50;
+          break;
+        case 2: // Left
+          startX = -50;
+          startY = Math.random() * screenHeight;
+          break;
+        case 3: // Right
+          startX = screenWidth + 50;
+          startY = Math.random() * screenHeight;
+          break;
+        case 4: // Top-left corner
+          startX = -50;
+          startY = -50;
+          break;
+        case 5: // Top-right corner
+          startX = screenWidth + 50;
+          startY = -50;
+          break;
+        case 6: // Bottom-left corner
+          startX = -50;
+          startY = screenHeight + 50;
+          break;
+        case 7: // Bottom-right corner
+          startX = screenWidth + 50;
+          startY = screenHeight + 50;
+          break;
+      }
+      
+      // Set initial position
+      element.style.position = 'fixed';
+      element.style.left = startX + 'px';
+      element.style.top = startY + 'px';
+      element.style.opacity = '1';
+      element.style.zIndex = '1000';
+      
+      // Add random rotation and scale
+      const randomRotation = Math.random() * 720 - 360; // -360 to 360 degrees
+      const randomScale = 0.5 + Math.random() * 1; // 0.5 to 1.5
+      element.style.transform = `rotate(${randomRotation}deg) scale(${randomScale})`;
+      
+      // Animate to final position with delay
+      setTimeout(() => {
+        this.animateLetterToPosition(element, letter.finalX, letter.finalY, i);
+      }, i * 50 + Math.random() * 200);
+    }
+  }
+
+  animateLetterToPosition(element, finalX, finalY, index) {
+    // Create complex animation path (meteor-like movement)
+    const startX = parseFloat(element.style.left);
+    const startY = parseFloat(element.style.top);
+    
+    const distance = Math.sqrt(Math.pow(finalX - startX, 2) + Math.pow(finalY - startY, 2));
+    const duration = Math.min(2000, Math.max(800, distance * 2)); // Dynamic duration
+    
+    // Create keyframes for complex movement
+    const keyframes = [];
+    const steps = 20;
+    
+    for (let i = 0; i <= steps; i++) {
+      const progress = i / steps;
+      const easeProgress = this.easeInOutCubic(progress);
+      
+      // Add spiral/wobble effect
+      const spiralOffset = Math.sin(progress * Math.PI * 4) * (20 * (1 - progress));
+      const wobbleOffset = Math.cos(progress * Math.PI * 6) * (10 * (1 - progress));
+      
+      const currentX = startX + (finalX - startX) * easeProgress + spiralOffset;
+      const currentY = startY + (finalY - startY) * easeProgress + wobbleOffset;
+      
+      // Rotation decreases as it approaches target
+      const rotation = 360 * (1 - progress) * (Math.random() > 0.5 ? 1 : -1);
+      const scale = 0.5 + 0.5 * easeProgress;
+      
+      keyframes.push({
+        left: currentX + 'px',
+        top: currentY + 'px',
+        transform: `rotate(${rotation}deg) scale(${scale})`,
+        offset: progress
+      });
+    }
+    
+    // Final keyframe
+    keyframes.push({
+      position: 'static',
+      left: 'auto',
+      top: 'auto',
+      transform: 'rotate(0deg) scale(1)',
+      zIndex: 'auto',
+      offset: 1
+    });
+    
+    // Apply animation
+    element.animate(keyframes, {
+      duration: duration,
+      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      fill: 'forwards'
+    }).addEventListener('finish', () => {
+      // Reset to normal positioning
+      element.style.position = 'static';
+      element.style.left = 'auto';
+      element.style.top = 'auto';
+      element.style.transform = 'none';
+      element.style.zIndex = 'auto';
+      element.classList.add('visible');
+    });
+  }
+
+  easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  hideText() {
+    if (!this.isAnimating || !this.container) return;
+    
+    this.container.classList.remove('visible');
+    this.isAnimating = false;
+    
+    // Clear letter elements
+    setTimeout(() => {
+      if (this.line1) this.line1.innerHTML = '';
+      if (this.line2) this.line2.innerHTML = '';
+      this.letters = [];
+    }, 500);
+  }
+
+  destroy() {
+    this.hideText();
   }
 }
 
@@ -518,6 +748,7 @@ class PhysicsMoon {
     this.isMobile = this.detectMobile();
     this.performanceMonitor = new PerformanceMonitor();
     this.titleShakeManager = new TitleShakeManager();
+    this.animatedTextManager = new AnimatedTextManager();
     this.isPageVisible = true;
     
     this.resetPhysics();
@@ -552,6 +783,8 @@ class PhysicsMoon {
     this.obstacles = [];
     this.isDragging = false;
     this.dragOffset = { x: 0, y: 0 };
+    this.isInHole = true; // Start in hole
+    this.ballExitTimer = null;
   }
 
   async init() {
@@ -563,9 +796,54 @@ class PhysicsMoon {
     } else {
       this.setupMouseInteractions();
     }
-    this.startAnimation();
-    this.positionMoon();
+    
+    // Start ball from hole and exit after initial delay
+    this.initBallFromHole();
     this.updateObstacles();
+  }
+
+  initBallFromHole() {
+    const blackHole = document.getElementById('blackHole');
+    if (blackHole) {
+      const blackHoleRect = blackHole.getBoundingClientRect();
+      this.x = blackHoleRect.left + blackHoleRect.width / 2 - this.size / 2;
+      this.y = blackHoleRect.top + blackHoleRect.height / 2 - this.size / 2;
+      
+      // Hide ball initially
+      this.moon.style.opacity = '0';
+      this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(0.1)`;
+      
+      // Exit from hole after 2 seconds
+      setTimeout(() => {
+        this.exitFromHole();
+      }, 2000);
+    }
+  }
+
+  exitFromHole() {
+    if (!this.isPageVisible) return;
+    
+    // Vibrate on exit
+    if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+      navigator.vibrate([80, 40, 80]);
+    }
+    
+    // Move to bottom of screen
+    this.x = Math.random() * (window.innerWidth - this.size);
+    this.y = window.innerHeight - this.size - 50;
+    this.vx = 0;
+    this.vy = 0;
+    this.isInHole = false;
+    
+    // Animate ball appearing
+    this.moon.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+    this.moon.style.opacity = '1';
+    this.moon.style.transform = `translate3d(${this.x}px, ${this.y}px, 0) scale(1)`;
+    
+    setTimeout(() => {
+      this.moon.style.transition = 'all 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      this.startAnimation();
+    }, 800);
   }
 
   setupPageVisibilityHandling() {
@@ -923,6 +1201,7 @@ class PhysicsMoon {
     this.vx = 0;
     this.vy = 0;
     this.isAnimating = false;
+    this.isInHole = true;
 
     const ballElement = this.moon;
     ballElement.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
@@ -935,17 +1214,23 @@ class PhysicsMoon {
 
     this.createScreenFlash();
 
+    // Show animated text after ball enters hole
     setTimeout(() => {
       if (this.isPageVisible) {
+        this.animatedTextManager.showText();
         this.showNavigationElements();
       }
-    }, 500);
+    }, 1000);
 
+    // Exit after 15 seconds and hide text
     setTimeout(() => {
-      if (this.isPageVisible) {
-        this.resetBall();
+      if (this.isPageVisible && this.isInHole) {
+        this.animatedTextManager.hideText();
+        setTimeout(() => {
+          this.resetBall();
+        }, 500);
       }
-    }, 5500);
+    }, APP_CONFIG.BALL_EXIT_DURATION);
   }
 
   showNavigationElements() {
@@ -988,7 +1273,7 @@ class PhysicsMoon {
         contactContainer.style.opacity = '0';
         setTimeout(() => contactContainer.classList.remove('visible'), 400);
       }
-    }, 5000);
+    }, APP_CONFIG.DISPLAY_DURATION);
   }
 
   createScreenFlash() {
@@ -1021,13 +1306,19 @@ class PhysicsMoon {
   resetBall() {
     if (!this.isPageVisible) return;
     
+    // Vibrate on exit from hole
+    if (APP_CONFIG.HAPTICS_ENABLED && navigator.vibrate) {
+      navigator.vibrate([80, 40, 80]);
+    }
+    
     this.x = Math.random() * (window.innerWidth - this.size);
-    this.y = 50 + Math.random() * 100;
+    this.y = window.innerHeight - this.size - 50; // Bottom of screen
     this.vx = 0;
     this.vy = 0;
+    this.isInHole = false;
 
     const ballElement = this.moon;
-    ballElement.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    ballElement.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
     ballElement.style.opacity = '0';
     ballElement.style.transform = `translate3d(${this.x}px, ${this.y - 50}px, 0) scale(0.8)`;
 
@@ -1042,7 +1333,7 @@ class PhysicsMoon {
             this.isAnimating = true;
             this.animate();
           }
-        }, 500);
+        }, 800);
       }
     }, 100);
   }
@@ -1056,6 +1347,14 @@ class PhysicsMoon {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
+    }
+    
+    if (this.titleShakeManager) {
+      this.titleShakeManager.destroy();
+    }
+    
+    if (this.animatedTextManager) {
+      this.animatedTextManager.destroy();
     }
   }
 }
